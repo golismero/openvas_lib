@@ -755,7 +755,14 @@ class OMPv4(object):
     def close(self):
         """Close the connection to the manager."""
         if self.socket is not None:
-            self.socket.close()
+            try:
+                self.socket.shutdown(2)
+            except Exception:
+                pass
+            try:
+                self.socket.close()
+            except Exception:
+                pass
             self.socket = None
 
 
