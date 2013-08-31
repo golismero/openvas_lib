@@ -16,7 +16,14 @@ Downloading
 
 To download the latest source code enter the following command:
 
-```git clone https://github.com/cr0hn/OpenVas.git openvas_lib```
+```git clone https://github.com/golismero/openvas_lib.git```
+
+Installing
+----------
+
+To install the library in your default Python installation run the following command:
+
+```python setup.py install```
 
 Usage
 -----
@@ -45,7 +52,7 @@ scanner            = VulnscanManager(HOST, USER, PASSWORD, PORT, TIMEOUT)
 scan_id, target_id = scanner.launch_scan(
                 target = "127.0.0.1", # Target to scan
                 profile = "Full and fast")
-```            
+```
 
 Launch advanced scan
 ____________________
