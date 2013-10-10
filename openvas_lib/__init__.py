@@ -461,7 +461,56 @@ class VulnscanManager(object):
 
         return self.transform(m_response)
 
+    #----------------------------------------------------------------------
+    def get_tasks_detail(self,scan_id):
+        if not isinstance(scan_id, basestring):
+            raise TypeError("Expected string, got %r instead" % type(scan_id))
 
+        m_response = None
+        try:
+            m_response = self.__manager.make_xml_request('<get_tasks task_id="%s" details="1"/>' % scan_id, xml_result=True)
+        except ServerError, e:
+            raise VulnscanServerError("Can't get the detail for the task %s. Error: %s" % (scan_id, e.message))
+
+        return m_response
+    #----------------------------------------------------------------------
+    def get_tasks_last_report_id(self,scan_id):
+        m_response =self.get_tasks_detail(scan_id) 
+        return m_response.find('task').find('last_report')[0].get("id")
+    #----------------------------------------------------------------------
+    def get_report_pdf(self,report_id):
+        if not isinstance(report_id,basestring):
+            raise TypeError("Expected string, got %r instead" % type(report_id))
+        m_response = None
+        try:
+            m_response = self.__manager.make_xml_request('<get_reports report_id="%s" format_id="c402cc3e-b531-11e1-9163-406186ea4fc5"/>' % report_id, xml_result=True)
+        except ServerError, e:
+            raise VulnscanServerError("Can't get the pdf for the report %s. Error: %s" % (report_id, e.message))
+        return m_response
+    #----------------------------------------------------------------------
+    def get_report_html(self,report_id):
+        if not isinstance(report_id,basestring):
+            raise TypeError("Expected string, got %r instead" % type(report_id))
+        m_response = None
+        try:
+            m_response = self.__manager.make_xml_request('<get_reports report_id="%s" format_id="6c248850-1f62-11e1-b082-406186ea4fc5"/>' % report_id, xml_result=True)
+        except ServerError, e:
+            raise VulnscanServerError("Can't get the pdf for the report %s. Error: %s" % (report_id, e.message))
+        return m_response
+    #----------------------------------------------------------------------
+    def get_report(self,report_id):
+
+        if not isinstance(report_id, basestring):
+            raise TypeError("Expected string, got %r instead" % type(report_id))
+
+        m_response = None
+        try:
+            m_response = self.__manager.make_xml_request('<get_reports report_id="%s" />' % report_id, xml_result=True)
+        except ServerError, e:
+            raise VulnscanServerError("Can't get the xml for the report%s. Error: %s" % (report_id, e.message))
+
+        return m_response
+        
     #----------------------------------------------------------------------
     def get_progress(self, scan_id):
         """
