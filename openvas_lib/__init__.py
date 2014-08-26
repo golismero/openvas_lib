@@ -31,13 +31,10 @@ __all__ = ["VulnscanManager"]
 import re
 import ssl
 import socket
-import threading
 from random import choice
+from threading import RLock
 from threading import Event, Timer
 from string import ascii_letters, digits
-import ssl
-import re
-from threading import RLock
 
 from collections import Iterable
 
@@ -76,13 +73,7 @@ def set_interval(interval, times=-1):
         2013-07-25 22:40:55
         2013-07-25 22:40:57
         2013-07-25 22:40:59
-
-    #------------------------------------------------------------------------------
-    def setInterval(interval, times=-1):
-        """
-        Decorator to execute a function periodically using a timer.
-        The function is executed in a background thread.
-
+    """
     # Validate the parameters.
     if isinstance(interval, int):
         interval = float(interval)
@@ -134,25 +125,10 @@ def generate_random_string(length=30):
 
     - ASCII letters (both lowercase and uppercase).
     - Digits (0-9).
-
-    #----------------------------------------------------------------------
-    def generate_random_string(length=30):
-        """
-        Generates a random string of the specified length.
-
+    """
     m_available_chars = ascii_letters + digits
 
     return "".join(choice(m_available_chars) for _ in xrange(length))
-
-
-        :param length: Desired string length.
-        :type length: int
-        """
-
-        m_available_chars = ascii_letters + digits
-
-        return "".join(choice(m_available_chars) for _ in xrange(length))
-
 
 #------------------------------------------------------------------------------
 #
@@ -214,7 +190,6 @@ class VulnscanAuditNotRunningError(VulnscanException):
 #------------------------------------------------------------------------------
 class VulnscanAuditNotFoundError(VulnscanException):
     """Wrong version of OpenVAS server."""
-
 
 
 #------------------------------------------------------------------------------
@@ -513,7 +488,7 @@ class VulnscanManager(object):
         :param task_id: Scan ID.
         :type task_id: str
 
-        :return: Progress percentaje (between 0.0 and 100.0).
+        :return: Progress percentage (between 0.0 and 100.0).
         :rtype: float
         """
         if not isinstance(task_id, basestring):
@@ -1016,7 +991,6 @@ class _ConnectionManager(object):
             return response
         else:
             return response.text
-
 
     #----------------------------------------------------------------------
     #
@@ -1690,52 +1664,57 @@ class _OMPv4(_OMP):
             m_query = '<get_results/>'
 
         return self._manager.make_xml_request(m_query, xml_result=True)
+
     #----------------------------------------------------------------------
-    def get_tasks_detail(self,scan_id):
+    def get_tasks_detail(self, scan_id):
         if not isinstance(scan_id, basestring):
             raise TypeError("Expected string, got %r instead" % type(scan_id))
-        m_response = None
+
         try:
             m_response = self._manager.make_xml_request('<get_tasks task_id="%s" details="1"/>' % scan_id, xml_result=True)
         except ServerError, e:
             raise VulnscanServerError("Can't get the detail for the task %s. Error: %s" % (scan_id, e.message))
         return m_response
+
     #----------------------------------------------------------------------
-    def get_report_id(self,scan_id):
-        m_response =self.get_tasks_detail(scan_id)
+    def get_report_id(self, scan_id):
+        m_response = self.get_tasks_detail(scan_id)
         return m_response.find('task').find('last_report')[0].get("id")
+
     #----------------------------------------------------------------------
-    def get_report_pdf(self,report_id):
-        if not isinstance(report_id,basestring):
+    def get_report_pdf(self, report_id):
+        if not isinstance(report_id, basestring):
             raise TypeError("Expected string, got %r instead" % type(report_id))
-        m_response = None
+
         try:
             m_response = self._manager.make_xml_request('<get_reports report_id="%s" format_id="c402cc3e-b531-11e1-9163-406186ea4fc5"/>' % report_id, xml_result=True)
         except ServerError, e:
             raise VulnscanServerError("Can't get the pdf for the report %s. Error: %s" % (report_id, e.message))
         return m_response
+
     #----------------------------------------------------------------------
-    def get_report_html(self,report_id):
+    def get_report_html(self, report_id):
         if not isinstance(report_id,basestring):
             raise TypeError("Expected string, got %r instead" % type(report_id))
-        m_response = None
+
         try:
             m_response = self._manager.make_xml_request('<get_reports report_id="%s" format_id="6c248850-1f62-11e1-b082-406186ea4fc5"/>' % report_id, xml_result=True)
         except ServerError, e:
             raise VulnscanServerError("Can't get the pdf for the report %s. Error: %s" % (report_id, e.message))
         return m_response
+
     #----------------------------------------------------------------------
-    def get_report_xml(self,report_id):
+    def get_report_xml(self, report_id):
         if not isinstance(report_id, basestring):
             raise TypeError("Expected string, got %r instead" % type(report_id))
 
-        m_response = None
         try:
             m_response = self._manager.make_xml_request('<get_reports report_id="%s" />' % report_id, xml_result=True)
         except ServerError, e:
             raise VulnscanServerError("Can't get the xml for the report%s. Error: %s" % (report_id, e.message))
 
         return m_response
+
     #----------------------------------------------------------------------
     def start_task(self, task_id):
         """
