@@ -16,18 +16,16 @@ Downloading
 
 To download the latest source code enter the following command:
 
-```bash
-git clone https://github.com/golismero/openvas_lib.git
-```
+.. code-block:: bash
+    git clone https://github.com/golismero/openvas_lib.git
 
 Installing
 ----------
 
 To install the library in your default Python installation run the following command:
 
-```bash
-python setup.py install
-```
+.. code-block:: bash
+    python setup.py install
 
 Usage
 -----
@@ -36,98 +34,92 @@ Connect to the server
 _____________________
 
 
-```python
-from openvas_lib import VulnscanManager, VulnscanException
+.. code-block:: python
+    from openvas_lib import VulnscanManager, VulnscanException
 
-try:
-	scanner = VulnscanManager(HOST, USER, PASSWORD, PORT, TIMEOUT)
-except VulnscanException, e:
-	print "Error:"
-	print e
-```
+    try:
+        scanner = VulnscanManager(HOST, USER, PASSWORD, PORT, TIMEOUT)
+    except VulnscanException, e:
+        print "Error:"
+        print e
 
 Launch a simple scan
 ____________________
 
-```python
-from openvas_lib import VulnscanManager, VulnscanException
+.. code-block:: python
+    from openvas_lib import VulnscanManager, VulnscanException
 
-scanner            = VulnscanManager(HOST, USER, PASSWORD, PORT, TIMEOUT)
-scan_id, target_id = scanner.launch_scan(
-                target = "127.0.0.1", # Target to scan
+    scanner            = VulnscanManager(HOST, USER, PASSWORD, PORT, TIMEOUT)
+    scan_id, target_id = scanner.launch_scan(
+                    target = "127.0.0.1", # Target to scan
                 profile = "Full and fast")
-```
 
 Launch advanced scan
 ____________________
 
 The library supports callbacks. They will be run every 10 seconds and report the status of the scan ("callback_progress") or the end of the scan ("callback_end").
 
-```python
-from openvas_lib import VulnscanManager, VulnscanException
-from threading import Semaphore
-from functools import partial
+.. code-block:: python
+    from openvas_lib import VulnscanManager, VulnscanException
+    from threading import Semaphore
+    from functools import partial
 
-def my_print_status(i): print str(i)
+    def my_print_status(i): print str(i)
 
-def my_launch_scanner():
+    def my_launch_scanner():
 
-    Sem = Semaphore(0)
+        Sem = Semaphore(0)
 
-    # Configure
-    manager = VulnscanManager.connectOpenVAS("localhost", "admin", "admin)
+        # Configure
+        manager = VulnscanManager.connectOpenVAS("localhost", "admin", "admin)
 
-    # Launch
-    manager.launch_scan(
-        target,
-        profile = "empty",
-        callback_end = partial(lambda x: x.release(), sem),
-        callback_progress = my_print_status
-    )
+        # Launch
+        manager.launch_scan(
+            target,
+            profile = "empty",
+            callback_end = partial(lambda x: x.release(), sem),
+            callback_progress = my_print_status
+        )
 
-    # Wait
-    Sem.acquire()
+        # Wait
+        Sem.acquire()
 
-    # Finished scan
-    print "finished!"
+        # Finished scan
+        print "finished!"
 
-# my_launch_scanner() # It can take some time
-# 0
-# 10
-# 39
-# 60
-# 90
-# finished!
-```
+    my_launch_scanner() # It can take some time
+    0
+    10
+    39
+    60
+    90
+    finished!
 
 Get results of scan
 ___________________
 
-```python
-from openvas_lib import VulnscanManager, VulnscanException
+.. code-block:: python
+    from openvas_lib import VulnscanManager, VulnscanException
 
-scanner         = VulnscanManager(HOST, USER, PASSWORD, PORT, TIMEOUT)
-openvas_results = scanner.get_results(SCAN_ID)
-```
+    scanner         = VulnscanManager(HOST, USER, PASSWORD, PORT, TIMEOUT)
+    openvas_results = scanner.get_results(SCAN_ID)
 
 Delete scan
 ___________
 
-```python
-from openvas_lib import VulnscanManager, VulnscanException
+.. code-block:: python
+    from openvas_lib import VulnscanManager, VulnscanException
 
-scanner         = VulnscanManager(HOST, USER, PASSWORD, PORT, TIMEOUT)
-scanner.delete_scan(SCAN_ID)
-```
+    scanner         = VulnscanManager(HOST, USER, PASSWORD, PORT, TIMEOUT)
+    scanner.delete_scan(SCAN_ID)
 
 Delete target
 _____________
 
-```python
-from openvas_lib import VulnscanManager, VulnscanException
+.. code-block:: python
+    from openvas_lib import VulnscanManager, VulnscanException
 
-scanner         = VulnscanManager(HOST, USER, PASSWORD, PORT, TIMEOUT)
-scanner.delete_target(TARGET_ID)
-```
+    scanner         = VulnscanManager(HOST, USER, PASSWORD, PORT, TIMEOUT)
+    scanner.delete_target(TARGET_ID)
 
 
