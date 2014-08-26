@@ -3,4 +3,4 @@ MANIFEST
 *.pyo
 build/
 dist/
-
+.idea/
