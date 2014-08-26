@@ -17,6 +17,7 @@ Downloading
 To download the latest source code enter the following command:
 
 .. code-block:: bash
+
     git clone https://github.com/golismero/openvas_lib.git
 
 Installing
@@ -25,6 +26,7 @@ Installing
 To install the library in your default Python installation run the following command:
 
 .. code-block:: bash
+
     python setup.py install
 
 Usage
@@ -35,6 +37,7 @@ _____________________
 
 
 .. code-block:: python
+
     from openvas_lib import VulnscanManager, VulnscanException
 
     try:
@@ -47,6 +50,7 @@ Launch a simple scan
 ____________________
 
 .. code-block:: python
+
     from openvas_lib import VulnscanManager, VulnscanException
 
     scanner            = VulnscanManager(HOST, USER, PASSWORD, PORT, TIMEOUT)
@@ -60,6 +64,7 @@ ____________________
 The library supports callbacks. They will be run every 10 seconds and report the status of the scan ("callback_progress") or the end of the scan ("callback_end").
 
 .. code-block:: python
+
     from openvas_lib import VulnscanManager, VulnscanException
     from threading import Semaphore
     from functools import partial
@@ -99,6 +104,7 @@ Get results of scan
 ___________________
 
 .. code-block:: python
+
     from openvas_lib import VulnscanManager, VulnscanException
 
     scanner         = VulnscanManager(HOST, USER, PASSWORD, PORT, TIMEOUT)
@@ -108,6 +114,7 @@ Delete scan
 ___________
 
 .. code-block:: python
+
     from openvas_lib import VulnscanManager, VulnscanException
 
     scanner         = VulnscanManager(HOST, USER, PASSWORD, PORT, TIMEOUT)
@@ -117,6 +124,7 @@ Delete target
 _____________
 
 .. code-block:: python
+
     from openvas_lib import VulnscanManager, VulnscanException
 
     scanner         = VulnscanManager(HOST, USER, PASSWORD, PORT, TIMEOUT)
