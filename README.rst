@@ -18,7 +18,7 @@ To download the latest source code enter the following command:
 
 .. code-block:: bash
 
-    git clone https://github.com/golismero/openvas_lib.git
+    # git clone https://github.com/golismero/openvas_lib.git
 
 Installing
 ----------
@@ -27,7 +27,7 @@ To install the library in your default Python installation run the following com
 
 .. code-block:: bash
 
-    python setup.py install
+    # python setup.py install
 
 Usage
 -----
@@ -98,7 +98,7 @@ The library supports callbacks. They will be run every 10 seconds and report the
     39
     60
     90
-    finished!
+    finished
 
 Get results of scan
 ___________________
@@ -107,7 +107,7 @@ ___________________
 
     from openvas_lib import VulnscanManager, VulnscanException
 
-    scanner         = VulnscanManager(HOST, USER, PASSWORD, PORT, TIMEOUT)
+    scanner = VulnscanManager(HOST, USER, PASSWORD, PORT, TIMEOUT)
     openvas_results = scanner.get_results(SCAN_ID)
 
 Delete scan
@@ -117,7 +117,7 @@ ___________
 
     from openvas_lib import VulnscanManager, VulnscanException
 
-    scanner         = VulnscanManager(HOST, USER, PASSWORD, PORT, TIMEOUT)
+    scanner = VulnscanManager(HOST, USER, PASSWORD, PORT, TIMEOUT)
     scanner.delete_scan(SCAN_ID)
 
 Delete target
@@ -127,7 +127,7 @@ _____________
 
     from openvas_lib import VulnscanManager, VulnscanException
 
-    scanner         = VulnscanManager(HOST, USER, PASSWORD, PORT, TIMEOUT)
+    scanner = VulnscanManager(HOST, USER, PASSWORD, PORT, TIMEOUT)
     scanner.delete_target(TARGET_ID)
 
 
