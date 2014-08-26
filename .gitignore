@@ -1,0 +1,6 @@
+MANIFEST
+*.pyc
+*.pyo
+build/
+dist/
+
