@@ -24,7 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 __all__ = ["OpenVASPort", "OpenVASNVT", "OpenVASOverride", "OpenVASNotes", "OpenVASResult"]
 
 
-#------------------------------------------------------------------------------
+# ------------------------------------------------------------------------------
 class OpenVASPort(object):
     """
     Port definition.
@@ -95,21 +95,21 @@ class OpenVASNVT(object):
 
     #----------------------------------------------------------------------
     def __init__(self):
-        self.__oid             = None
-        self.__name            = None
-        self.__cvss_base       = None
-        self.__risk_factor     = None
-        self.__category        = None
-        self.__summary         = None
-        self.__description     = None
-        self.__family          = None
+        self.__oid = None
+        self.__name = None
+        self.__cvss_base = None
+        self.__risk_factor = None
+        self.__category = None
+        self.__summary = None
+        self.__description = None
+        self.__family = None
 
-        self.__cve             = None
-        self.__bid             = None
-        self.__bugtraq         = None
-        self.__xrefs           = None
-        self.__fingerprints    = None
-        self.__tags            = None
+        self.__cve = None
+        self.__bid = None
+        self.__bugtraq = None
+        self.__xrefs = None
+        self.__fingerprints = None
+        self.__tags = None
 
     #----------------------------------------------------------------------
     @classmethod
@@ -131,6 +131,8 @@ class OpenVASNVT(object):
         :type xrefs: str
         :type fingerprints: str
         :type tags: str
+
+        :rtype: OpenVASNVT
         """
 
         if not isinstance(oid, basestring):
@@ -152,60 +154,46 @@ class OpenVASNVT(object):
         if category:
             if not isinstance(category, basestring):
                 raise TypeError("Expected string, got %r instead" % type(category))
-
         if cve:
             if not isinstance(cve, basestring):
                 raise TypeError("Expected string, got %r instead" % type(cve))
-
         if bid:
             if not isinstance(bid, basestring):
                 raise TypeError("Expected string, got %r instead" % type(bid))
-
         if bugtraq:
             if not isinstance(bugtraq, basestring):
                 raise TypeError("Expected string, got %r instead" % type(bugtraq))
-
         if xrefs:
             if not isinstance(xrefs, basestring):
                 raise TypeError("Expected string, got %r instead" % type(xrefs))
-
         if fingerprints:
             if not isinstance(fingerprints, basestring):
                 raise TypeError("Expected string, got %r instead" % type(fingerprints))
-
         if tags:
             if not isinstance(tags, basestring):
                 raise TypeError("Expected string, got %r instead" % type(tags))
 
-        cls                   = OpenVASNVT()
-        cls.__oid             = oid
-        cls.__name            = name
-        cls.__cvss_base       = cvss_base
-        cls.__risk_factor     = risk_factor
-        cls.__category        = category
-        cls.__summary         = summary
-        cls.__description     = description
-        cls.__family          = family
+        o = cls()
 
-        cls.__cve             = cve
-        cls.__bid             = bid
-        cls.__bugtraq         = bugtraq
-        cls.__xrefs           = xrefs
-        cls.__fingerprints    = fingerprints
-        cls.__tags            = tags
+        # Common vulnerability info
+        o.__oid = oid
+        o.__name = name
+        o.__cvss_base = cvss_base
+        o.__risk_factor = risk_factor
+        o.__category = category
+        o.__summary = summary
+        o.__description = description
+        o.__family = family
 
-        return cls
+        # References
+        o.__cve = cve
+        o.__bid = bid
+        o.__bugtraq = bugtraq
+        o.__xrefs = xrefs
+        o.__fingerprints = fingerprints
+        o.__tags = tags
 
-
-    #----------------------------------------------------------------------
-    @classmethod
-    def make_empty_object(cls):
-        """
-        :return: make and empty object
-        :rtype: OpenVASNVT
-        """
-        return OpenVASNVT()
-
+        return o
 
     #----------------------------------------------------------------------
     @property
@@ -215,7 +203,6 @@ class OpenVASNVT(object):
         :rtype: str
         """
         return self.__oid
-
 
     #----------------------------------------------------------------------
     @oid.setter
@@ -228,7 +215,6 @@ class OpenVASNVT(object):
 
         self.__oid = val
 
-
     #----------------------------------------------------------------------
     @property
     def name(self):
@@ -237,7 +223,6 @@ class OpenVASNVT(object):
         :rtype: basestring
         """
         return self.__name
-
 
     #----------------------------------------------------------------------
     @name.setter
@@ -250,7 +235,6 @@ class OpenVASNVT(object):
 
         self.__name = val
 
-
     #----------------------------------------------------------------------
     @property
     def cvss_base(self):
@@ -259,7 +243,6 @@ class OpenVASNVT(object):
         :rtype: str
         """
         return self.__cvss_base
-
 
     #----------------------------------------------------------------------
     @cvss_base.setter
@@ -273,7 +256,6 @@ class OpenVASNVT(object):
 
         self.__cvss_base = val
 
-
     #----------------------------------------------------------------------
     @property
     def risk_factor(self):
@@ -282,7 +264,6 @@ class OpenVASNVT(object):
         :rtype: int
         """
         return self.__risk_factor
-
 
     #----------------------------------------------------------------------
     @risk_factor.setter
@@ -296,7 +277,6 @@ class OpenVASNVT(object):
 
         self.__risk_factor = val
 
-
     #----------------------------------------------------------------------
     @property
     def summary(self):
@@ -305,7 +285,6 @@ class OpenVASNVT(object):
         :rtype: basestring
         """
         return self.__summary
-
 
     #----------------------------------------------------------------------
     @summary.setter
@@ -319,7 +298,6 @@ class OpenVASNVT(object):
 
         self.__summary = val
 
-
     #----------------------------------------------------------------------
     @property
     def description(self):
@@ -328,7 +306,6 @@ class OpenVASNVT(object):
         :rtype: basestring
         """
         return self.__description
-
 
     #----------------------------------------------------------------------
     @description.setter
@@ -344,7 +321,6 @@ class OpenVASNVT(object):
 
         self.__description = val
 
-
     #----------------------------------------------------------------------
     @property
     def family(self):
@@ -353,7 +329,6 @@ class OpenVASNVT(object):
         :rtype: basestring
         """
         return self.__family
-
 
     #----------------------------------------------------------------------
     @family.setter
@@ -367,7 +342,6 @@ class OpenVASNVT(object):
 
         self.__family = val
 
-
     #----------------------------------------------------------------------
     @property
     def category(self):
@@ -377,7 +351,6 @@ class OpenVASNVT(object):
         """
         return self.__category
 
-
     #----------------------------------------------------------------------
     @category.setter
     def category(self, val):
@@ -385,11 +358,10 @@ class OpenVASNVT(object):
         :param val: The category that the NVT belongs
         :type val: basestring
         """
-        if not isinstance(val,  basestring):
+        if not isinstance(val, basestring):
             raise TypeError("Expected  basestring, got %r instead" % type(val))
 
         self.__category = val
-
 
     #----------------------------------------------------------------------
     @property
@@ -399,7 +371,6 @@ class OpenVASNVT(object):
         :rtype: basestring
         """
         return self.__cve
-
 
     #----------------------------------------------------------------------
     @cve.setter
@@ -413,7 +384,6 @@ class OpenVASNVT(object):
 
         self.__cve = val
 
-
     #----------------------------------------------------------------------
     @property
     def bid(self):
@@ -422,7 +392,6 @@ class OpenVASNVT(object):
         :rtype: basestring
         """
         return self.__bid
-
 
     #----------------------------------------------------------------------
     @bid.setter
@@ -436,7 +405,6 @@ class OpenVASNVT(object):
 
         self.__bid = val
 
-
     #----------------------------------------------------------------------
     @property
     def bugtraq(self):
@@ -445,7 +413,6 @@ class OpenVASNVT(object):
         :rtype: basestring
         """
         return self.__bugtraq
-
 
     #----------------------------------------------------------------------
     @bugtraq.setter
@@ -459,7 +426,6 @@ class OpenVASNVT(object):
 
         self.__bugtraq = val
 
-
     #----------------------------------------------------------------------
     @property
     def xrefs(self):
@@ -468,7 +434,6 @@ class OpenVASNVT(object):
         :rtype: basestring
         """
         return self.__xrefs
-
 
     #----------------------------------------------------------------------
     @xrefs.setter
@@ -482,7 +447,6 @@ class OpenVASNVT(object):
 
         self.__xrefs = val
 
-
     #----------------------------------------------------------------------
     @property
     def fingerprints(self):
@@ -491,7 +455,6 @@ class OpenVASNVT(object):
         :rtype: basestring
         """
         return self.__fingerprints
-
 
     #----------------------------------------------------------------------
     @fingerprints.setter
@@ -505,7 +468,6 @@ class OpenVASNVT(object):
 
         self.__fingerprints = val
 
-
     #----------------------------------------------------------------------
     @property
     def tags(self):
@@ -514,7 +476,6 @@ class OpenVASNVT(object):
         :rtype: basestring
         """
         return self.__tags
-
 
     #----------------------------------------------------------------------
     @tags.setter
@@ -535,6 +496,15 @@ class OpenVASOverride(object):
     Override object of OpenVas results.
     """
 
+    #----------------------------------------------------------------------
+    def __init__(self):
+        self.__nvt_oid = None
+        self.__nvt_name = None
+        self.__text = None
+        self.__text_is_excerpt = None
+        self.__threat = None
+        self.__new_threat = None
+        self.__orphan = None
 
     #----------------------------------------------------------------------
     @classmethod
@@ -555,33 +525,16 @@ class OpenVASOverride(object):
         if not isinstance(orphan, bool):
             raise TypeError("Expected bool, got %r instead" % type(orphan))
 
-        cls                   = OpenVASOverride()
-        cls.__nvt_oid         = oid
-        cls.__nvt_name        = name
-        cls.__text            = text
-        cls.__text_is_excerpt = text_is_excerpt
-        cls.__threat          = threat
-        cls.__new_threat      = new_threat
-        cls.__orphan          = orphan
+        o = cls()
+        o.__nvt_oid = oid
+        o.__nvt_name = name
+        o.__text = text
+        o.__text_is_excerpt = text_is_excerpt
+        o.__threat = threat
+        o.__new_threat = new_threat
+        o.__orphan = orphan
 
-        return cls
-
-
-    #----------------------------------------------------------------------
-    @classmethod
-    def make_empty_object(cls):
-
-        cls                   = OpenVASOverride()
-        cls.__nvt_oid         = None
-        cls.__nvt_name        = None
-        cls.__text            = None
-        cls.__text_is_excerpt = None
-        cls.__threat          = None
-        cls.__new_threat      = None
-        cls.__orphan          = None
-
-        return cls
-
+        return o
 
     #----------------------------------------------------------------------
     @property
@@ -591,7 +544,6 @@ class OpenVASOverride(object):
         :rtype: str
         """
         return self.__nvt_oid
-
 
     #----------------------------------------------------------------------
     @oid.setter
@@ -604,7 +556,6 @@ class OpenVASOverride(object):
 
         self.__nvt_oid = val
 
-
     #----------------------------------------------------------------------
     @property
     def name(self):
@@ -612,8 +563,7 @@ class OpenVASOverride(object):
         :return: The name of the NVT
         :rtype: str
         """
-        return self.__name
-
+        return self.__nvt_name
 
     #----------------------------------------------------------------------
     @name.setter
@@ -624,8 +574,7 @@ class OpenVASOverride(object):
         if not isinstance(val, basestring):
             raise TypeError("Expected string, got %r instead" % type(val))
 
-        self.__name = val
-
+        self.__nvt_name = val
 
     #----------------------------------------------------------------------
     @property
@@ -635,7 +584,6 @@ class OpenVASOverride(object):
         :rtype: str
         """
         return self.__text
-
 
     #----------------------------------------------------------------------
     @text.setter
@@ -648,7 +596,6 @@ class OpenVASOverride(object):
 
         self.__text = val
 
-
     #----------------------------------------------------------------------
     @property
     def text_is_excerpt(self):
@@ -658,18 +605,16 @@ class OpenVASOverride(object):
         """
         return self.__text_is_excerpt
 
-
     #----------------------------------------------------------------------
     @text_is_excerpt.setter
     def text_is_excerpt(self, val):
         """
         :type val: bool
         """
-        if not isinstance(val,  bool):
+        if not isinstance(val, bool):
             raise TypeError("Expected  bool, got %r instead" % type(val))
 
         self.__text_is_excerpt = val
-
 
     #----------------------------------------------------------------------
     @property
@@ -679,7 +624,6 @@ class OpenVASOverride(object):
         :rtype: str
         """
         return self.__threat
-
 
     #----------------------------------------------------------------------
     @threat.setter
@@ -692,7 +636,6 @@ class OpenVASOverride(object):
 
         self.__threat = val
 
-
     #----------------------------------------------------------------------
     @property
     def new_threat(self):
@@ -701,7 +644,6 @@ class OpenVASOverride(object):
         :rtype: str
         """
         return self.__new_threat
-
 
     #----------------------------------------------------------------------
     @new_threat.setter
@@ -714,7 +656,6 @@ class OpenVASOverride(object):
 
         self.__new_threat = val
 
-
     #----------------------------------------------------------------------
     @property
     def orphan(self):
@@ -723,7 +664,6 @@ class OpenVASOverride(object):
         :rtype: bool
         """
         return self.__orphan
-
 
     #----------------------------------------------------------------------
     @orphan.setter
@@ -743,7 +683,6 @@ class OpenVASNotes(object):
     Store the notes for a results object.
     """
 
-
     #----------------------------------------------------------------------
     def __init__(self, oid, name, text, text_is_excerpt, orphan):
 
@@ -758,12 +697,11 @@ class OpenVASNotes(object):
         if not isinstance(orphan, bool):
             raise TypeError("Expected bool, got %r instead" % type(orphan))
 
-        self.__nvt_oid             = oid
-        self.__nvt_name            = name
-        self.__text                = text
-        self.__text_is_excerpt     = text_is_excerpt
-        self.__orphan              = orphan
-
+        self.__nvt_oid = oid
+        self.__nvt_name = name
+        self.__text = text
+        self.__text_is_excerpt = text_is_excerpt
+        self.__orphan = orphan
 
     #----------------------------------------------------------------------
     @property
@@ -774,7 +712,6 @@ class OpenVASNotes(object):
         """
         return self.__nvt_oid
 
-
     #----------------------------------------------------------------------
     @property
     def name(self):
@@ -783,7 +720,6 @@ class OpenVASNotes(object):
         :rtype: basestring
         """
         return self.__nvt_name
-
 
     #----------------------------------------------------------------------
     @property
@@ -794,7 +730,6 @@ class OpenVASNotes(object):
         """
         return self.__text
 
-
     #----------------------------------------------------------------------
     @property
     def text_is_excerpt(self):
@@ -803,7 +738,6 @@ class OpenVASNotes(object):
         :rtype: bool
         """
         return self.__text_is_excerpt
-
 
     #----------------------------------------------------------------------
     @property
@@ -821,10 +755,22 @@ class OpenVASResult(object):
     Main structure to store audit results.
     """
 
+    #----------------------------------------------------------------------
+    def __init__(self):
+        """Constructor"""
+        self.__id = None
+        self.__subnet = None
+        self.__host = None
+        self.__port = None
+        self.__nvt = None
+        self.__threat = None
+        self.__description = None
+        self.__notes = None
+        self.__overrides = None
 
     #----------------------------------------------------------------------
     @classmethod
-    def make_object(cls, id, subnet, host, port, nvt, threat, description=None, notes=None, overrides=None):
+    def make_object(cls, result_id, subnet, host, port, nvt, threat, description=None, notes=None, overrides=None):
 
         if not isinstance(subnet, basestring):
             raise TypeError("Expected string, got %r instead" % type(subnet))
@@ -847,41 +793,18 @@ class OpenVASResult(object):
         if not isinstance(overrides, OpenVASOverride):
             raise TypeError("Expected OpenVASOverride, got %r instead" % type(overrides))
 
+        o = cls()
+        o.__id = result_id
+        o.__subnet = subnet
+        o.__host = host
+        o.__port = port
+        o.__nvt = nvt
+        o.__threat = threat
+        o.__description = description
+        o.__notes = notes
+        o.__overrides = overrides
 
-        cls                  = OpenVASResult()
-        cls.__id             = id
-        cls.__subnet         = subnet
-        cls.__host           = host
-        cls.__port           = port
-        cls.__nvt            = nvt
-        cls.__threat         = threat
-        cls.__description    = description
-        cls.__notes          = notes
-        cls.__overrides      = overrides
-
-        return cls
-
-
-    #----------------------------------------------------------------------
-    @classmethod
-    def make_empty_object(cls):
-        """
-        :return: Creates a empty object
-        :rtype: OpenVASResult
-        """
-        cls                  = OpenVASResult()
-        cls.__id             = None
-        cls.__subnet         = None
-        cls.__host           = None
-        cls.__port           = None
-        cls.__nvt            = None
-        cls.__threat         = None
-        cls.__description    = None
-        cls.__notes          = None
-        cls.__overrides      = None
-
-        return cls
-
+        return o
 
     #----------------------------------------------------------------------
     @property
@@ -891,7 +814,6 @@ class OpenVASResult(object):
         :rtype: str
         """
         return self.__id
-
 
     #----------------------------------------------------------------------
     @id.setter
@@ -904,7 +826,6 @@ class OpenVASResult(object):
 
         self.__id = val
 
-
     #----------------------------------------------------------------------
     @property
     def host(self):
@@ -913,7 +834,6 @@ class OpenVASResult(object):
         :rtype: str
         """
         return self.__host
-
 
     #----------------------------------------------------------------------
     @host.setter
@@ -926,7 +846,6 @@ class OpenVASResult(object):
 
         self.__host = val
 
-
     #----------------------------------------------------------------------
     @property
     def port(self):
@@ -934,7 +853,6 @@ class OpenVASResult(object):
         :rtype: OpenVASPort
         """
         return self.__port
-
 
     #----------------------------------------------------------------------
     @port.setter
@@ -947,7 +865,6 @@ class OpenVASResult(object):
 
         self.__port = val
 
-
     #----------------------------------------------------------------------
     @property
     def subnet(self):
@@ -956,7 +873,6 @@ class OpenVASResult(object):
         :rtype: basestring
         """
         return self.__subnet
-
 
     #----------------------------------------------------------------------
     @subnet.setter
@@ -969,7 +885,6 @@ class OpenVASResult(object):
 
         self.__subnet = val
 
-
     #----------------------------------------------------------------------
     @property
     def nvt(self):
@@ -978,7 +893,6 @@ class OpenVASResult(object):
         :rtype: OpenVASNVT
         """
         return self.__nvt
-
 
     #----------------------------------------------------------------------
     @nvt.setter
@@ -991,7 +905,6 @@ class OpenVASResult(object):
 
         self.__nvt = val
 
-
     #----------------------------------------------------------------------
     @property
     def threat(self):
@@ -1001,7 +914,6 @@ class OpenVASResult(object):
         """
         return self.__threat
 
-
     #----------------------------------------------------------------------
     @threat.setter
     def threat(self, val):
@@ -1009,14 +921,13 @@ class OpenVASResult(object):
         :param val: valid values: "High", "Medium", "Low", "Log", "Debug"
         :type val: basestring
         """
-        if isinstance(val, basestring ):
+        if isinstance(val, basestring):
             if val not in ("High", "Medium", "Low", "Log", "Debug"):
                 raise ValueError("Value incorrect. Allowed values are: High|Medium|Low|Log|Debug")
         else:
             raise TypeError("Expected string , got %r instead" % type(val))
 
         self.__threat = val
-
 
     #----------------------------------------------------------------------
     @property
@@ -1025,7 +936,6 @@ class OpenVASResult(object):
         :rtype: str
         """
         return self.__description
-
 
     #----------------------------------------------------------------------
     @description.setter
@@ -1040,7 +950,6 @@ class OpenVASResult(object):
 
         self.__description = val
 
-
     #----------------------------------------------------------------------
     @property
     def notes(self):
@@ -1048,7 +957,6 @@ class OpenVASResult(object):
         :rtype: list(OpenVASNotes)
         """
         return self.__notes
-
 
     #----------------------------------------------------------------------
     @notes.setter
@@ -1063,7 +971,6 @@ class OpenVASResult(object):
 
         self.__notes = val
 
-
     #----------------------------------------------------------------------
     @property
     def overrides(self):
@@ -1072,7 +979,6 @@ class OpenVASResult(object):
         :rtype:
         """
         return self.__overrides
-
 
     #----------------------------------------------------------------------
     @overrides.setter

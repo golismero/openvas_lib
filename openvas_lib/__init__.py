@@ -125,6 +125,7 @@ def setInterval(interval, times=-1):
 
     return outer_wrap
 
+
 #----------------------------------------------------------------------
 def generate_random_string(length=30):
     """
