@@ -1,0 +1,1722 @@
+<report extension="xml" id="879bb372-0634-4c77-bb48-9e93f55603ac" type="scan" content_type="text/xml" format_id="a994b278-1f62-11e1-96ac-406186ea4fc5"><report id="879bb372-0634-4c77-bb48-9e93f55603ac"><report_format></report_format><sort><field>type<order>descending</order></field></sort><filters id="0">hmlgf<term>sort-reverse=type result_hosts_only=1 min_cvss_base= levels=hmlgf autofp=0 show_closed_cves=0 notes=1 overrides=1 first=1 rows=159 delta_states=gn</term><phrase></phrase><autofp>0</autofp><show_closed_cves>0</show_closed_cves><notes>1</notes><overrides>1</overrides><apply_overrides>1</apply_overrides><result_hosts_only>1</result_hosts_only><min_cvss_base></min_cvss_base><filter>High</filter><filter>Medium</filter><filter>Low</filter><filter>Log</filter><filter>False Positive</filter></filters><scan_run_status>Done</scan_run_status><task id="91018507-0b38-4181-9c81-7ca8ca12f5cd"><name>metasploitable_all</name><comment></comment><target id="b92cc592-e832-4d20-a1a6-77afd42d7f95"><trash>0</trash></target></task><scan_start>2014-04-13T02:19:34Z</scan_start><ports start="1" max="159"><port>clm_pts (6200/tcp)<host>10.211.55.35</host><threat>High</threat></port><port>distcc (3632/tcp)<host>10.211.55.35</host><threat>High</threat></port><port>ftp (21/tcp)<host>10.211.55.35</host><threat>High</threat></port><port>http (80/tcp)<host>10.211.55.35</host><threat>High</threat></port><port>ingreslock (1524/tcp)<host>10.211.55.35</host><threat>High</threat></port><port>mysql (3306/tcp)<host>10.211.55.35</host><threat>High</threat></port><port>nfs (2049/udp)<host>10.211.55.35</host><threat>High</threat></port><port>postgresql (5432/tcp)<host>10.211.55.35</host><threat>High</threat></port><port>scientia-ssdb (2121/tcp)<host>10.211.55.35</host><threat>High</threat></port><port>smtp (25/tcp)<host>10.211.55.35</host><threat>High</threat></port><port>ssh (22/tcp)<host>10.211.55.35</host><threat>High</threat></port><port>x11 (6000/tcp)<host>10.211.55.35</host><threat>High</threat></port><port>domain (53/udp)<host>10.211.55.35</host><threat>Medium</threat></port><port>exec (512/tcp)<host>10.211.55.35</host><threat>Medium</threat></port><port>general/tcp<host>10.211.55.35</host><threat>Medium</threat></port><port>microsoft-ds (445/tcp)<host>10.211.55.35</host><threat>Medium</threat></port><port>shell (514/tcp)<host>10.211.55.35</host><threat>Medium</threat></port><port>domain (53/tcp)<host>10.211.55.35</host><threat>Low</threat></port><port>general/icmp<host>10.211.55.35</host><threat>Low</threat></port><port>msgsrvr (8787/tcp)<host>10.211.55.35</host><threat>Low</threat></port><port>telnet (23/tcp)<host>10.211.55.35</host><threat>Low</threat></port><port>tftp (69/udp)<host>10.211.55.35</host><threat>Low</threat></port><port>vnc (5900/tcp)<host>10.211.55.35</host><threat>Low</threat></port><port>ajp13 (8009/tcp)<host>10.211.55.35</host><threat>Log</threat></port><port>general/CPE-T<host>10.211.55.35</host><threat>Log</threat></port><port>general/HOST-T<host>10.211.55.35</host><threat>Log</threat></port><port>general/SMBClient<host>10.211.55.35</host><threat>Log</threat></port><port>ircd (6667/tcp)<host>10.211.55.35</host><threat>Log</threat></port><port>login (513/tcp)<host>10.211.55.35</host><threat>Log</threat></port><port>netbios-ns (137/udp)<host>10.211.55.35</host><threat>Log</threat></port><port>netbios-ssn (139/tcp)<host>10.211.55.35</host><threat>Log</threat></port><port>nfs (2049/tcp)<host>10.211.55.35</host><threat>Log</threat></port><port>rmiregistry (1099/tcp)<host>10.211.55.35</host><threat>Log</threat></port><port>sunrpc (111/tcp)<host>10.211.55.35</host><threat>Log</threat></port></ports><results start="1" max="159"><result id="489977b9-54f2-437c-9036-31f21746c682"><subnet>10.211.55.35</subnet><host>10.211.55.35</host><port>clm_pts (6200/tcp)</port><nvt oid="1.3.6.1.4.1.25623.1.0.103185"><name>vsftpd Compromised Source Packages Backdoor Vulnerability</name><family>Gain a shell remotely</family><cvss_base>7.5</cvss_base><risk_factor>High</risk_factor><cve>NOCVE</cve><bid>48539</bid><tags>cvss_base_vector=AV:N/AC:L/Au:N/C:P/I:P/A:P</tags><cert></cert><xref>NOXREF</xref></nvt><threat>High</threat><description>
+ Summary:
+ vsftpd is prone to a backdoor vulnerability.
+
+Attackers can exploit this issue to execute arbitrary commands in the
+context of the application. Successful attacks will compromise the
+affected application.
+
+The vsftpd 2.3.4 source package is affected.
+ Solution:
+ The repaired package can be downloaded from
+https://security.appspot.com/vsftpd.html. Please validate the package
+with its signature.
+</description><original_threat>High</original_threat><notes></notes><overrides></overrides></result><result id="8ac5b26d-c201-4181-bd14-0845e7feeff8"><subnet>10.211.55.35</subnet><host>10.211.55.35</host><port>distcc (3632/tcp)</port><nvt oid="1.3.6.1.4.1.25623.1.0.103553"><name>distcc Remote Code Execution Vulnerability</name><family>General</family><cvss_base>9.3</cvss_base><risk_factor>Critical</risk_factor><cve>CVE-2004-2687</cve><bid>NOBID</bid><tags>cvss_base_vector=AV:N/AC:M/Au:N/C:C/I:C/A:C</tags><cert></cert><xref>NOXREF</xref></nvt><threat>High</threat><description>
+ Summary:
+ distcc 2.x, as used in XCode 1.5 and others, when not configured to restrict
+access to the server port, allows remote attackers to execute arbitrary
+commands via compilation jobs, which are executed by the server without
+authorization checks.
+ Solution:
+ Vendor updates are available. Please see the references for more
+information.
+</description><original_threat>High</original_threat><notes></notes><overrides></overrides></result><result id="c454371c-631d-477c-9463-b56dd9a7ab4c"><subnet>10.211.55.35</subnet><host>10.211.55.35</host><port>ftp (21/tcp)</port><nvt oid="1.3.6.1.4.1.25623.1.0.801639"><name>ProFTPD Multiple Remote Vulnerabilities</name><family>FTP</family><cvss_base>10.0</cvss_base><risk_factor>Critical</risk_factor><cve>CVE-2010-3867, CVE-2010-4221</cve><bid>44562</bid><tags>cvss_base_vector=AV:N/AC:L/Au:N/C:C/I:C/A:C</tags><cert></cert><xref>NOXREF</xref></nvt><threat>High</threat><description>
+
+  Summary:
+  The host is running ProFTPD and is prone to multiple vulnerabilities.
+
+  Vulnerability Insight:
+  - An input validation error within the &apos;mod_site_misc&apos; module can be exploited
+    to create and delete directories, create symlinks, and change the time of
+    files located outside a writable directory.
+  - A logic error within the &apos;pr_netio_telnet_gets()&apos; function in &apos;src/netio.c&apos;
+    when processing user input containing the Telnet IAC escape sequence can be
+    exploited to cause a stack-based buffer overflow by sending specially
+    crafted input to the FTP or FTPS service.
+
+  Impact:
+  Successful exploitation may allow execution of arbitrary code or cause a
+  denial-of-service.
+  Impact Level: Application
+
+  Affected Software/OS:
+  ProFTPD versions prior to 1.3.3c
+
+  Solution:
+  Upgrade to ProFTPD version 1.3.3c or later,
+  For updates refer to http://www.proftpd.org/
+</description><original_threat>High</original_threat><notes></notes><overrides></overrides></result><result id="92a1a8ca-e087-404d-8e50-35d15dff6b50"><subnet>10.211.55.35</subnet><host>10.211.55.35</host><port>ftp (21/tcp)</port><nvt oid="1.3.6.1.4.1.25623.1.0.103185"><name>vsftpd Compromised Source Packages Backdoor Vulnerability</name><family>Gain a shell remotely</family><cvss_base>7.5</cvss_base><risk_factor>High</risk_factor><cve>NOCVE</cve><bid>48539</bid><tags>cvss_base_vector=AV:N/AC:L/Au:N/C:P/I:P/A:P</tags><cert></cert><xref>NOXREF</xref></nvt><threat>High</threat><description>
+ Summary:
+ vsftpd is prone to a backdoor vulnerability.
+
+Attackers can exploit this issue to execute arbitrary commands in the
+context of the application. Successful attacks will compromise the
+affected application.
+
+The vsftpd 2.3.4 source package is affected.
+ Solution:
+ The repaired package can be downloaded from
+https://security.appspot.com/vsftpd.html. Please validate the package
+with its signature.
+</description><original_threat>High</original_threat><notes></notes><overrides></overrides></result><result id="c29c3abd-b630-4fae-90f5-67f83e6eeb57"><subnet>10.211.55.35</subnet><host>10.211.55.35</host><port>ftp (21/tcp)</port><nvt oid="1.3.6.1.4.1.25623.1.0.900507"><name>ProFTPD Server SQL Injection Vulnerability</name><family>FTP</family><cvss_base>7.5</cvss_base><risk_factor>High</risk_factor><cve>CVE-2009-0542, CVE-2009-0543</cve><bid>33722</bid><tags>cvss_base_vector=AV:N/AC:L/Au:N/C:P/I:P/A:P</tags><cert></cert><xref>NOXREF</xref></nvt><threat>High</threat><description>
+
+  Summary:
+  This host is running ProFTPD Server and is prone to remote
+  SQL Injection vulnerability.
+
+  Vulnerability Insight:
+  This flaw occurs because the server performs improper input sanitising,
+  - when a %(percent) character is passed in the username, a single quote
+    (&apos;) gets introduced during variable substitution by mod_sql and this
+    eventually allows for an SQL injection during login.
+  - when NLS support is enabled, a flaw in variable substition feature in
+    mod_sql_mysql and mod_sql_postgres may allow an attacker to bypass
+    SQL injection protection mechanisms via invalid, encoded multibyte
+    characters.
+
+  Impact:
+  Successful exploitation will allow remote attackers to execute arbitrary
+  SQL commands, thus gaining access to random user accounts.
+
+  Affected Software/OS:
+  ProFTPD Server version 1.3.1 through 1.3.2rc2
+
+  Solution:
+  Upgrade to the latest version 1.3.2rc3,
+  http://www.proftpd.org/
+</description><original_threat>High</original_threat><notes></notes><overrides></overrides></result><result id="9b6f73a6-df74-4209-856c-71e2406c66a9"><subnet>10.211.55.35</subnet><host>10.211.55.35</host><port>ftp (21/tcp)</port><nvt oid="1.3.6.1.4.1.25623.1.0.100316"><name>ProFTPD mod_tls Module NULL Character CA SSL Certificate Validation Security Bypass Vulnerability</name><family>FTP</family><cvss_base>5.8</cvss_base><risk_factor>High</risk_factor><cve>CVE-2009-3639</cve><bid>36804</bid><tags>cvss_base_vector=AV:N/AC:M/Au:N/C:N/I:P/A:P</tags><cert></cert><xref>NOXREF</xref></nvt><threat>High</threat><description>
+ Summary:
+ ProFTPD is prone to a security-bypass vulnerability because the
+application fails to properly validate the domain name in a signed CA
+certificate, allowing attackers to substitute malicious SSL
+certificates for trusted ones.
+
+Successful exploits allows attackers to perform man-in-the-
+middle attacks or impersonate trusted servers, which will aid in
+further attacks.
+
+Versions prior to ProFTPD 1.3.2b and 1.3.3 to 1.3.3.rc1 are vulnerable.
+ Solution:
+ Updates are available. Please see the references for details.
+</description><original_threat>High</original_threat><notes></notes><overrides></overrides></result><result id="7bff1a10-5b21-47a1-a751-a1320c281aaa"><subnet>10.211.55.35</subnet><host>10.211.55.35</host><port>http (80/tcp)</port><nvt oid="1.3.6.1.4.1.25623.1.0.100514"><name>Apache Multiple Security Vulnerabilities</name><family>Web Servers</family><cvss_base>10.0</cvss_base><risk_factor>Critical</risk_factor><cve>CVE-2010-0425, CVE-2010-0434, CVE-2010-0408, CVE-2007-6750</cve><bid>38494, 38491</bid><tags>cvss_base_vector=AV:N/AC:L/Au:N/C:C/I:C/A:C</tags><cert></cert><xref>NOXREF</xref></nvt><threat>High</threat><description>
+ Summary:
+ Apache is prone to multiple vulnerabilities.
+
+These issues may lead to information disclosure or other attacks.
+
+Apache versions prior to 2.2.15 are affected.
+ Solution:
+ Upgrade to  Apache 2.2.15 or Later.
+</description><original_threat>High</original_threat><notes></notes><overrides></overrides></result><result id="83121bce-a97c-4e0b-b848-8fb9a5f09bf2"><subnet>10.211.55.35</subnet><host>10.211.55.35</host><port>http (80/tcp)</port><nvt oid="1.3.6.1.4.1.25623.1.0.110172"><name>PHP version smaller than 5.2.7</name><family>Web application abuses</family><cvss_base>10.0</cvss_base><risk_factor>Critical</risk_factor><cve>CVE-2008-2371, CVE-2008-2665, CVE-2008-2666, CVE-2008-2829, CVE-2008-3658, CVE-2008-3659, CVE-2008-3660, CVE-2008-5557, CVE-2008-5624, CVE-2008-5625, CVE-2008-5658</cve><bid>29796, 29797, 29829, 30087, 30649, 31612, 32383, 32625, 32688, 32948</bid><tags>cvss_base_vector=AV:N/AC:L/Au:N/C:C/I:C/A:C</tags><cert></cert><xref>NOXREF</xref></nvt><threat>High</threat><description>
+  Summary:
+  PHP version smaller than 5.2.7 suffers vulnerability.
+  Solution:
+  Update PHP to version 5.2.7 or later.
+</description><original_threat>High</original_threat><notes></notes><overrides></overrides></result><result id="2230b82c-7087-4c2d-abca-f352b8672323"><subnet>10.211.55.35</subnet><host>10.211.55.35</host><port>http (80/tcp)</port><nvt oid="1.3.6.1.4.1.25623.1.0.110183"><name>PHP version smaller than 5.2.6</name><family>Web application abuses</family><cvss_base>10.0</cvss_base><risk_factor>Critical</risk_factor><cve>CVE-2007-4850, CVE-2007-6039, CVE-2008-0599, CVE-2008-1384, CVE-2008-2050, CVE-2008-2051</cve><bid>27413, 28392, 29009</bid><tags>cvss_base_vector=AV:N/AC:L/Au:N/C:C/I:C/A:C</tags><cert></cert><xref>NOXREF</xref></nvt><threat>High</threat><description>
+  Summary:
+  PHP version smaller than 5.2.6 suffers vulnerability.
+  Solution:
+  Update PHP to version 5.2.6 or later.
+</description><original_threat>High</original_threat><notes></notes><overrides></overrides></result><result id="f77517cf-39d4-4a7b-8020-33f4e9ecfc47"><subnet>10.211.55.35</subnet><host>10.211.55.35</host><port>http (80/tcp)</port><nvt oid="1.3.6.1.4.1.25623.1.0.110171"><name>PHP version smaller than 5.2.14</name><family>Web application abuses</family><cvss_base>9.3</cvss_base><risk_factor>Critical</risk_factor><cve>CVE-2007-1581, CVE-2010-0397, CVE-2010-1860, CVE-2010-1862, CVE-2010-1864, CVE-2010-2097, CVE-2010-2100, CVE-2010-2101, CVE-2010-2190, CVE-2010-2191, CVE-2010-2225, CVE-2010-2484, CVE-2010-2531, CVE-2010-3065</cve><bid>38708, 40948, 41991</bid><tags>cvss_base_vector=AV:N/AC:M/Au:N/C:C/I:C/A:C</tags><cert></cert><xref>NOXREF</xref></nvt><threat>High</threat><description>
+  Summary:
+  PHP version smaller than 5.2.14 suffers vulnerability.
+  Solution:
+  Update PHP to version 5.2.14 or later.
+</description><original_threat>High</original_threat><notes></notes><overrides></overrides></result><result id="bd0b8718-74c0-4451-be12-88a2f1ed363d"><subnet>10.211.55.35</subnet><host>10.211.55.35</host><port>http (80/tcp)</port><nvt oid="1.3.6.1.4.1.25623.1.0.110179"><name>PHP version smaller than 5.2.5</name><family>Web application abuses</family><cvss_base>9.3</cvss_base><risk_factor>Critical</risk_factor><cve>CVE-2007-3996, CVE-2007-4782, CVE-2007-4783, CVE-2007-4784, CVE-2007-4825, CVE-2007-4840, CVE-2007-4887, CVE-2007-4889, CVE-2007-5447, CVE-2007-5653, CVE-2007-5898, CVE-2007-5899, CVE-2007-5900, CVE-2008-2107, CVE-2008-2108, CVE-2008-4107</cve><bid>26403</bid><tags>cvss_base_vector=AV:N/AC:M/Au:N/C:C/I:C/A:C</tags><cert></cert><xref>NOXREF</xref></nvt><threat>High</threat><description>
+  Summary:
+  PHP version smaller than 5.2.5 suffers vulnerability.
+  Solution:
+  Update PHP to version 5.2.5 or later.
+</description><original_threat>High</original_threat><notes></notes><overrides></overrides></result><result id="d2ae4176-b69d-4ff1-8ae2-60c3fd0b423f"><subnet>10.211.55.35</subnet><host>10.211.55.35</host><port>http (80/tcp)</port><nvt oid="1.3.6.1.4.1.25623.1.0.110182"><name>PHP version smaller than 5.3.3</name><family>Web application abuses</family><cvss_base>9.3</cvss_base><risk_factor>Critical</risk_factor><cve>CVE-2007-1581, CVE-2010-0397, CVE-2010-1860, CVE-2010-1862, CVE-2010-1864, CVE-2010-1917, CVE-2010-2097, CVE-2010-2100, CVE-2010-2101, CVE-2010-2190, CVE-2010-2191, CVE-2010-2225, CVE-2010-2484, CVE-2010-2531, CVE-2010-3062, CVE-2010-3063, CVE-2010-3064, CVE-2010-3065</cve><bid>38708, 40461, 40948, 41991</bid><tags>cvss_base_vector=AV:N/AC:M/Au:N/C:C/I:C/A:C</tags><cert></cert><xref>NOXREF</xref></nvt><threat>High</threat><description>
+  Summary:
+  PHP version smaller than 5.3.3 suffers vulnerability.
+  Solution:
+  Update PHP to version 5.3.3 or later.
+</description><original_threat>High</original_threat><notes></notes><overrides></overrides></result><result id="845d8c5b-4883-4a41-a3e0-80d9da52d334"><detection><result id="715597b9-e6ae-49bd-b5fc-abcf6817fc6b"><details><detail><name>product</name><value>cpe:/a:tikiwiki:tikiwiki:1.9.5</value></detail><detail><name>location</name><value>/tikiwiki</value></detail><detail><name>source_oid</name><value>1.3.6.1.4.1.25623.1.0.901001</value></detail><detail><name>source_name</name><value>TikiWiki Version Detection</value></detail></details></result></detection><subnet>10.211.55.35</subnet><host>10.211.55.35</host><port>http (80/tcp)</port><nvt oid="1.3.6.1.4.1.25623.1.0.100537"><name>TikiWiki Versions Prior to 4.2 Multiple Unspecified Vulnerabilities</name><family>Web application abuses</family><cvss_base>7.5</cvss_base><risk_factor>High</risk_factor><cve>CVE-2010-1135, CVE-2010-1134, CVE-2010-1133, CVE-2010-1136</cve><bid>38608</bid><tags>cvss_base_vector=AV:N/AC:L/Au:N/C:P/I:P/A:P</tags><cert></cert><xref>NOXREF</xref></nvt><threat>High</threat><description>
+ Summary:
+ TikiWiki is prone to multiple unspecified vulnerabilities, including:
+
+- An unspecified SQL-injection vulnerability
+- An unspecified authentication-bypass vulnerability
+- An unspecified vulnerability
+
+Exploiting these issues could allow an attacker to compromise the
+application, access or modify data, exploit latent vulnerabilities in
+the underlying database, and gain unauthorized access to the affected
+application. Other attacks are also possible.
+
+Versions prior to TikiWiki 4.2 are vulnerable.
+ Solution:
+ The vendor has released an advisory and fixes. Please see the
+references for details.
+</description><original_threat>High</original_threat><notes></notes><overrides></overrides></result><result id="52d1297d-0766-400b-a0dc-6d41d196af08"><subnet>10.211.55.35</subnet><host>10.211.55.35</host><port>http (80/tcp)</port><nvt oid="1.3.6.1.4.1.25623.1.0.103482"><name>PHP-CGI-based setups vulnerability when parsing query string parameters from php files.</name><family>Web application abuses</family><cvss_base>7.5</cvss_base><risk_factor>High</risk_factor><cve>CVE-2012-1823, CVE-2012-2311, CVE-2012-2336, CVE-2012-2335</cve><bid>53388</bid><tags>cvss_base_vector=AV:N/AC:L/Au:N/C:P/I:P/A:P</tags><cert><cert_ref id="DFN-CERT-2012-1276" type="DFN-CERT"></cert_ref></cert><xref>NOXREF</xref></nvt><threat>High</threat><description>
+ Summary:
+ When PHP is used in a CGI-based setup (such as Apache&apos;s mod_cgid), the
+php-cgi receives a processed query string parameter as command line
+arguments which allows command-line switches, such as -s, -d or -c to be
+passed to the php-cgi binary, which can be exploited to disclose source
+code and obtain arbitrary code execution.
+
+An example of the -s command, allowing an attacker to view the source code
+of index.php is below:
+
+http://localhost/index.php?-s
+</description><original_threat>High</original_threat><notes></notes><overrides></overrides></result><result id="79000d29-ca79-4138-a22c-697393398b1d"><subnet>10.211.55.35</subnet><host>10.211.55.35</host><port>http (80/tcp)</port><nvt oid="1.3.6.1.4.1.25623.1.0.110176"><name>PHP version smaller than 5.2.11</name><family>Web application abuses</family><cvss_base>7.5</cvss_base><risk_factor>High</risk_factor><cve>CVE-2009-3291, CVE-2009-3292, CVE-2009-3293, CVE-2009-3294, CVE-2009-4018, CVE-2009-5016</cve><bid>36449, 44889</bid><tags>cvss_base_vector=AV:N/AC:L/Au:N/C:P/I:P/A:P</tags><cert></cert><xref>NOXREF</xref></nvt><threat>High</threat><description>
+  Summary:
+  PHP version smaller than 5.2.11 suffers vulnerability.
+  Solution:
+  Update PHP to version 5.2.11 or later.
+</description><original_threat>High</original_threat><notes></notes><overrides></overrides></result><result id="dfea1f4f-1fbe-458a-950d-6090afe3ca5e"><subnet>10.211.55.35</subnet><host>10.211.55.35</host><port>http (80/tcp)</port><nvt oid="1.3.6.1.4.1.25623.1.0.110178"><name>PHP version smaller than 5.3.1</name><family>Web application abuses</family><cvss_base>7.5</cvss_base><risk_factor>High</risk_factor><cve>CVE-2009-3557, CVE-2009-3559, CVE-2009-4017, CVE-2009-4018, CVE-2010-1128</cve><bid>36554, 36555, 37079, 37138</bid><tags>cvss_base_vector=AV:N/AC:L/Au:N/C:P/I:P/A:P</tags><cert></cert><xref>NOXREF</xref></nvt><threat>High</threat><description>
+  Summary:
+  PHP version smaller than 5.3.1 suffers vulnerability.
+  Solution:
+  Update PHP to version 5.3.1 or later.
+</description><original_threat>High</original_threat><notes></notes><overrides></overrides></result><result id="0c8ed20a-31fd-48c7-9032-faed34f77cbc"><subnet>10.211.55.35</subnet><host>10.211.55.35</host><port>http (80/tcp)</port><nvt oid="1.3.6.1.4.1.25623.1.0.110180"><name>PHP version smaller than 5.2.8</name><family>Web application abuses</family><cvss_base>7.5</cvss_base><risk_factor>High</risk_factor><cve>CVE-2008-5814, CVE-2008-5844</cve><bid>32673</bid><tags>cvss_base_vector=AV:N/AC:L/Au:N/C:P/I:P/A:P</tags><cert></cert><xref>NOXREF</xref></nvt><threat>High</threat><description>
+  Summary:
+  PHP version smaller than 5.2.8 suffers vulnerability.
+  Solution:
+  Update PHP to version 5.2.8 or later.
+</description><original_threat>High</original_threat><notes></notes><overrides></overrides></result><result id="1b77382c-f397-4dd6-8bcb-c0eda7f8a855"><subnet>10.211.55.35</subnet><host>10.211.55.35</host><port>http (80/tcp)</port><nvt oid="1.3.6.1.4.1.25623.1.0.11229"><name>phpinfo.php</name><family>Web application abuses</family><cvss_base>7.5</cvss_base><risk_factor>High</risk_factor><cve>NOCVE</cve><bid>NOBID</bid><tags>cvss_base_vector=AV:N/AC:L/Au:N/C:P/I:P/A:P</tags><cert></cert><xref>NOXREF</xref></nvt><threat>High</threat><description>
+The following files are calling the function phpinfo() which
+disclose potentially sensitive information to the remote attacker : 
+/phpinfo.php
+
+
+Solution: Delete them or restrict access to them
+</description><original_threat>High</original_threat><notes></notes><overrides></overrides></result><result id="2bc64337-ad6b-4b01-9b4a-4d97e666bb4a"><subnet>10.211.55.35</subnet><host>10.211.55.35</host><port>http (80/tcp)</port><nvt oid="1.3.6.1.4.1.25623.1.0.15563"><name>Abyss httpd DoS</name><family>Denial of Service</family><cvss_base>7.1</cvss_base><risk_factor>High</risk_factor><cve>NOCVE</cve><bid>NOBID</bid><tags>cvss_base_vector=AV:N/AC:M/Au:N/C:N/I:N/A:C</tags><cert></cert><xref>OSVDB:11006</xref></nvt><threat>High</threat><description>
+ Summary:
+ It was possible to kill the web server by sending a MS-DOS device 
+names in an HTTP request.
+
+An attacker may use this flaw to prevent this host from performing its 
+job properly.
+ Solution:
+ Upgrade your web server to the latest version
+</description><original_threat>High</original_threat><notes></notes><overrides></overrides></result><result id="15f94a74-cee1-41a7-a87e-bbab8328d45a"><subnet>10.211.55.35</subnet><host>10.211.55.35</host><port>http (80/tcp)</port><nvt oid="1.3.6.1.4.1.25623.1.0.110181"><name>PHP version smaller than 5.3.4</name><family>Web application abuses</family><cvss_base>6.8</cvss_base><risk_factor>High</risk_factor><cve>CVE-2006-7243, CVE-2010-2094, CVE-2010-2950, CVE-2010-3436, CVE-2010-3709, CVE-2010-3710, CVE-2010-3870, CVE-2010-4150, CVE-2010-4156, CVE-2010-4409, CVE-2010-4697, CVE-2010-4698, CVE-2010-4699, CVE-2010-4700, CVE-2011-0753, CVE-2011-0754, CVE-2011-0755</cve><bid>40173, 43926, 44605, 44718, 44723, 44951, 44980, 45119, 45335, 45338, 45339, 45952, 45954, 46056, 46168</bid><tags>cvss_base_vector=AV:N/AC:M/Au:N/C:P/I:P/A:P</tags><cert></cert><xref>NOXREF</xref></nvt><threat>High</threat><description>
+  Summary:
+  PHP version smaller than 5.3.4 suffers vulnerability.
+  Solution:
+  Update PHP to version 5.3.4 or later.
+</description><original_threat>High</original_threat><notes></notes><overrides></overrides></result><result id="17364c59-f7cd-415b-98e2-eb959431b7b8"><subnet>10.211.55.35</subnet><host>10.211.55.35</host><port>http (80/tcp)</port><nvt oid="1.3.6.1.4.1.25623.1.0.11213"><name>http TRACE XSS attack</name><family>Web application abuses</family><cvss_base>5.8</cvss_base><risk_factor>High</risk_factor><cve>CVE-2004-2320, CVE-2003-1567</cve><bid>9506, 9561, 11604</bid><tags>cvss_base_vector=AV:N/AC:M/Au:N/C:P/I:P/A:N</tags><cert></cert><xref>NOXREF</xref></nvt><threat>High</threat><description>
+ Summary:
+ Debugging functions are enabled on the remote HTTP server.
+
+Description :
+
+The remote webserver supports the TRACE and/or TRACK methods. TRACE and TRACK
+are HTTP methods which are used to debug web server connections.   
+
+It has been shown that servers supporting this method are subject to
+cross-site-scripting attacks, dubbed XST for Cross-Site-Tracing, when
+used in conjunction with various weaknesses in browsers. 
+
+An attacker may use this flaw to trick your legitimate web users to give
+him their credentials.
+ Solution:
+ Disable these methods.
+
+Plugin output :
+
+
+Solution: 
+Add the following lines for each virtual host in your configuration file :
+
+    RewriteEngine on
+    RewriteCond %{REQUEST_METHOD} ^(TRACE|TRACK)
+    RewriteRule .* - [F]
+
+See also http://httpd.apache.org/docs/current/de/mod/core.html#traceenable    
+
+
+</description><original_threat>High</original_threat><notes></notes><overrides></overrides></result><result id="715cd524-6c4d-4991-b3d2-f302f13b5dcd"><subnet>10.211.55.35</subnet><host>10.211.55.35</host><port>ingreslock (1524/tcp)</port><nvt oid="1.3.6.1.4.1.25623.1.0.103549"><name>Possible Backdoor: Ingreslock</name><family>Gain a shell remotely</family><cvss_base>10.0</cvss_base><risk_factor>Critical</risk_factor><cve>NOCVE</cve><bid>NOBID</bid><tags>cvss_base_vector=AV:N/AC:L/Au:N/C:C/I:C/A:C</tags><cert></cert><xref>NOXREF</xref></nvt><threat>High</threat><description>
+ Summary:
+ A backdoor is installed on the remote host
+
+Attackers can exploit this issue to execute arbitrary commands in the
+context of the application. Successful attacks will compromise the
+affected isystem.
+</description><original_threat>High</original_threat><notes></notes><overrides></overrides></result><result id="2487e55d-a111-4289-bcc6-b5e292d22204"><detection><result id="18645d5a-d789-49ae-a097-f5d10a41389b"><details><detail><name>product</name><value>cpe:/a:mysql:mysql:5.0.51a</value></detail><detail><name>location</name><value>3306/tcp</value></detail><detail><name>source_oid</name><value>1.3.6.1.4.1.25623.1.0.100152</value></detail><detail><name>source_name</name><value>MySQL/MariaDB Detection</value></detail></details></result></detection><subnet>10.211.55.35</subnet><host>10.211.55.35</host><port>mysql (3306/tcp)</port><nvt oid="1.3.6.1.4.1.25623.1.0.100271"><name>MySQL 5.x Unspecified Buffer Overflow Vulnerability</name><family>Databases</family><cvss_base>9.3</cvss_base><risk_factor>Critical</risk_factor><cve>NOCVE</cve><bid>36242</bid><tags>cvss_base_vector=AV:N/AC:M/Au:N/C:C/I:C/A:C</tags><cert></cert><xref>NOXREF</xref></nvt><threat>High</threat><description>
+ Summary:
+ MySQL is prone to a buffer-overflow vulnerability because if fails to
+perform adequate boundary checks on user-supplied data.
+
+An attacker can leverage this issue to execute arbitrary code within
+the context of the vulnerable application. Failed exploit attempts
+will result in a denial-of-service condition.
+
+This issue affects MySQL 5.x; other versions may also be vulnerable.
+</description><original_threat>High</original_threat><notes></notes><overrides></overrides></result><result id="b6a9702c-5287-4c77-aa28-1893bef162cb"><detection><result id="18645d5a-d789-49ae-a097-f5d10a41389b"><details><detail><name>product</name><value>cpe:/a:mysql:mysql:5.0.51a</value></detail><detail><name>location</name><value>3306/tcp</value></detail><detail><name>source_oid</name><value>1.3.6.1.4.1.25623.1.0.100152</value></detail><detail><name>source_name</name><value>MySQL/MariaDB Detection</value></detail></details></result></detection><subnet>10.211.55.35</subnet><host>10.211.55.35</host><port>mysql (3306/tcp)</port><nvt oid="1.3.6.1.4.1.25623.1.0.103551"><name>MySQL weak password</name><family>Default Accounts</family><cvss_base>9.0</cvss_base><risk_factor>Critical</risk_factor><cve>NOCVE</cve><bid>NOBID</bid><tags>cvss_base_vector=AV:N/AC:L/Au:N/C:C/I:P/A:P</tags><cert></cert><xref>NOXREF</xref></nvt><threat>High</threat><description>
+ Summary:
+ It was possible to login into the remote MySQL as root using weak credentials.
+ Solution:
+ Change the password as soon as possible.
+
+It was possible to login as root with an empty password.
+
+
+</description><original_threat>High</original_threat><notes></notes><overrides></overrides></result><result id="3a7d4f59-958b-48cf-bbac-a8d766fd88db"><detection><result id="18645d5a-d789-49ae-a097-f5d10a41389b"><details><detail><name>product</name><value>cpe:/a:mysql:mysql:5.0.51a</value></detail><detail><name>location</name><value>3306/tcp</value></detail><detail><name>source_oid</name><value>1.3.6.1.4.1.25623.1.0.100152</value></detail><detail><name>source_name</name><value>MySQL/MariaDB Detection</value></detail></details></result></detection><subnet>10.211.55.35</subnet><host>10.211.55.35</host><port>mysql (3306/tcp)</port><nvt oid="1.3.6.1.4.1.25623.1.0.800842"><name>MySQL &apos;sql_parse.cc&apos; Multiple Format String Vulnerabilities</name><family>Denial of Service</family><cvss_base>8.5</cvss_base><risk_factor>Critical</risk_factor><cve>CVE-2009-2446</cve><bid>35609</bid><tags>cvss_base_vector=AV:N/AC:M/Au:S/C:C/I:C/A:C</tags><cert></cert><xref>NOXREF</xref></nvt><threat>High</threat><description>
+
+  Summary:
+  The host is running MySQL and is prone to Multiple Format String
+  vulnerabilities.
+
+  Vulnerability Insight:
+  The flaws are due to error in the &apos;dispatch_command&apos; function in sql_parse.cc
+  in libmysqld/ which can caused via format string specifiers in a database name
+  in a &apos;COM_CREATE_DB&apos; or &apos;COM_DROP_DB&apos; request.
+
+  Impact:
+  Successful exploitation could allow remote authenticated users to cause a Denial
+  of Service and possibly have unspecified other attacks.
+  Impact Level: Application
+
+  Affected Software/OS:
+  MySQL version 4.0.0 to 5.0.83 on all running platform.
+
+  Solution:
+  Upgrade to MySQL version 5.1.36 or later
+  http://dev.mysql.com/downloads
+</description><original_threat>High</original_threat><notes></notes><overrides></overrides></result><result id="e4dfdaac-0a64-4a2d-af6c-eb865f64ec99"><detection><result id="18645d5a-d789-49ae-a097-f5d10a41389b"><details><detail><name>product</name><value>cpe:/a:mysql:mysql:5.0.51a</value></detail><detail><name>location</name><value>3306/tcp</value></detail><detail><name>source_oid</name><value>1.3.6.1.4.1.25623.1.0.100152</value></detail><detail><name>source_name</name><value>MySQL/MariaDB Detection</value></detail></details></result></detection><subnet>10.211.55.35</subnet><host>10.211.55.35</host><port>mysql (3306/tcp)</port><nvt oid="1.3.6.1.4.1.25623.1.0.100436"><name>MySQL 5.0.51a Unspecified Remote Code Execution Vulnerability</name><family>Databases</family><cvss_base>7.5</cvss_base><risk_factor>High</risk_factor><cve>CVE-2009-4484</cve><bid>37640</bid><tags>cvss_base_vector=AV:N/AC:L/Au:N/C:P/I:P/A:P</tags><cert></cert><xref>NOXREF</xref></nvt><threat>High</threat><description>
+ Summary:
+ MySQL 5.0.51a is prone to an unspecified remote code-execution
+vulnerability.
+
+Very few technical details are currently available.
+
+An attacker can leverage this issue to execute arbitrary code within
+the context of the vulnerable application. Failed exploit attempts
+will result in a denial-of-service condition.
+
+This issue affects MySQL 5.0.51a; other versions may also be
+vulnerable.
+</description><original_threat>High</original_threat><notes></notes><overrides></overrides></result><result id="347386c9-9505-47ea-b9ad-6b6e1460590f"><detection><result id="18645d5a-d789-49ae-a097-f5d10a41389b"><details><detail><name>product</name><value>cpe:/a:mysql:mysql:5.0.51a</value></detail><detail><name>location</name><value>3306/tcp</value></detail><detail><name>source_oid</name><value>1.3.6.1.4.1.25623.1.0.100152</value></detail><detail><name>source_name</name><value>MySQL/MariaDB Detection</value></detail></details></result></detection><subnet>10.211.55.35</subnet><host>10.211.55.35</host><port>mysql (3306/tcp)</port><nvt oid="1.3.6.1.4.1.25623.1.0.801064"><name>MySQL Denial Of Service and Spoofing Vulnerabilities</name><family>Denial of Service</family><cvss_base>6.8</cvss_base><risk_factor>High</risk_factor><cve>CVE-2009-4019, CVE-2009-4028</cve><bid>NOBID</bid><tags>cvss_base_vector=AV:N/AC:M/Au:N/C:P/I:P/A:P</tags><cert></cert><xref>NOXREF</xref></nvt><threat>High</threat><description>
+  Summary:
+  The host is running MySQL and is prone to Denial Of Service
+  and Spoofing Vulnerabilities
+
+  Vulnerability Insight:
+  The flaws are due to:
+  - mysqld does not properly handle errors during execution of certain SELECT
+    statements with subqueries, and does not preserve certain null_value flags
+    during execution of statements that use the &apos;GeomFromWKB()&apos; function.
+  - An error in &apos;vio_verify_callback()&apos; function in &apos;viosslfactories.c&apos;, when
+    OpenSSL is used, accepts a value of zero for the depth of X.509 certificates.
+
+  Impact:
+  Successful exploitation could allow users to cause a Denial of Service and
+  man-in-the-middle attackers to spoof arbitrary SSL-based MySQL servers via
+  a crafted certificate.
+  Impact Level: Application
+
+  Affected Software/OS:
+  MySQL 5.0.x before 5.0.88 and 5.1.x before 5.1.41 on all running platform.
+
+  Solution:
+  Upgrade to MySQL version 5.0.88 or 5.1.41
+  For updates refer to http://dev.mysql.com/downloads
+</description><original_threat>High</original_threat><notes></notes><overrides></overrides></result><result id="878d13e3-6765-4530-9f07-4fa72967ea8e"><detection><result id="18645d5a-d789-49ae-a097-f5d10a41389b"><details><detail><name>product</name><value>cpe:/a:mysql:mysql:5.0.51a</value></detail><detail><name>location</name><value>3306/tcp</value></detail><detail><name>source_oid</name><value>1.3.6.1.4.1.25623.1.0.100152</value></detail><detail><name>source_name</name><value>MySQL/MariaDB Detection</value></detail></details></result></detection><subnet>10.211.55.35</subnet><host>10.211.55.35</host><port>mysql (3306/tcp)</port><nvt oid="1.3.6.1.4.1.25623.1.0.801355"><name>MySQL Multiple Vulnerabilities</name><family>Databases</family><cvss_base>6.5</cvss_base><risk_factor>High</risk_factor><cve>CVE-2010-1848, CVE-2010-1849, CVE-2010-1850</cve><bid>NOBID</bid><tags>cvss_base_vector=AV:N/AC:L/Au:S/C:P/I:P/A:P</tags><cert></cert><xref>NOXREF</xref></nvt><threat>High</threat><description>
+  Summary:
+  The host is running MySQL and is prone to multiple vulnerabilities.
+
+  Vulnerability Insight:
+  The flaws are due to:
+  - An error in &apos;my_net_skip_rest()&apos; function in &apos;sql/net_serv.cc&apos; when handling
+    a large number of packets that exceed the maximum length, which allows remote
+    attackers to cause a denial of service (CPU and bandwidth consumption).
+  - buffer overflow when handling &apos;COM_FIELD_LIST&apos; command with a long
+    table name, allows remote authenticated users to execute arbitrary code.
+  - directory traversal vulnerability when handling a &apos;..&apos; (dot dot) in a
+    table name, which allows remote authenticated users to bypass intended
+    table grants to read field definitions of arbitrary tables.
+
+  Impact:
+  Successful exploitation could allow users to cause a denial of service and
+  to execute arbitrary code.
+  Impact Level: Application
+
+  Affected Software/OS:
+  MySQL 5.0.x before 5.0.91 and 5.1.x before 5.1.47 on all running platform.
+
+  Solution:
+  Upgrade to MySQL version 5.0.91 or 5.1.47,
+  For updates refer to http://dev.mysql.com/downloads
+</description><original_threat>High</original_threat><notes></notes><overrides></overrides></result><result id="3b179310-f7ab-4fe9-a2a4-020e778495de"><detection><result id="18645d5a-d789-49ae-a097-f5d10a41389b"><details><detail><name>product</name><value>cpe:/a:mysql:mysql:5.0.51a</value></detail><detail><name>location</name><value>3306/tcp</value></detail><detail><name>source_oid</name><value>1.3.6.1.4.1.25623.1.0.100152</value></detail><detail><name>source_name</name><value>MySQL/MariaDB Detection</value></detail></details></result></detection><subnet>10.211.55.35</subnet><host>10.211.55.35</host><port>mysql (3306/tcp)</port><nvt oid="1.3.6.1.4.1.25623.1.0.801065"><name>MySQL Authenticated Access Restrictions Bypass Vulnerability (Linux)</name><family>Denial of Service</family><cvss_base>6.0</cvss_base><risk_factor>High</risk_factor><cve>CVE-2008-7247</cve><bid>NOBID</bid><tags>cvss_base_vector=AV:N/AC:M/Au:S/C:P/I:P/A:P</tags><cert></cert><xref>NOXREF</xref></nvt><threat>High</threat><description>
+  Summary:
+  The host is running MySQL and is prone to Access Restrictions Bypass
+  Vulnerability
+
+  Vulnerability Insight:
+  The flaw is due to an error in &apos;sql/sql_table.cc&apos;, when the data home directory
+  contains a symlink to a different filesystem.
+
+  Impact:
+  Successful exploitation could allow users to bypass intended access restrictions
+  by calling CREATE TABLE with  DATA DIRECTORY or INDEX DIRECTORY argument referring
+  to a subdirectory.
+  Impact Level: Application
+
+  Affected Software/OS:
+  MySQL 5.0.x before 5.0.88, 5.1.x before 5.1.41, 6.0 before 6.0.9-alpha
+
+  Solution:
+  Upgrade to MySQL version 5.0.88 or 5.1.41 or 6.0.9-alpha
+  For updates refer to http://dev.mysql.com/downloads
+</description><original_threat>High</original_threat><notes></notes><overrides></overrides></result><result id="074861f9-6b41-4bd4-b9c4-aa828eb67d1d"><subnet>10.211.55.35</subnet><host>10.211.55.35</host><port>nfs (2049/udp)</port><nvt oid="1.3.6.1.4.1.25623.1.0.102014"><name>NFS export</name><family>Remote file access</family><cvss_base>10.0</cvss_base><risk_factor>Critical</risk_factor><cve>CVE-1999-0554, CVE-1999-0548</cve><bid>NOBID</bid><tags>cvss_base_vector=AV:N/AC:L/Au:N/C:C/I:C/A:C</tags><cert></cert><xref>NOXREF</xref></nvt><threat>High</threat><description>Here is the export list of 10.211.55.35 : 
+/ *
+
+Please check the permissions of this exports.
+
+</description><original_threat>High</original_threat><notes></notes><overrides></overrides></result><result id="6a7018c5-8b7a-48b4-9132-e929b83691f5"><detection><result id="1d0cab5c-179f-4420-ae45-c892602f68cc"><details><detail><name>product</name><value>cpe:/a:postgresql:postgresql:8.3.1</value></detail><detail><name>location</name><value>5432/tcp</value></detail><detail><name>source_oid</name><value>1.3.6.1.4.1.25623.1.0.100151</value></detail><detail><name>source_name</name><value>PostgreSQL Detection</value></detail></details></result></detection><subnet>10.211.55.35</subnet><host>10.211.55.35</host><port>postgresql (5432/tcp)</port><nvt oid="1.3.6.1.4.1.25623.1.0.103552"><name>PostgreSQL weak password</name><family>Default Accounts</family><cvss_base>9.0</cvss_base><risk_factor>Critical</risk_factor><cve>NOCVE</cve><bid>NOBID</bid><tags>cvss_base_vector=AV:N/AC:L/Au:N/C:C/I:P/A:P</tags><cert></cert><xref>NOXREF</xref></nvt><threat>High</threat><description>
+ Summary:
+ It was possible to login into the remote PostgreSQL as user postgres using weak credentials.
+ Solution:
+ Change the password as soon as possible.
+
+It was possible to login as user postgres with password &quot;postgres&quot;.
+
+
+</description><original_threat>High</original_threat><notes></notes><overrides></overrides></result><result id="387bff64-7a9c-4b26-b21f-263cb522663c"><detection><result id="1d0cab5c-179f-4420-ae45-c892602f68cc"><details><detail><name>product</name><value>cpe:/a:postgresql:postgresql:8.3.1</value></detail><detail><name>location</name><value>5432/tcp</value></detail><detail><name>source_oid</name><value>1.3.6.1.4.1.25623.1.0.100151</value></detail><detail><name>source_name</name><value>PostgreSQL Detection</value></detail></details></result></detection><subnet>10.211.55.35</subnet><host>10.211.55.35</host><port>postgresql (5432/tcp)</port><nvt oid="1.3.6.1.4.1.25623.1.0.100645"><name>PostgreSQL Multiple Security Vulnerabilities</name><family>Databases</family><cvss_base>8.5</cvss_base><risk_factor>Critical</risk_factor><cve>CVE-2010-1169, CVE-2010-1170, CVE-2010-1447</cve><bid>40215</bid><tags>cvss_base_vector=AV:N/AC:M/Au:S/C:C/I:C/A:C</tags><cert></cert><xref>NOXREF</xref></nvt><threat>High</threat><description>
+ Summary:
+ PostgreSQL is prone to multiple security vulnerabilities.
+
+Attackers can exploit these issues to bypass certain security
+restrictions and execute arbitrary Perl or Tcl code.
+
+These issues affect versions prior to the following PostgreSQL
+versions:
+
+8.4.4
+8.3.11
+8.2.17
+8.1.21
+8.0.25
+7.4.29
+ Solution:
+ Updates are available. Please see the references for more information.
+</description><original_threat>High</original_threat><notes></notes><overrides></overrides></result><result id="9ed3b15d-833c-4751-a55a-0b3305a0aedb"><detection><result id="1d0cab5c-179f-4420-ae45-c892602f68cc"><details><detail><name>product</name><value>cpe:/a:postgresql:postgresql:8.3.1</value></detail><detail><name>location</name><value>5432/tcp</value></detail><detail><name>source_oid</name><value>1.3.6.1.4.1.25623.1.0.100151</value></detail><detail><name>source_name</name><value>PostgreSQL Detection</value></detail></details></result></detection><subnet>10.211.55.35</subnet><host>10.211.55.35</host><port>postgresql (5432/tcp)</port><nvt oid="1.3.6.1.4.1.25623.1.0.100273"><name>PostgreSQL Multiple Security Vulnerabilities</name><family>Databases</family><cvss_base>6.8</cvss_base><risk_factor>High</risk_factor><cve>CVE-2009-3229, CVE-2009-3230, CVE-2009-3231</cve><bid>36314</bid><tags>cvss_base_vector=AV:N/AC:M/Au:N/C:P/I:P/A:P</tags><cert></cert><xref>NOXREF</xref></nvt><threat>High</threat><description>
+ Summary:
+ PostgreSQL is prone to multiple security vulnerabilities, including a
+denial-of-service issue, a privilege-escalation issue, and an authentication-
+bypass issue.
+
+Attackers can exploit these issues to shut down affected servers,
+perform certain actions with elevated privileges, and bypass
+authentication mechanisms to perform unauthorized actions. Other
+attacks may also be possible.
+ Solution:
+ Updates are available. Please see the references for more information.
+</description><original_threat>High</original_threat><notes></notes><overrides></overrides></result><result id="dcdd983b-4947-4271-8751-a5c1b99b62ba"><detection><result id="1d0cab5c-179f-4420-ae45-c892602f68cc"><details><detail><name>product</name><value>cpe:/a:postgresql:postgresql:8.3.1</value></detail><detail><name>location</name><value>5432/tcp</value></detail><detail><name>source_oid</name><value>1.3.6.1.4.1.25623.1.0.100151</value></detail><detail><name>source_name</name><value>PostgreSQL Detection</value></detail></details></result></detection><subnet>10.211.55.35</subnet><host>10.211.55.35</host><port>postgresql (5432/tcp)</port><nvt oid="1.3.6.1.4.1.25623.1.0.100400"><name>PostgreSQL NULL Character CA SSL Certificate Validation Security Bypass Vulnerability</name><family>Databases</family><cvss_base>6.5</cvss_base><risk_factor>High</risk_factor><cve>CVE-2009-4034, CVE-2009-4136</cve><bid>37334, 37333</bid><tags>cvss_base_vector=AV:N/AC:L/Au:S/C:P/I:P/A:P</tags><cert></cert><xref>NOXREF</xref></nvt><threat>High</threat><description>
+ Summary:
+ PostgreSQL is prone to a security-bypass vulnerability because the
+application fails to properly validate the domain name in a signed CA
+certificate, allowing attackers to substitute malicious SSL
+certificates for trusted ones.
+
+Successfully exploiting this issue allows attackers to perform man-in-the-
+middle attacks or impersonate trusted servers, which will aid in
+further attacks.
+
+PostgreSQL is also prone to a local privilege-escalation vulnerability.
+Exploiting this issue allows local attackers to gain elevated
+privileges.
+
+PostgreSQL versions prior to 8.4.2, 8.3.9, 8.2.15, 8.1.19, 8.0.23, and
+7.4.27 are vulnerable to this issue.
+ Solution:
+ Updates are available. Please see the references for more information.
+</description><original_threat>High</original_threat><notes></notes><overrides></overrides></result><result id="f2b46f63-65c3-4686-a054-f4fec8ba613e"><detection><result id="1d0cab5c-179f-4420-ae45-c892602f68cc"><details><detail><name>product</name><value>cpe:/a:postgresql:postgresql:8.3.1</value></detail><detail><name>location</name><value>5432/tcp</value></detail><detail><name>source_oid</name><value>1.3.6.1.4.1.25623.1.0.100151</value></detail><detail><name>source_name</name><value>PostgreSQL Detection</value></detail></details></result></detection><subnet>10.211.55.35</subnet><host>10.211.55.35</host><port>postgresql (5432/tcp)</port><nvt oid="1.3.6.1.4.1.25623.1.0.100470"><name>PostgreSQL &apos;bitsubstr&apos; Buffer Overflow Vulnerability</name><family>Databases</family><cvss_base>6.5</cvss_base><risk_factor>High</risk_factor><cve>CVE-2010-0442</cve><bid>37973</bid><tags>cvss_base_vector=AV:N/AC:L/Au:S/C:P/I:P/A:P</tags><cert></cert><xref>NOXREF</xref></nvt><threat>High</threat><description>
+ Summary:
+ PostgreSQL is prone to a buffer-overflow vulnerability because the
+application fails to perform adequate boundary checks on user-
+supplied data.
+
+Attackers can exploit this issue to execute arbitrary code with
+elevated privileges or crash the affected application.
+
+PostgreSQL version 8.0.x, 8.1.x, 8.3.x is vulnerable; other versions may also be affected.
+</description><original_threat>High</original_threat><notes></notes><overrides></overrides></result><result id="abe01cea-7aaa-4369-8552-0420ce32bace"><detection><result id="1d0cab5c-179f-4420-ae45-c892602f68cc"><details><detail><name>product</name><value>cpe:/a:postgresql:postgresql:8.3.1</value></detail><detail><name>location</name><value>5432/tcp</value></detail><detail><name>source_oid</name><value>1.3.6.1.4.1.25623.1.0.100151</value></detail><detail><name>source_name</name><value>PostgreSQL Detection</value></detail></details></result></detection><subnet>10.211.55.35</subnet><host>10.211.55.35</host><port>postgresql (5432/tcp)</port><nvt oid="1.3.6.1.4.1.25623.1.0.103054"><name>PostgreSQL &apos;intarray&apos; Module &apos;gettoken()&apos; Buffer Overflow Vulnerability</name><family>Databases</family><cvss_base>6.5</cvss_base><risk_factor>High</risk_factor><cve>CVE-2010-4015</cve><bid>46084</bid><tags>cvss_base_vector=AV:N/AC:L/Au:S/C:P/I:P/A:P</tags><cert></cert><xref>NOXREF</xref></nvt><threat>High</threat><description>
+ Summary:
+ PostgreSQL is prone to a buffer-overflow vulnerability because
+the application fails to perform adequate boundary checks on
+user-supplied data. The issue affects the &apos;intarray&apos; module.
+
+An authenticated attacker can leverage this issue to execute arbitrary
+code within the context of the vulnerable application. Failed exploit
+attempts will result in a denial-of-service condition.
+
+The issue affect versions prior to 8.2.20, 8.3.14, 8.4.7, and 9.0.3.
+ Solution:
+ Updates are available. Please see the references for more information.
+</description><original_threat>High</original_threat><notes></notes><overrides></overrides></result><result id="a54c07f8-107e-4e7d-b10c-b99ce5ce13db"><detection><result id="1d0cab5c-179f-4420-ae45-c892602f68cc"><details><detail><name>product</name><value>cpe:/a:postgresql:postgresql:8.3.1</value></detail><detail><name>location</name><value>5432/tcp</value></detail><detail><name>source_oid</name><value>1.3.6.1.4.1.25623.1.0.100151</value></detail><detail><name>source_name</name><value>PostgreSQL Detection</value></detail></details></result></detection><subnet>10.211.55.35</subnet><host>10.211.55.35</host><port>postgresql (5432/tcp)</port><nvt oid="1.3.6.1.4.1.25623.1.0.100843"><name>PostgreSQL PL/Perl and PL/Tcl Local Privilege Escalation Vulnerability</name><family>Databases</family><cvss_base>6.0</cvss_base><risk_factor>High</risk_factor><cve>CVE-2010-3433</cve><bid>43747</bid><tags>cvss_base_vector=AV:N/AC:M/Au:S/C:P/I:P/A:P</tags><cert></cert><xref>NOXREF</xref></nvt><threat>High</threat><description>
+ Summary:
+ PostgreSQL is prone to a local privilege-escalation vulnerability.
+
+Exploiting this issue allows local attackers to gain elevated
+privileges and execute arbitrary commands with the privileges of
+the victim.
+
+Versions prior to PostgreSQL 9.0.1 are vulnerable.
+ Solution:
+ Updates are available. Please see the references for more information.
+</description><original_threat>High</original_threat><notes></notes><overrides></overrides></result><result id="cac9b5c7-872f-4c0c-808e-697ea3cb08f5"><detection><result id="1d0cab5c-179f-4420-ae45-c892602f68cc"><details><detail><name>product</name><value>cpe:/a:postgresql:postgresql:8.3.1</value></detail><detail><name>location</name><value>5432/tcp</value></detail><detail><name>source_oid</name><value>1.3.6.1.4.1.25623.1.0.100151</value></detail><detail><name>source_name</name><value>PostgreSQL Detection</value></detail></details></result></detection><subnet>10.211.55.35</subnet><host>10.211.55.35</host><port>postgresql (5432/tcp)</port><nvt oid="1.3.6.1.4.1.25623.1.0.100648"><name>PostgreSQL &apos;RESET ALL&apos; Unauthorized Access Vulnerability</name><family>Databases</family><cvss_base>5.5</cvss_base><risk_factor>High</risk_factor><cve>CVE-2010-1975</cve><bid>40304</bid><tags>cvss_base_vector=AV:N/AC:L/Au:S/C:P/I:P/A:N</tags><cert></cert><xref>NOXREF</xref></nvt><threat>High</threat><description>
+ Summary:
+ PostgreSQL is prone to an unauthorized-access vulnerability.
+
+Attackers can exploit this issue to reset special parameter
+settings only a root user should be able to modify. This may aid in
+further attacks.
+
+This issue affects versions prior to the following PostgreSQL
+versions:
+
+7.4.29,
+8.0.25
+8.1.21,
+8.2.17
+8.3.11
+8.4.4
+ Solution:
+ Updates are available. Please see the references for more information.
+</description><original_threat>High</original_threat><notes></notes><overrides></overrides></result><result id="0ba51113-d45f-4fa4-b37f-fa236e1fe1f6"><subnet>10.211.55.35</subnet><host>10.211.55.35</host><port>scientia-ssdb (2121/tcp)</port><nvt oid="1.3.6.1.4.1.25623.1.0.801639"><name>ProFTPD Multiple Remote Vulnerabilities</name><family>FTP</family><cvss_base>10.0</cvss_base><risk_factor>Critical</risk_factor><cve>CVE-2010-3867, CVE-2010-4221</cve><bid>44562</bid><tags>cvss_base_vector=AV:N/AC:L/Au:N/C:C/I:C/A:C</tags><cert></cert><xref>NOXREF</xref></nvt><threat>High</threat><description>
+
+  Summary:
+  The host is running ProFTPD and is prone to multiple vulnerabilities.
+
+  Vulnerability Insight:
+  - An input validation error within the &apos;mod_site_misc&apos; module can be exploited
+    to create and delete directories, create symlinks, and change the time of
+    files located outside a writable directory.
+  - A logic error within the &apos;pr_netio_telnet_gets()&apos; function in &apos;src/netio.c&apos;
+    when processing user input containing the Telnet IAC escape sequence can be
+    exploited to cause a stack-based buffer overflow by sending specially
+    crafted input to the FTP or FTPS service.
+
+  Impact:
+  Successful exploitation may allow execution of arbitrary code or cause a
+  denial-of-service.
+  Impact Level: Application
+
+  Affected Software/OS:
+  ProFTPD versions prior to 1.3.3c
+
+  Solution:
+  Upgrade to ProFTPD version 1.3.3c or later,
+  For updates refer to http://www.proftpd.org/
+</description><original_threat>High</original_threat><notes></notes><overrides></overrides></result><result id="b0db43e8-18ae-4da4-be42-1686a083f3b8"><subnet>10.211.55.35</subnet><host>10.211.55.35</host><port>scientia-ssdb (2121/tcp)</port><nvt oid="1.3.6.1.4.1.25623.1.0.900507"><name>ProFTPD Server SQL Injection Vulnerability</name><family>FTP</family><cvss_base>7.5</cvss_base><risk_factor>High</risk_factor><cve>CVE-2009-0542, CVE-2009-0543</cve><bid>33722</bid><tags>cvss_base_vector=AV:N/AC:L/Au:N/C:P/I:P/A:P</tags><cert></cert><xref>NOXREF</xref></nvt><threat>High</threat><description>
+
+  Summary:
+  This host is running ProFTPD Server and is prone to remote
+  SQL Injection vulnerability.
+
+  Vulnerability Insight:
+  This flaw occurs because the server performs improper input sanitising,
+  - when a %(percent) character is passed in the username, a single quote
+    (&apos;) gets introduced during variable substitution by mod_sql and this
+    eventually allows for an SQL injection during login.
+  - when NLS support is enabled, a flaw in variable substition feature in
+    mod_sql_mysql and mod_sql_postgres may allow an attacker to bypass
+    SQL injection protection mechanisms via invalid, encoded multibyte
+    characters.
+
+  Impact:
+  Successful exploitation will allow remote attackers to execute arbitrary
+  SQL commands, thus gaining access to random user accounts.
+
+  Affected Software/OS:
+  ProFTPD Server version 1.3.1 through 1.3.2rc2
+
+  Solution:
+  Upgrade to the latest version 1.3.2rc3,
+  http://www.proftpd.org/
+</description><original_threat>High</original_threat><notes></notes><overrides></overrides></result><result id="8466d365-e402-43ab-a94b-857ba851833a"><subnet>10.211.55.35</subnet><host>10.211.55.35</host><port>scientia-ssdb (2121/tcp)</port><nvt oid="1.3.6.1.4.1.25623.1.0.900133"><name>ProFTPD Long Command Handling Security Vulnerability</name><family>Web application abuses</family><cvss_base>6.8</cvss_base><risk_factor>High</risk_factor><cve>CVE-2008-4242</cve><bid>31289</bid><tags>cvss_base_vector=AV:N/AC:M/Au:N/C:P/I:P/A:P</tags><cert></cert><xref>NOXREF</xref></nvt><threat>High</threat><description>
+  Summary:
+  The host is running ProFTPD Server, which is prone to cross-site
+  request forgery vulnerability.
+  Vulnerability Insight:
+  The flaw exists due to the application truncating an overly long FTP command,
+  and improperly interpreting the remainder string as a new FTP command.
+  Impact:
+  This can be exploited to execute arbitrary FTP commands on another
+  user&apos;s session privileges.
+  Impact Level : Application
+  Affected Software/OS:
+  ProFTPD Project versions 1.2.x on Linux
+  ProFTPD Project versions 1.3.x on Linux
+  Solution:
+  Fixed is available in the SVN repository,
+  http://www.proftpd.org/cvs.html
+
+  *****
+  NOTE : Ignore this warning, if above mentioned fix is applied already.
+  *****
+</description><original_threat>High</original_threat><notes></notes><overrides></overrides></result><result id="05608106-f938-46c1-af5d-a8b24426ec84"><subnet>10.211.55.35</subnet><host>10.211.55.35</host><port>scientia-ssdb (2121/tcp)</port><nvt oid="1.3.6.1.4.1.25623.1.0.100316"><name>ProFTPD mod_tls Module NULL Character CA SSL Certificate Validation Security Bypass Vulnerability</name><family>FTP</family><cvss_base>5.8</cvss_base><risk_factor>High</risk_factor><cve>CVE-2009-3639</cve><bid>36804</bid><tags>cvss_base_vector=AV:N/AC:M/Au:N/C:N/I:P/A:P</tags><cert></cert><xref>NOXREF</xref></nvt><threat>High</threat><description>
+ Summary:
+ ProFTPD is prone to a security-bypass vulnerability because the
+application fails to properly validate the domain name in a signed CA
+certificate, allowing attackers to substitute malicious SSL
+certificates for trusted ones.
+
+Successful exploits allows attackers to perform man-in-the-
+middle attacks or impersonate trusted servers, which will aid in
+further attacks.
+
+Versions prior to ProFTPD 1.3.2b and 1.3.3 to 1.3.3.rc1 are vulnerable.
+ Solution:
+ Updates are available. Please see the references for details.
+</description><original_threat>High</original_threat><notes></notes><overrides></overrides></result><result id="5fcf6b7c-8d4a-40d0-b8ac-d44d51d96bc5"><subnet>10.211.55.35</subnet><host>10.211.55.35</host><port>smtp (25/tcp)</port><nvt oid="1.3.6.1.4.1.25623.1.0.11036"><name>SMTP antivirus scanner DoS</name><family>Denial of Service</family><cvss_base>7.2</cvss_base><risk_factor>High</risk_factor><cve>NOCVE</cve><bid>3027</bid><tags>cvss_base_vector=AV:L/AC:L/Au:N/C:C/I:C/A:C</tags><cert></cert><xref>NOXREF</xref></nvt><threat>High</threat><description>The file 42.zip was sent 2 times. If there is an antivirus in your MTA, it might
+have crashed. Please check its status right now, as it is
+not possible to do so remotely
+
+</description><original_threat>High</original_threat><notes></notes><overrides></overrides></result><result id="5d185441-21f4-4027-b7b2-6def0477c256"><subnet>10.211.55.35</subnet><host>10.211.55.35</host><port>ssh (22/tcp)</port><nvt oid="1.3.6.1.4.1.25623.1.0.103239"><name>SSH Brute Force Logins with default Credentials</name><family>Default Accounts</family><cvss_base>9.0</cvss_base><risk_factor>Critical</risk_factor><cve>NOCVE</cve><bid>NOBID</bid><tags>cvss_base_vector=AV:N/AC:L/Au:N/C:C/I:P/A:P</tags><cert></cert><xref>NOXREF</xref></nvt><threat>High</threat><description>
+Summary:
+A number of known default credentials is tried for log in via SSH protocol.
+
+Solution:
+Change the password as soon as possible.
+
+It was possible to login with the following credentials &lt;User&gt;:&lt;Password&gt;
+
+user:user
+
+</description><original_threat>High</original_threat><notes></notes><overrides></overrides></result><result id="ab780890-1f70-4dfa-a5fe-e5301c660d5b"><subnet>10.211.55.35</subnet><host>10.211.55.35</host><port>x11 (6000/tcp)</port><nvt oid="1.3.6.1.4.1.25623.1.0.10407"><name>X Server</name><family>General</family><cvss_base>10.0</cvss_base><risk_factor>Critical</risk_factor><cve>CVE-1999-0526</cve><bid>NOBID</bid><tags>cvss_base_vector=AV:N/AC:L/Au:N/C:C/I:C/A:C</tags><cert></cert><xref>NOXREF</xref></nvt><threat>High</threat><description>This X server does *not* allow any client to connect to it
+however it is recommended that you filter incoming connections
+to this port as attacker may send garbage data and slow down
+your X session or even kill the server.
+
+Here is the server version : 11.0
+Here is the message we received : Client is not authorized
+
+Solution: filter incoming connections to ports 6000-6009
+</description><original_threat>High</original_threat><notes></notes><overrides></overrides></result><result id="16c14afc-c3dd-4134-a3ed-50dcb2cf938e"><subnet>10.211.55.35</subnet><host>10.211.55.35</host><port>domain (53/udp)</port><nvt oid="1.3.6.1.4.1.25623.1.0.100251"><name>ISC BIND 9 Remote Dynamic Update Message Denial of Service Vulnerability</name><family>Denial of Service</family><cvss_base>4.3</cvss_base><risk_factor>Medium</risk_factor><cve>CVE-2009-0696</cve><bid>35848</bid><tags>cvss_base_vector=AV:N/AC:M/Au:N/C:N/I:N/A:P</tags><cert></cert><xref>NOXREF</xref></nvt><threat>Medium</threat><description>
+
+ Summary:
+ ISC BIND is prone to a remote denial-of-service vulnerability because
+the application fails to properly handle specially crafted dynamic
+update requests.
+
+Successfully exploiting this issue allows remote attackers to crash
+affected DNS servers, denying further service to legitimate users.
+
+Versions prior to BIND 9.4.3-P3, 9.5.1-P3, and 9.6.1-P1 are
+vulnerable.
+ Solution:
+ The vendor released an advisory and fixes to address this issue.
+Please see the references for more information.
+
+** It seems that OpenVAS was not able to crash the remote Bind.
+According to its version number the remote version of BIND is
+anyway vulnerable.
+Please check its status right now.
+
+</description><original_threat>Medium</original_threat><notes></notes><overrides></overrides></result><result id="3d1d1828-339a-4720-ab4c-e49fee8f4b70"><subnet>10.211.55.35</subnet><host>10.211.55.35</host><port>exec (512/tcp)</port><nvt oid="1.3.6.1.4.1.25623.1.0.100111"><name>Check for rexecd Service</name><family>Useless services</family><cvss_base>5.0</cvss_base><risk_factor>Medium</risk_factor><cve>NOCVE</cve><bid>NOBID</bid><tags>cvss_base_vector=AV:N/AC:L/Au:N/C:N/I:N/A:P</tags><cert></cert><xref>NOXREF</xref></nvt><threat>Medium</threat><description>
+ Summary:
+ Rexecd Service is running at this Host.
+   Rexecd (Remote Process Execution) has the same kind of functionality
+   that rsh has : you can execute shell commands on a remote computer.
+
+   The main difference is that rexecd authenticate by reading the
+   username and password *unencrypted* from the socket.
+ Solution:
+ Disable rexec Service.
+</description><original_threat>Medium</original_threat><notes></notes><overrides></overrides></result><result id="63fc14d5-adac-4b05-804f-46c1f73e8da7"><subnet>10.211.55.35</subnet><host>10.211.55.35</host><port>ftp (21/tcp)</port><nvt oid="1.3.6.1.4.1.25623.1.0.801640"><name>ProFTPD Denial of Service Vulnerability</name><family>FTP</family><cvss_base>4.0</cvss_base><risk_factor>Medium</risk_factor><cve>CVE-2008-7265</cve><bid>NOBID</bid><tags>cvss_base_vector=AV:N/AC:L/Au:S/C:N/I:N/A:P</tags><cert></cert><xref>NOXREF</xref></nvt><threat>Medium</threat><description>
+
+  Summary:
+  The host is running ProFTPD and is prone to denial of service
+  vulnerability.
+
+  Vulnerability Insight:
+  The flaw is due to an error in &apos;pr_data_xfer()&apos; function which allows
+  remote authenticated users to cause a denial of service (CPU consumption)
+  via an ABOR command during a data transfer.
+
+  Impact:
+  Successful exploitation will allow attackers to cause a denial of service.
+  Impact Level: Application
+
+  Affected Software/OS:
+  ProFTPD versions prior to 1.3.2rc3
+
+  Solution:
+  Upgrade to ProFTPD version 1.3.2rc3 or later,
+  For updates refer to http://www.proftpd.org/
+</description><original_threat>Medium</original_threat><notes></notes><overrides></overrides></result><result id="306b8d92-6cd0-414a-8898-551b4155113d"><subnet>10.211.55.35</subnet><host>10.211.55.35</host><port>general/tcp</port><nvt oid="1.3.6.1.4.1.25623.1.0.80091"><name>TCP timestamps</name><family>General</family><cvss_base>2.6</cvss_base><risk_factor>Medium</risk_factor><cve>NOCVE</cve><bid>NOBID</bid><tags>cvss_base_vector=AV:N/AC:H/Au:N/C:P/I:N/A:N</tags><cert></cert><xref>NOXREF</xref></nvt><threat>Medium</threat><description>It was detected that the host implements RFC1323.
+
+The following timestamps were retrieved with a delay of 1 seconds in-between:
+Paket 1: 60702
+Paket 2: 60803
+
+
+</description><original_threat>Medium</original_threat><notes></notes><overrides></overrides></result><result id="07a4de25-07a6-4e8f-807d-9838256dea7c"><subnet>10.211.55.35</subnet><host>10.211.55.35</host><port>http (80/tcp)</port><nvt oid="1.3.6.1.4.1.25623.1.0.10056"><name>/doc directory browsable ?</name><family>Web application abuses</family><cvss_base>5.0</cvss_base><risk_factor>Medium</risk_factor><cve>CVE-1999-0678</cve><bid>318</bid><tags>cvss_base_vector=AV:N/AC:L/Au:N/C:P/I:N/A:N</tags><cert></cert><xref>NOXREF</xref></nvt><threat>Medium</threat><description>
+ Summary:
+ The /doc directory is browsable.
+/doc shows the content of the /usr/doc directory and therefore it shows which programs and - important! - the version of the installed programs.
+ Solution:
+ Use access restrictions for the /doc directory.
+If you use Apache you might use this in your access.conf:
+
+ &lt;Directory /usr/doc&gt;
+ AllowOverride None
+ order deny,allow
+ deny from all
+ allow from localhost
+ &lt;/Directory&gt;
+</description><original_threat>Medium</original_threat><notes></notes><overrides></overrides></result><result id="563206c8-b5e2-41c8-a2ee-b6c180772057"><subnet>10.211.55.35</subnet><host>10.211.55.35</host><port>http (80/tcp)</port><nvt oid="1.3.6.1.4.1.25623.1.0.103210"><name>awiki Multiple Local File Include Vulnerabilities</name><family>Web application abuses</family><cvss_base>5.0</cvss_base><risk_factor>Medium</risk_factor><cve>NOCVE</cve><bid>49187</bid><tags>cvss_base_vector=AV:N/AC:L/Au:N/C:P/I:N/A:N</tags><cert></cert><xref>NOXREF</xref></nvt><threat>Medium</threat><description>
+ Summary:
+ awiki is prone to multiple local file-include vulnerabilities because
+it fails to properly sanitize user-supplied input.
+
+An attacker can exploit this vulnerability to obtain potentially
+sensitive information and execute arbitrary local scripts in the
+context of the webserver process. This may allow the attacker to
+compromise the application and the computer; other attacks are
+also possible.
+
+awiki 20100125 is vulnerable; other versions may also be affected.
+</description><original_threat>Medium</original_threat><notes></notes><overrides></overrides></result><result id="45206b56-f046-4365-8ca0-9f607aa91500"><subnet>10.211.55.35</subnet><host>10.211.55.35</host><port>http (80/tcp)</port><nvt oid="1.3.6.1.4.1.25623.1.0.110187"><name>PHP version smaller than 5.2.9</name><family>Web application abuses</family><cvss_base>5.0</cvss_base><risk_factor>Medium</risk_factor><cve>CVE-2008-5498, CVE-2009-1271, CVE-2009-1272</cve><bid>33002, 33927</bid><tags>cvss_base_vector=AV:N/AC:L/Au:N/C:P/I:N/A:N</tags><cert></cert><xref>NOXREF</xref></nvt><threat>Medium</threat><description>
+  Summary:
+  PHP version smaller than 5.2.9 suffers vulnerability.
+  Solution:
+  Update PHP to version 5.2.9 or later.
+</description><original_threat>Medium</original_threat><notes></notes><overrides></overrides></result><result id="1753e5de-c51a-4910-aaf2-79d1e614b415"><subnet>10.211.55.35</subnet><host>10.211.55.35</host><port>http (80/tcp)</port><nvt oid="1.3.6.1.4.1.25623.1.0.11980"><name>Compaq Web SSI DoS</name><family>Denial of Service</family><cvss_base>5.0</cvss_base><risk_factor>Medium</risk_factor><cve>NOCVE</cve><bid>NOBID</bid><tags>cvss_base_vector=AV:N/AC:L/Au:N/C:N/I:N/A:P</tags><cert></cert><xref>NOXREF</xref></nvt><threat>Medium</threat><description>
+ Summary:
+ It was possible to kill the remote web server by requesting
+something like: /&lt;!&gt;
+This is probably a Compaq Web Enterprise Management server.
+
+A cracker might use this flaw to forbid you from managing your machines.
+ Solution:
+ contact your vendor for a patch,
+  or disable this service if you do not use it.
+</description><original_threat>Medium</original_threat><notes></notes><overrides></overrides></result><result id="788d6776-d6f7-44e6-97c9-9db2c0a7c0ce"><detection><result id="61c453d3-ec1e-4c3f-bef2-6ae4c4d44d3f"><details><detail><name>product</name><value>cpe:/a:phpmyadmin:phpmyadmin</value></detail><detail><name>location</name><value>/phpMyAdmin</value></detail><detail><name>source_oid</name><value>1.3.6.1.4.1.25623.1.0.900129</value></detail><detail><name>source_name</name><value>phpMyAdmin Detection</value></detail></details></result></detection><subnet>10.211.55.35</subnet><host>10.211.55.35</host><port>http (80/tcp)</port><nvt oid="1.3.6.1.4.1.25623.1.0.801660"><name>phpMyAdmin &apos;error.php&apos; Cross Site Scripting Vulnerability</name><family>Web application abuses</family><cvss_base>4.3</cvss_base><risk_factor>Medium</risk_factor><cve>CVE-2010-4480</cve><bid>NOBID</bid><tags>cvss_base_vector=AV:N/AC:M/Au:N/C:N/I:P/A:N</tags><cert></cert><xref>NOXREF</xref></nvt><threat>Medium</threat><description>
+  Summary:
+  The host is running phpMyAdmin and is prone to Cross-Site
+Scripting Vulnerability.
+
+  Vulnerability Insight:
+  The flaw is caused by input validation errors in the &apos;error.php&apos;
+script when processing crafted BBcode tags containing &apos;@&apos; characters, which
+could allow attackers to inject arbitrary HTML code within the error page
+and conduct phishing attacks.
+
+  Impact:
+  Successful exploitation will allow attackers to inject arbitrary
+HTML code within the error page and conduct phishing attacks.
+
+Impact Level: Application
+
+  Affected Software/OS:
+  phpMyAdmin version 3.3.8.1 and prior.
+
+  Solution:
+  No solution or patch was made available for at least one year
+since disclosure of this vulnerability. Likely none will be provided anymore.
+General solution options are to upgrade to a newer release, disable respective
+features, remove the product or replace the product by another one.
+</description><original_threat>Medium</original_threat><notes></notes><overrides></overrides></result><result id="23e2ef7c-5fef-4922-b4d3-adb09afb215c"><subnet>10.211.55.35</subnet><host>10.211.55.35</host><port>http (80/tcp)</port><nvt oid="1.3.6.1.4.1.25623.1.0.802391"><name>TWiki &apos;organization&apos; Cross-Site Scripting Vulnerability</name><family>Web application abuses</family><cvss_base>4.3</cvss_base><risk_factor>Medium</risk_factor><cve>CVE-2012-0979</cve><bid>51731</bid><tags>cvss_base_vector=AV:N/AC:M/Au:N/C:N/I:P/A:N</tags><cert></cert><xref>NOXREF</xref></nvt><threat>Medium</threat><description>
+  Summary:
+  The host is running TWiki and is prone to cross site scripting
+vulnerability.
+
+  Vulnerability Insight:
+  The flaw is due to an improper validation of user-supplied input
+to the &apos;organization&apos; field when registering or editing a user, which allows
+attackers to execute arbitrary HTML and script code in a user&apos;s browser
+session in the context of an affected site.
+
+  Impact:
+  Successful exploitation will allow remote attackers to insert
+arbitrary HTML and script code, which will be executed in a user&apos;s browser
+session in the context of an affected site.
+
+Impact Level: Application
+
+  Affected Software/OS:
+  TWiki version 5.1.1 and prior
+
+  Solution:
+  No solution or patch was made available for at least one year
+since disclosure of this vulnerability. Likely none will be provided anymore.
+General solution options are to upgrade to a newer release, disable respective
+features, remove the product or replace the product by another one.
+</description><original_threat>Medium</original_threat><notes></notes><overrides></overrides></result><result id="04caa451-17ed-4dec-a5f6-f6611fc63eef"><subnet>10.211.55.35</subnet><host>10.211.55.35</host><port>http (80/tcp)</port><nvt oid="1.3.6.1.4.1.25623.1.0.902830"><name>Apache HTTP Server &apos;httpOnly&apos; Cookie Information Disclosure Vulnerability</name><family>Web Servers</family><cvss_base>4.3</cvss_base><risk_factor>Medium</risk_factor><cve>CVE-2012-0053</cve><bid>51706</bid><tags>cvss_base_vector=AV:N/AC:M/Au:N/C:P/I:N/A:N</tags><cert><cert_ref id="DFN-CERT-2012-1276" type="DFN-CERT"></cert_ref></cert><xref>NOXREF</xref></nvt><threat>Medium</threat><description>
+  Summary:
+  This host is running Apache HTTP Server and is prone to cookie
+  information disclosure vulnerability.
+
+  Vulnerability Insight:
+  The flaw is due to an error within the default error response for
+  status code 400 when no custom ErrorDocument is configured, which can be
+  exploited to expose &apos;httpOnly&apos; cookies.
+
+  Impact:
+  Successful exploitation will allow attackers to obtain sensitive information
+  that may aid in further attacks.
+  Impact Level: Application
+
+  Affected Software/OS:
+  Apache HTTP Server versions 2.2.0 through 2.2.21
+
+  Solution:
+  Upgrade to Apache HTTP Server version 2.2.22 or later,
+  For updates refer to http://httpd.apache.org/
+</description><original_threat>Medium</original_threat><notes></notes><overrides></overrides></result><result id="c3efce8d-5ff3-4aea-90ed-dfe8c0898872"><subnet>10.211.55.35</subnet><host>10.211.55.35</host><port>microsoft-ds (445/tcp)</port><nvt oid="1.3.6.1.4.1.25623.1.0.100499"><name>Samba &apos;client/mount.cifs.c&apos; Remote Denial of Service Vulnerability</name><family>Denial of Service</family><cvss_base>2.1</cvss_base><risk_factor>Medium</risk_factor><cve>CVE-2010-0547</cve><bid>38326</bid><tags>cvss_base_vector=AV:L/AC:L/Au:N/C:N/I:N/A:P</tags><cert></cert><xref>NOXREF</xref></nvt><threat>Medium</threat><description>
+ Summary:
+ Samba is prone to a remote denial-of-service vulnerability.
+
+A remote attacker can exploit this issue to crash the affected
+application, denying service to legitimate users.
+
+Samba 3.4.5 and earlier are vulnerable.
+</description><original_threat>Medium</original_threat><notes></notes><overrides></overrides></result><result id="fbc6c496-d862-4467-83ea-f8a170e5ea1d"><detection><result id="18645d5a-d789-49ae-a097-f5d10a41389b"><details><detail><name>product</name><value>cpe:/a:mysql:mysql:5.0.51a</value></detail><detail><name>location</name><value>3306/tcp</value></detail><detail><name>source_oid</name><value>1.3.6.1.4.1.25623.1.0.100152</value></detail><detail><name>source_name</name><value>MySQL/MariaDB Detection</value></detail></details></result></detection><subnet>10.211.55.35</subnet><host>10.211.55.35</host><port>mysql (3306/tcp)</port><nvt oid="1.3.6.1.4.1.25623.1.0.100356"><name>MySQL multiple Vulnerabilities</name><family>Databases</family><cvss_base>6.4</cvss_base><risk_factor>High</risk_factor><cve>NOCVE</cve><bid>37075, 37076</bid><tags>cvss_base_vector=AV:N/AC:L/Au:N/C:P/I:P/A:N</tags><cert></cert><xref>NOXREF</xref></nvt><threat>Medium</threat><description>
+ Summary:
+ MySQL is prone to a security-bypass vulnerability and to to a local
+privilege-escalation vulnerability.
+
+An attacker can exploit the security-bypass issue to bypass certain
+security restrictions and obtain sensitive information that may lead
+to further attacks.
+
+Local attackers can exploit the local privilege-escalation issue to
+gain elevated privileges on the affected computer.
+
+Versions prior to MySQL 5.1.41 are vulnerable.
+ Solution:
+ Updates are available. Please see the references for details.
+</description><original_threat>Medium</original_threat><notes></notes><overrides></overrides></result><result id="1bb508a9-6223-4636-adad-a56b0b45425d"><detection><result id="18645d5a-d789-49ae-a097-f5d10a41389b"><details><detail><name>product</name><value>cpe:/a:mysql:mysql:5.0.51a</value></detail><detail><name>location</name><value>3306/tcp</value></detail><detail><name>source_oid</name><value>1.3.6.1.4.1.25623.1.0.100152</value></detail><detail><name>source_name</name><value>MySQL/MariaDB Detection</value></detail></details></result></detection><subnet>10.211.55.35</subnet><host>10.211.55.35</host><port>mysql (3306/tcp)</port><nvt oid="1.3.6.1.4.1.25623.1.0.100156"><name>MySQL MyISAM Table Privileges Secuity Bypass Vulnerability</name><family>Databases</family><cvss_base>4.6</cvss_base><risk_factor>Medium</risk_factor><cve>CVE-2008-2079, CVE-2008-4097, CVE-2008-4098</cve><bid>29106</bid><tags>cvss_base_vector=AV:N/AC:H/Au:S/C:P/I:P/A:P</tags><cert></cert><xref>NOXREF</xref></nvt><threat>Medium</threat><description>
+
+ Summary:
+ According to its version number, the remote version of MySQL is
+  prone to a security-bypass vulnerability.
+
+  An attacker can exploit this issue to gain access to table files created by
+  other users, bypassing certain security restrictions.
+
+  NOTE 1: This issue was also assigned CVE-2008-4097 because
+  CVE-2008-2079 was incompletely fixed, allowing symlink attacks.
+
+  NOTE 2: CVE-2008-4098 was assigned because fixes for the vector
+  described in CVE-2008-4097 can also be bypassed.
+
+  This issue affects versions prior to MySQL 4 (prior to 4.1.24) and
+  MySQL 5 (prior to 5.0.60).
+ Solution:
+ Updates are available. Update to newer Version.
+</description><original_threat>Medium</original_threat><notes></notes><overrides></overrides></result><result id="81c26386-6dbe-4e03-8fc4-8822626b371a"><detection><result id="18645d5a-d789-49ae-a097-f5d10a41389b"><details><detail><name>product</name><value>cpe:/a:mysql:mysql:5.0.51a</value></detail><detail><name>location</name><value>3306/tcp</value></detail><detail><name>source_oid</name><value>1.3.6.1.4.1.25623.1.0.100152</value></detail><detail><name>source_name</name><value>MySQL/MariaDB Detection</value></detail></details></result></detection><subnet>10.211.55.35</subnet><host>10.211.55.35</host><port>mysql (3306/tcp)</port><nvt oid="1.3.6.1.4.1.25623.1.0.100763"><name>Oracle MySQL &apos;TEMPORARY InnoDB&apos; Tables Denial Of Service Vulnerability</name><family>Databases</family><cvss_base>4.0</cvss_base><risk_factor>Medium</risk_factor><cve>CVE-2010-3680</cve><bid>42598</bid><tags>cvss_base_vector=AV:N/AC:L/Au:S/C:N/I:N/A:P</tags><cert></cert><xref>NOXREF</xref></nvt><threat>Medium</threat><description>
+ Summary:
+ MySQL is prone to a denial-of-service vulnerability.
+
+An attacker can exploit these issues to crash the database, denying
+access to legitimate users.
+
+This issues affect versions prior to MySQL 5.1.49.
+ Solution:
+ Updates are available. Please see the references for more information.
+</description><original_threat>Medium</original_threat><notes></notes><overrides></overrides></result><result id="315b74cc-9864-45ec-83b9-aedae8645a37"><detection><result id="18645d5a-d789-49ae-a097-f5d10a41389b"><details><detail><name>product</name><value>cpe:/a:mysql:mysql:5.0.51a</value></detail><detail><name>location</name><value>3306/tcp</value></detail><detail><name>source_oid</name><value>1.3.6.1.4.1.25623.1.0.100152</value></detail><detail><name>source_name</name><value>MySQL/MariaDB Detection</value></detail></details></result></detection><subnet>10.211.55.35</subnet><host>10.211.55.35</host><port>mysql (3306/tcp)</port><nvt oid="1.3.6.1.4.1.25623.1.0.100785"><name>Oracle MySQL Prior to 5.1.49 Multiple Denial Of Service Vulnerabilities</name><family>Denial of Service</family><cvss_base>4.0</cvss_base><risk_factor>Medium</risk_factor><cve>CVE-2010-3677</cve><bid>42646, 42633, 42643, 42598, 42596, 42638, 42599, 42625</bid><tags>cvss_base_vector=AV:N/AC:L/Au:S/C:N/I:N/A:P</tags><cert></cert><xref>NOXREF</xref></nvt><threat>Medium</threat><description>
+ Summary:
+ MySQL is prone to a denial-of-service vulnerability.
+
+An attacker can exploit this issue to crash the database, denying
+access to legitimate users.
+
+This issue affects versions prior to MySQL 5.1.49.
+ Solution:
+ Updates are available. Please see the references for more information.
+</description><original_threat>Medium</original_threat><notes></notes><overrides></overrides></result><result id="ab79a878-83b1-4737-8045-4b12d4741ade"><detection><result id="18645d5a-d789-49ae-a097-f5d10a41389b"><details><detail><name>product</name><value>cpe:/a:mysql:mysql:5.0.51a</value></detail><detail><name>location</name><value>3306/tcp</value></detail><detail><name>source_oid</name><value>1.3.6.1.4.1.25623.1.0.100152</value></detail><detail><name>source_name</name><value>MySQL/MariaDB Detection</value></detail></details></result></detection><subnet>10.211.55.35</subnet><host>10.211.55.35</host><port>mysql (3306/tcp)</port><nvt oid="1.3.6.1.4.1.25623.1.0.900221"><name>MySQL Empty Bit-String Literal Denial of Service Vulnerability</name><family>Denial of Service</family><cvss_base>4.0</cvss_base><risk_factor>Medium</risk_factor><cve>CVE-2008-3963</cve><bid>31081</bid><tags>cvss_base_vector=AV:N/AC:L/Au:S/C:N/I:N/A:P</tags><cert></cert><xref>NOXREF</xref></nvt><threat>Medium</threat><description>
+ Summary:
+ This host is running MySQL, which is prone to Denial of Service
+ Vulnerability.
+ Vulnerability Insight:
+ Issue is due to error while processing an empty bit string literal via
+        a specially crafted SQL statement.
+ Impact:
+ Successful exploitation by remote attackers could cause denying
+        access to legitimate users.
+ Impact Level : Application
+ Affected Software/OS:
+ MySQL versions prior to 5.0.x - 5.0.66,
+                                5.1.x - 5.1.26, and
+                                6.0.x - 6.0.5 on all running platform.
+ Solution:
+ Update to version 5.0.66 or 5.1.26 or 6.0.6 or later.
+ http://dev.mysql.com/downloads/
+</description><original_threat>Medium</original_threat><notes></notes><overrides></overrides></result><result id="07cdd3dc-9f5b-4a75-a173-f7ca50bfb4f3"><detection><result id="18645d5a-d789-49ae-a097-f5d10a41389b"><details><detail><name>product</name><value>cpe:/a:mysql:mysql:5.0.51a</value></detail><detail><name>location</name><value>3306/tcp</value></detail><detail><name>source_oid</name><value>1.3.6.1.4.1.25623.1.0.100152</value></detail><detail><name>source_name</name><value>MySQL/MariaDB Detection</value></detail></details></result></detection><subnet>10.211.55.35</subnet><host>10.211.55.35</host><port>mysql (3306/tcp)</port><nvt oid="1.3.6.1.4.1.25623.1.0.801380"><name>MySQL &apos;ALTER DATABASE&apos; Remote Denial Of Service Vulnerability</name><family>Databases</family><cvss_base>3.5</cvss_base><risk_factor>Medium</risk_factor><cve>CVE-2010-2008</cve><bid>41198</bid><tags>cvss_base_vector=AV:N/AC:M/Au:S/C:N/I:N/A:P</tags><cert></cert><xref>NOXREF</xref></nvt><threat>Medium</threat><description>
+  Summary:
+  The host is running MySQL and is prone to Denial Of Service
+  vulnerability.
+
+  Vulnerability Insight:
+  The flaw is due to an error when processing the &apos;ALTER DATABASE&apos; statement and
+  can be exploited to corrupt the MySQL data directory using the &apos;#mysql50#&apos;
+  prefix followed by a &apos;.&apos; or &apos;..&apos;.
+
+  NOTE: Successful exploitation requires &apos;ALTER&apos; privileges on a database.
+  Impact:
+  Successful exploitation could allow an attacker to cause a Denial of Service.
+  Impact Level: Application
+
+  Affected Software/OS:
+  MySQL version priot to 5.1.48 on all running platform.
+
+  Solution:
+  Upgrade to MySQL version 5.1.48
+  For updates refer to http://dev.mysql.com/downloads
+</description><original_threat>Medium</original_threat><notes></notes><overrides></overrides></result><result id="08ab47c6-5eb5-4ccf-b255-36645a59aa04"><detection><result id="1d0cab5c-179f-4420-ae45-c892602f68cc"><details><detail><name>product</name><value>cpe:/a:postgresql:postgresql:8.3.1</value></detail><detail><name>location</name><value>5432/tcp</value></detail><detail><name>source_oid</name><value>1.3.6.1.4.1.25623.1.0.100151</value></detail><detail><name>source_name</name><value>PostgreSQL Detection</value></detail></details></result></detection><subnet>10.211.55.35</subnet><host>10.211.55.35</host><port>postgresql (5432/tcp)</port><nvt oid="1.3.6.1.4.1.25623.1.0.100157"><name>PostgreSQL Conversion Encoding Remote Denial of Service Vulnerability</name><family>Databases</family><cvss_base>4.0</cvss_base><risk_factor>Medium</risk_factor><cve>CVE-2009-0922</cve><bid>34090</bid><tags>cvss_base_vector=AV:N/AC:L/Au:S/C:N/I:N/A:P</tags><cert></cert><xref>NOXREF</xref></nvt><threat>Medium</threat><description>
+
+ Summary:
+ PostgreSQL is prone to a remote denial-of-service vulnerability.
+
+  Exploiting this issue may allow attackers to terminate connections
+  to the PostgreSQL server, denying service to legitimate users.
+ Solution:
+ Updates are available. Update to newer Version.
+</description><original_threat>Medium</original_threat><notes></notes><overrides></overrides></result><result id="0b83f64b-62a9-4704-a8cf-d0f15c6ba013"><detection><result id="1d0cab5c-179f-4420-ae45-c892602f68cc"><details><detail><name>product</name><value>cpe:/a:postgresql:postgresql:8.3.1</value></detail><detail><name>location</name><value>5432/tcp</value></detail><detail><name>source_oid</name><value>1.3.6.1.4.1.25623.1.0.100151</value></detail><detail><name>source_name</name><value>PostgreSQL Detection</value></detail></details></result></detection><subnet>10.211.55.35</subnet><host>10.211.55.35</host><port>postgresql (5432/tcp)</port><nvt oid="1.3.6.1.4.1.25623.1.0.902139"><name>PostgreSQL Hash Table Integer Overflow Vulnerability</name><family>Buffer overflow</family><cvss_base>3.5</cvss_base><risk_factor>Medium</risk_factor><cve>CVE-2010-0733</cve><bid>NOBID</bid><tags>cvss_base_vector=AV:N/AC:M/Au:S/C:N/I:N/A:P</tags><cert></cert><xref>NOXREF</xref></nvt><threat>Medium</threat><description>
+  Summary:
+  The host is running PostgreSQL and is prone to integer overflow
+  vulnerability.
+
+  Vulnerability Insight:
+  The flaw is due to an integer overflow error in &apos;src/backend/executor/nodeHash.c&apos;,
+  when used to calculate size for the hashtable for joined relations.
+
+  Impact:
+  Successful exploitation could allow execution of specially-crafted sql query
+  which once processed would lead to denial of service (postgresql daemon crash).
+  Impact Level: Application
+
+  Affected Software/OS:
+  PostgreSQL version 8.4.1 and prior and 8.5 through 8.5alpha2
+
+  Solution:
+  Apply the patch,
+  http://git.postgresql.org/gitweb?p=postgresql.git;a=commitdiff;h=64b057e6823655fb6c5d1f24a28f236b94dd6c54
+
+  ******
+  NOTE: Please ignore this warning if the patch is applied.
+  ******
+</description><original_threat>Medium</original_threat><notes></notes><overrides></overrides></result><result id="59dadd6c-71d0-4dbf-8bb3-09be2e7bf172"><detection><result id="1d0cab5c-179f-4420-ae45-c892602f68cc"><details><detail><name>product</name><value>cpe:/a:postgresql:postgresql:8.3.1</value></detail><detail><name>location</name><value>5432/tcp</value></detail><detail><name>source_oid</name><value>1.3.6.1.4.1.25623.1.0.100151</value></detail><detail><name>source_name</name><value>PostgreSQL Detection</value></detail></details></result></detection><subnet>10.211.55.35</subnet><host>10.211.55.35</host><port>postgresql (5432/tcp)</port><nvt oid="1.3.6.1.4.1.25623.1.0.100158"><name>PostgreSQL Low Cost Function Information Disclosure Vulnerability</name><family>Databases</family><cvss_base>2.1</cvss_base><risk_factor>Medium</risk_factor><cve>NOCVE</cve><bid>34069</bid><tags>cvss_base_vector=AV:L/AC:L/Au:N/C:P/I:N/A:N</tags><cert></cert><xref>NOXREF</xref></nvt><threat>Medium</threat><description>
+
+ Summary:
+ PostgreSQL is prone to an information-disclosure vulnerability.
+
+  Local attackers can exploit this issue to obtain sensitive
+  information that may lead to further attacks.
+
+  PostgreSQL 8.3.6 is vulnerable; other versions may also be affected.
+</description><original_threat>Medium</original_threat><notes></notes><overrides></overrides></result><result id="51e7147c-3b66-4106-ad10-f8f1b249873d"><subnet>10.211.55.35</subnet><host>10.211.55.35</host><port>scientia-ssdb (2121/tcp)</port><nvt oid="1.3.6.1.4.1.25623.1.0.801640"><name>ProFTPD Denial of Service Vulnerability</name><family>FTP</family><cvss_base>4.0</cvss_base><risk_factor>Medium</risk_factor><cve>CVE-2008-7265</cve><bid>NOBID</bid><tags>cvss_base_vector=AV:N/AC:L/Au:S/C:N/I:N/A:P</tags><cert></cert><xref>NOXREF</xref></nvt><threat>Medium</threat><description>
+
+  Summary:
+  The host is running ProFTPD and is prone to denial of service
+  vulnerability.
+
+  Vulnerability Insight:
+  The flaw is due to an error in &apos;pr_data_xfer()&apos; function which allows
+  remote authenticated users to cause a denial of service (CPU consumption)
+  via an ABOR command during a data transfer.
+
+  Impact:
+  Successful exploitation will allow attackers to cause a denial of service.
+  Impact Level: Application
+
+  Affected Software/OS:
+  ProFTPD versions prior to 1.3.2rc3
+
+  Solution:
+  Upgrade to ProFTPD version 1.3.2rc3 or later,
+  For updates refer to http://www.proftpd.org/
+</description><original_threat>Medium</original_threat><notes></notes><overrides></overrides></result><result id="796c5c26-6a27-4969-8db4-30a7d9150ad0"><subnet>10.211.55.35</subnet><host>10.211.55.35</host><port>shell (514/tcp)</port><nvt oid="1.3.6.1.4.1.25623.1.0.100080"><name>Check for rsh Service</name><family>Useless services</family><cvss_base>0.0</cvss_base><risk_factor>None</risk_factor><cve>NOCVE</cve><bid>NOBID</bid><tags>cvss_base_vector=AV:N/AC:L/Au:N/C:N/I:N/A:N</tags><cert></cert><xref>NOXREF</xref></nvt><threat>Medium</threat><description>
+  
+ Summary:
+ rsh Service is running at this Host.
+   rsh (remote shell) is a command line computer program which can execute
+   shell commands as another user, and on another computer across a computer
+   network.
+
+ Solution:
+ Disable rsh and use ssh instead.
+</description><original_threat>Medium</original_threat><notes></notes><overrides></overrides></result><result id="579bd4bb-bdb6-4211-a75d-db48fd0a5964"><subnet>10.211.55.35</subnet><host>10.211.55.35</host><port>smtp (25/tcp)</port><nvt oid="1.3.6.1.4.1.25623.1.0.100072"><name>Check if Mailserver answer to VRFY and EXPN requests</name><family>SMTP problems</family><cvss_base>5.0</cvss_base><risk_factor>Medium</risk_factor><cve>NOCVE</cve><bid>NOBID</bid><tags>cvss_base_vector=AV:N/AC:L/Au:N/C:N/I:N/A:P</tags><cert></cert><xref>NOXREF</xref></nvt><threat>Medium</threat><description>
+
+ Summary:
+ The Mailserver on this host answers to VRFY and/or EXPN requests.
+  VRFY and EXPN ask the server for information about an address. They are
+  inherently unusable through firewalls, gateways, mail exchangers for part-time
+  hosts, etc. OpenVAS suggests that, if you really want to publish this type of
+  information, you use a mechanism that legitimate users actually know about,
+  such as Finger or HTTP.
+
+ Solution:
+ Disable VRFY and/or EXPN on your Mailserver. 
+  For postfix add &apos;disable_vrfy_command=yes&apos; in &apos;main.cf&apos;. 
+  For Sendmail add the option &apos;O PrivacyOptions=goaway&apos;.
+
+Details:
+
+&apos;VRFY root&apos; produces the following answer: 252 2.0.0 root 
+
+
+</description><original_threat>Medium</original_threat><notes></notes><overrides></overrides></result><result id="d2b7ab4c-dc62-40b2-bee2-20450b6c9148"><subnet>10.211.55.35</subnet><host>10.211.55.35</host><port>ssh (22/tcp)</port><nvt oid="1.3.6.1.4.1.25623.1.0.103503"><name>openssh-server Forced Command Handling Information Disclosure Vulnerability</name><family>General</family><cvss_base>3.5</cvss_base><risk_factor>Medium</risk_factor><cve>CVE-2012-0814</cve><bid>51702</bid><tags>cvss_base_vector=AV:N/AC:M/Au:S/C:P/I:N/A:N</tags><cert><cert_ref id="DFN-CERT-2013-0991" type="DFN-CERT"></cert_ref></cert><xref>NOXREF</xref></nvt><threat>Medium</threat><description>According to its banner, the version of OpenSSH installed on the remote
+host is older than 5.7:
+ ssh-2.0-openssh_4.7p1 debian-8ubuntu1
+
+
+ Summary:
+ The auth_parse_options function in auth-options.c in sshd in OpenSSH before 5.7
+provides debug messages containing authorized_keys command options, which allows
+remote authenticated users to obtain potentially sensitive information by
+reading these messages, as demonstrated by the shared user account required by
+Gitolite. NOTE: this can cross privilege boundaries because a user account may
+intentionally have no shell or filesystem access, and therefore may have no
+supported way to read an authorized_keys file in its own home directory.
+
+OpenSSH before 5.7 is affected;
+ Solution:
+ Updates are available. Please see the references for more information.
+</description><original_threat>Medium</original_threat><notes></notes><overrides></overrides></result><result id="7ef4ee9b-8ba1-417c-a888-f10eb60e44c4"><subnet>10.211.55.35</subnet><host>10.211.55.35</host><port>domain (53/tcp)</port><nvt oid="1.3.6.1.4.1.25623.1.0.10028"><name>Determine which version of BIND name daemon is running</name><family>General</family><cvss_base>5.0</cvss_base><risk_factor>Medium</risk_factor><cve>NOCVE</cve><bid>NOBID</bid><tags>cvss_base_vector=AV:N/AC:L/Au:N/C:P/I:N/A:N</tags><cert></cert><xref>NOXREF</xref></nvt><threat>Low</threat><description>BIND &apos;NAMED&apos; is an open-source DNS server from ISC.org.
+Many proprietary DNS servers are based on BIND source code.
+
+The BIND based NAMED servers (or DNS servers) allow remote users
+to query for version and type information.  The query of the CHAOS
+TXT record &apos;version.bind&apos;, will typically prompt the server to send
+the information back to the querying source.
+
+The remote bind version is : 9.4.2
+
+Solution :
+Using the &apos;version&apos; directive in the &apos;options&apos; section will block
+the &apos;version.bind&apos; query, but it will not log such attempts.
+
+</description><original_threat>Low</original_threat><notes></notes><overrides></overrides></result><result id="2f1128fd-3f82-49c5-903b-24618467ac79"><subnet>10.211.55.35</subnet><host>10.211.55.35</host><port>general/icmp</port><nvt oid="1.3.6.1.4.1.25623.1.0.12264"><name>Record route</name><family>General</family><cvss_base></cvss_base><risk_factor>None</risk_factor><cve>NOCVE</cve><bid>NOBID</bid><tags>cvss_base_vector=AV:N/AC:L/Au:N/C:N/I:N/A:N|cvss_ba</tags><cert></cert><xref>NOXREF</xref></nvt><threat>Low</threat><description>Here is the route recorded between 10.211.55.44 and 10.211.55.35 :
+10.211.55.35.
+10.211.55.35.
+
+</description><original_threat>Low</original_threat><notes></notes><overrides></overrides></result><result id="8aa9037b-e0f9-4346-ab18-aa0f955badc7"><subnet>10.211.55.35</subnet><host>10.211.55.35</host><port>general/tcp</port><nvt oid="1.3.6.1.4.1.25623.1.0.900815"><name>ProFTPD Server Remote Version Detection</name><family>FTP</family><cvss_base>0.0</cvss_base><risk_factor>None</risk_factor><cve>NOCVE</cve><bid>NOBID</bid><tags>cvss_base_vector=AV:N/AC:L/Au:N/C:N/I:N/A:N</tags><cert></cert><xref>NOXREF</xref></nvt><threat>Low</threat><description>ProFTPD version 1.3.1 was detected on the host
+</description><original_threat>Low</original_threat><notes></notes><overrides></overrides></result><result id="aeb24fa9-ecba-4437-95de-df77969f4e21"><subnet>10.211.55.35</subnet><host>10.211.55.35</host><port>msgsrvr (8787/tcp)</port><nvt oid="1.3.6.1.4.1.25623.1.0.11154"><name>Unknown services banners</name><family>Service detection</family><cvss_base>0.0</cvss_base><risk_factor>None</risk_factor><cve>NOCVE</cve><bid>NOBID</bid><tags>cvss_base_vector=AV:N/AC:L/Au:N/C:N/I:N/A:N</tags><cert></cert><xref>NOXREF</xref></nvt><threat>Low</threat><description>An unknown server is running on this port.
+If you know what it is, please send this banner to the OpenVAS team:
+0x0000:  00 00 00 03 04 08 46 00 00 03 A1 04 08 6F 3A 16    ......F......o:.
+0x0010:  44 52 62 3A 3A 44 52 62 43 6F 6E 6E 45 72 72 6F    DRb::DRbConnErro
+0x0020:  72 07 3A 07 62 74 5B 17 22 2F 2F 75 73 72 2F 6C    r.:.bt[.&quot;//usr/l
+0x0030:  69 62 2F 72 75 62 79 2F 31 2E 38 2F 64 72 62 2F    ib/ruby/1.8/drb/
+0x0040:  64 72 62 2E 72 62 3A 35 37 33 3A 69 6E 20 60 6C    drb.rb:573:in `l
+0x0050:  6F 61 64 27 22 37 2F 75 73 72 2F 6C 69 62 2F 72    oad&apos;&quot;7/usr/lib/r
+0x0060:  75 62 79 2F 31 2E 38 2F 64 72 62 2F 64 72 62 2E    uby/1.8/drb/drb.
+0x0070:  72 62 3A 36 31 32 3A 69 6E 20 60 72 65 63 76 5F    rb:612:in `recv_
+0x0080:  72 65 71 75 65 73 74 27 22 37 2F 75 73 72 2F 6C    request&apos;&quot;7/usr/l
+0x0090:  69 62 2F 72 75 62 79 2F 31 2E 38 2F 64 72 62 2F    ib/ruby/1.8/drb/
+0x00A0:  64 72 62 2E 72 62 3A 39 31 31 3A 69 6E 20 60 72    drb.rb:911:in `r
+0x00B0:  65 63 76 5F 72 65 71 75 65 73 74 27 22 3C 2F 75    ecv_request&apos;&quot;&lt;/u
+0x00C0:  73 72 2F 6C 69 62 2F 72 75 62 79 2F 31 2E 38 2F    sr/lib/ruby/1.8/
+0x00D0:  64 72 62 2F 64 72 62 2E 72 62 3A 31 35 33 30 3A    drb/drb.rb:1530:
+0x00E0:  69 6E 20 60 69 6E 69 74 5F 77 69 74 68 5F 63 6C    in `init_with_cl
+0x00F0:  69 65 6E 74 27 22 39 2F 75 73 72 2F 6C 69 62 2F    ient&apos;&quot;9/usr/lib/
+0x0100:  72 75 62 79 2F 31 2E 38 2F 64 72 62 2F 64 72 62    ruby/1.8/drb/drb
+0x0110:  2E 72 62 3A 31 35 34 32 3A 69 6E 20 60 73 65 74    .rb:1542:in `set
+0x0120:  75 70 5F 6D 65 73 73 61 67 65 27 22 33 2F 75 73    up_message&apos;&quot;3/us
+0x0130:  72 2F 6C 69 62 2F 72 75 62 79 2F 31 2E 38 2F 64    r/lib/ruby/1.8/d
+0x0140:  72 62 2F 64 72 62 2E 72 62 3A 31 34 39 34 3A 69    rb/drb.rb:1494:i
+0x0150:  6E 20 60 70 65 72 66 6F 72 6D 27 22 35 2F 75 73    n `perform&apos;&quot;5/us
+0x0160:  72 2F 6C 69 62 2F 72 75 62 79 2F 31 2E 38 2F 64    r/lib/ruby/1.8/d
+0x0170:  72 62 2F 64 72 62 2E 72 62 3A 31 35 38 39 3A 69    rb/drb.rb:1589:i
+0x0180:  6E 20 60 6D 61 69 6E 5F 6C 6F 6F 70 27 22 30 2F    n `main_loop&apos;&quot;0/
+0x0190:  75 73 72 2F 6C 69 62 2F 72 75 62 79 2F 31 2E 38    usr/lib/ruby/1.8
+0x01A0:  2F 64 72 62 2F 64 72 62 2E 72 62 3A 31 35 38 35    /drb/drb.rb:1585
+0x01B0:  3A 69 6E 20 60 6C 6F 6F 70 27 22 35 2F 75 73 72    :in `loop&apos;&quot;5/usr
+0x01C0:  2F 6C 69 62 2F 72 75 62 79 2F 31 2E 38 2F 64 72    /lib/ruby/1.8/dr
+0x01D0:  62 2F 64 72 62 2E 72 62 3A 31 35 38 35 3A 69 6E    b/drb.rb:1585:in
+0x01E0:  20 60 6D 61 69 6E 5F 6C 6F 6F 70 27 22 31 2F 75     `main_loop&apos;&quot;1/u
+0x01F0:  73 72 2F 6C 69 62 2F 72 75 62 79 2F 31 2E 38 2F    sr/lib/ruby/1.8/
+0x0200:  64 72 62 2F 64 72 62 2E 72 62 3A 31 35 38 31 3A    drb/drb.rb:1581:
+0x0210:  69 6E 20 60 73 74 61 72 74 27 22 35 2F 75 73 72    in `start&apos;&quot;5/usr
+0x0220:  2F 6C 69 62 2F 72 75 62 79 2F 31 2E 38 2F 64 72    /lib/ruby/1.8/dr
+0x0230:  62 2F 64 72 62 2E 72 62 3A 31 35 38 31 3A 69 6E    b/drb.rb:1581:in
+0x0240:  20 60 6D 61 69 6E 5F 6C 6F 6F 70 27 22 2F 2F 75     `main_loop&apos;&quot;//u
+0x0250:  73 72 2F 6C 69 62 2F 72 75 62 79 2F 31 2E 38 2F    sr/lib/ruby/1.8/
+0x0260:  64 72 62 2F 64 72 62 2E 72 62 3A 31 34 33 30 3A    drb/drb.rb:1430:
+0x0270:  69 6E 20 60 72 75 6E 27 22 31 2F 75 73 72 2F 6C    in `run&apos;&quot;1/usr/l
+0x0280:  69 62 2F 72 75 62 79 2F 31 2E 38 2F 64 72 62 2F    ib/ruby/1.8/drb/
+0x0290:  64 72 62 2E 72 62 3A 31 34 32 37 3A 69 6E 20 60    drb.rb:1427:in `
+0x02A0:  73 74 61 72 74 27 22 2F 2F 75 73 72 2F 6C 69 62    start&apos;&quot;//usr/lib
+0x02B0:  2F 72 75 62 79 2F 31 2E 38 2F 64 72 62 2F 64 72    /ruby/1.8/drb/dr
+0x02C0:  62 2E 72 62 3A 31 34 32 37 3A 69 6E 20 60 72 75    b.rb:1427:in `ru
+0x02D0:  6E 27 22 36 2F 75 73 72 2F 6C 69 62 2F 72 75 62    n&apos;&quot;6/usr/lib/rub
+0x02E0:  79 2F 31 2E 38 2F 64 72 62 2F 64 72 62 2E 72 62    y/1.8/drb/drb.rb
+0x02F0:  3A 31 33 34 37 3A 69 6E 20 60 69 6E 69 74 69 61    :1347:in `initia
+0x0300:  6C 69 7A 65 27 22 2F 2F 75 73 72 2F 6C 69 62 2F    lize&apos;&quot;//usr/lib/
+0x0310:  72 75 62 79 2F 31 2E 38 2F 64 72 62 2F 64 72 62    ruby/1.8/drb/drb
+0x0320:  2E 72 62 3A 31 36 32 37 3A 69 6E 20 60 6E 65 77    .rb:1627:in `new
+0x0330:  27 22 39 2F 75 73 72 2F 6C 69 62 2F 72 75 62 79    &apos;&quot;9/usr/lib/ruby
+0x0340:  2F 31 2E 38 2F 64 72 62 2F 64 72 62 2E 72 62 3A    /1.8/drb/drb.rb:
+0x0350:  31 36 32 37 3A 69 6E 20 60 73 74 61 72 74 5F 73    1627:in `start_s
+0x0360:  65 72 76 69 63 65 27 22 25 2F 75 73 72 2F 73 62    ervice&apos;&quot;%/usr/sb
+0x0370:  69 6E 2F 64 72 75 62 79 5F 74 69 6D 65 73 65 72    in/druby_timeser
+0x0380:  76 65 72 2E 72 62 3A 31 32 3A 09 6D 65 73 67 22    ver.rb:12:.mesg&quot;
+0x0390:  20 74 6F 6F 20 6C 61 72 67 65 20 70 61 63 6B 65     too large packe
+0x03A0:  74 20 31 32 31 32 35 30 31 30 37 32                t 1212501072    
+
+</description><original_threat>Low</original_threat><notes></notes><overrides></overrides></result><result id="8104cf8e-16b4-4f97-85d7-b4675ea059dc"><subnet>10.211.55.35</subnet><host>10.211.55.35</host><port>smtp (25/tcp)</port><nvt oid="1.3.6.1.4.1.25623.1.0.11270"><name>SMTP too long line</name><family>SMTP problems</family><cvss_base>7.5</cvss_base><risk_factor>High</risk_factor><cve>NOCVE</cve><bid>NOBID</bid><tags>cvss_base_vector=AV:N/AC:L/Au:N/C:P/I:P/A:P</tags><cert></cert><xref>NOXREF</xref></nvt><threat>Low</threat><description>
+ Summary:
+ Some antivirus scanners dies when they process an email with a 
+too long string without line breaks.
+Such a message was sent. If there is an antivirus on your MTA,
+it might have crashed. Please check its status right now, as 
+it is not possible to do it remotely
+</description><original_threat>Low</original_threat><notes></notes><overrides></overrides></result><result id="a4ebe355-1896-48e5-b435-42187f6420ea"><subnet>10.211.55.35</subnet><host>10.211.55.35</host><port>telnet (23/tcp)</port><nvt oid="1.3.6.1.4.1.25623.1.0.100074"><name>Check for Telnet Server</name><family>General</family><cvss_base>0.0</cvss_base><risk_factor>None</risk_factor><cve>NOCVE</cve><bid>NOBID</bid><tags>cvss_base_vector=AV:N/AC:L/Au:N/C:N/I:N/A:N</tags><cert></cert><xref>NOXREF</xref></nvt><threat>Low</threat><description>
+ Summary:
+ A telnet Server is running at this host.
+
+   Experts in computer security, such as SANS Institute, and the members of the
+   comp.os.linux.security newsgroup recommend that the use of Telnet for remote
+   logins should be discontinued under all normal circumstances, for the following
+   reasons:
+
+   * Telnet, by default, does not encrypt any data sent over the connection
+     (including passwords), and so it is often practical to eavesdrop on the
+     communications and use the password later for malicious purposes; anybody who
+     has access to a router, switch, hub or gateway located on the network between
+     the two hosts where Telnet is being used can intercept the packets passing by
+     and obtain login and password information (and whatever else is typed) with any
+     of several common utilities like tcpdump and Wireshark.
+    
+   * Most implementations of Telnet have no authentication that would ensure
+     communication is carried out between the two desired hosts and not intercepted
+     in the middle.
+
+   * Commonly used Telnet daemons have several vulnerabilities discovered over
+     the years.
+</description><original_threat>Low</original_threat><notes></notes><overrides></overrides></result><result id="c51bb726-9268-43ba-adc2-e9e516bf8616"><subnet>10.211.55.35</subnet><host>10.211.55.35</host><port>tftp (69/udp)</port><nvt oid="1.3.6.1.4.1.25623.1.0.80100"><name>TFTP detection</name><family>Service detection</family><cvss_base>0.0</cvss_base><risk_factor>None</risk_factor><cve>NOCVE</cve><bid>NOBID</bid><tags>cvss_base_vector=AV:N/AC:L/Au:N/C:N/I:N/A:N</tags><cert></cert><xref>NOXREF</xref></nvt><threat>Low</threat><description>
+ Summary:
+ The remote host has TFTP server running.
+
+Description :
+
+The remote host has TFTP server running. TFTP stands 
+for Trivial File Transfer Protocol.
+ Solution:
+ Disable TFTP server if not used.
+</description><original_threat>Low</original_threat><notes></notes><overrides></overrides></result><result id="5cbcfc8b-9c79-46f7-b801-23654fac61f3"><subnet>10.211.55.35</subnet><host>10.211.55.35</host><port>vnc (5900/tcp)</port><nvt oid="1.3.6.1.4.1.25623.1.0.19288"><name>VNC security types</name><family>Service detection</family><cvss_base>5.0</cvss_base><risk_factor>Medium</risk_factor><cve>NOCVE</cve><bid>NOBID</bid><tags>cvss_base_vector=AV:N/AC:L/Au:N/C:P/I:N/A:N</tags><cert></cert><xref>NOXREF</xref></nvt><threat>Low</threat><description>The remote VNC server chose security type #2 (VNC authentication)
+</description><original_threat>Low</original_threat><notes></notes><overrides></overrides></result><result id="850e93fe-c18b-4405-a8a4-1aeed9c41ad1"><subnet>10.211.55.35</subnet><host>10.211.55.35</host><port>vnc (5900/tcp)</port><nvt oid="1.3.6.1.4.1.25623.1.0.10342"><name>Check for VNC</name><family>Service detection</family><cvss_base>0.0</cvss_base><risk_factor>None</risk_factor><cve>NOCVE</cve><bid>NOBID</bid><tags>cvss_base_vector=AV:N/AC:L/Au:N/C:N/I:N/A:N</tags><cert></cert><xref>NOXREF</xref></nvt><threat>Low</threat><description>
+ Summary:
+ The remote host is running a remote display software (VNC)
+
+Description :
+
+The remote server is running VNC, a software which permits a 
+console to be displayed remotely.
+
+This allows authenticated users of the remote host to take its 
+control remotely.
+ Solution:
+ Make sure the use of this software is done in accordance with your
+corporate security policy, filter incoming traffic to this port.
+
+Plugin output :
+The version of the VNC protocol is : RFB 003.003
+
+</description><original_threat>Low</original_threat><notes></notes><overrides></overrides></result><result id="81288cb3-e72f-4999-8377-6e9aff787e51"><subnet>10.211.55.35</subnet><host>10.211.55.35</host><port>ajp13 (8009/tcp)</port><nvt oid="0"><name></name><family></family><cvss_base></cvss_base><risk_factor></risk_factor><cve></cve><bid></bid><tags></tags><cert></cert><xref></xref></nvt><threat>Log</threat><description>Open port.</description><original_threat>Log</original_threat><notes></notes><overrides></overrides></result><result id="a1da92f5-4240-4398-90d9-2316599a452c"><subnet>10.211.55.35</subnet><host>10.211.55.35</host><port>ajp13 (8009/tcp)</port><nvt oid="1.3.6.1.4.1.25623.1.0.66286"><name>Identify unknown services with nmap</name><family>Service detection</family><cvss_base>0.0</cvss_base><risk_factor>None</risk_factor><cve>NOCVE</cve><bid>NOBID</bid><tags>cvss_base_vector=AV:N/AC:L/Au:N/C:N/I:N/A:N</tags><cert></cert><xref>NOXREF</xref></nvt><threat>Log</threat><description>Nmap service detection result for this port: ajp13
+</description><original_threat>Log</original_threat><notes></notes><overrides></overrides></result><result id="e7044b90-c107-48c2-bcbe-2f592c7d0826"><subnet>10.211.55.35</subnet><host>10.211.55.35</host><port>distcc (3632/tcp)</port><nvt oid="0"><name></name><family></family><cvss_base></cvss_base><risk_factor></risk_factor><cve></cve><bid></bid><tags></tags><cert></cert><xref></xref></nvt><threat>Log</threat><description>Open port.</description><original_threat>Log</original_threat><notes></notes><overrides></overrides></result><result id="d7396694-1f9b-4fd9-9faf-911bf574bce3"><subnet>10.211.55.35</subnet><host>10.211.55.35</host><port>distcc (3632/tcp)</port><nvt oid="1.3.6.1.4.1.25623.1.0.66286"><name>Identify unknown services with nmap</name><family>Service detection</family><cvss_base>0.0</cvss_base><risk_factor>None</risk_factor><cve>NOCVE</cve><bid>NOBID</bid><tags>cvss_base_vector=AV:N/AC:L/Au:N/C:N/I:N/A:N</tags><cert></cert><xref>NOXREF</xref></nvt><threat>Log</threat><description>Nmap service detection result for this port: distccd
+</description><original_threat>Log</original_threat><notes></notes><overrides></overrides></result><result id="abc24d1c-9cf0-45e2-99de-7b0a02c2e785"><subnet>10.211.55.35</subnet><host>10.211.55.35</host><port>domain (53/tcp)</port><nvt oid="0"><name></name><family></family><cvss_base></cvss_base><risk_factor></risk_factor><cve></cve><bid></bid><tags></tags><cert></cert><xref></xref></nvt><threat>Log</threat><description>Open port.</description><original_threat>Log</original_threat><notes></notes><overrides></overrides></result><result id="fdbad7d2-a43a-46fe-aacd-ac2e47e4b903"><subnet>10.211.55.35</subnet><host>10.211.55.35</host><port>domain (53/tcp)</port><nvt oid="1.3.6.1.4.1.25623.1.0.100069"><name>DNS Server Detection</name><family>Service detection</family><cvss_base>0.0</cvss_base><risk_factor>None</risk_factor><cve>NOCVE</cve><bid>NOBID</bid><tags>cvss_base_vector=AV:N/AC:L/Au:N/C:N/I:N/A:N</tags><cert></cert><xref>NOXREF</xref></nvt><threat>Log</threat><description>
+ Summary:
+ A DNS Server is running at this Host.
+A Name Server translates domain names into IP addresses. This makes it
+possible for a user to access a website by typing in the domain name instead of
+the website&apos;s actual IP address.
+</description><original_threat>Log</original_threat><notes></notes><overrides></overrides></result><result id="ed12a197-a1f7-4ade-bb25-0b571b54b42f"><subnet>10.211.55.35</subnet><host>10.211.55.35</host><port>domain (53/udp)</port><nvt oid="1.3.6.1.4.1.25623.1.0.100069"><name>DNS Server Detection</name><family>Service detection</family><cvss_base>0.0</cvss_base><risk_factor>None</risk_factor><cve>NOCVE</cve><bid>NOBID</bid><tags>cvss_base_vector=AV:N/AC:L/Au:N/C:N/I:N/A:N</tags><cert></cert><xref>NOXREF</xref></nvt><threat>Log</threat><description>
+ Summary:
+ A DNS Server is running at this Host.
+A Name Server translates domain names into IP addresses. This makes it
+possible for a user to access a website by typing in the domain name instead of
+the website&apos;s actual IP address.
+</description><original_threat>Log</original_threat><notes></notes><overrides></overrides></result><result id="22a662a6-2fcb-4932-b2da-548075b60292"><subnet>10.211.55.35</subnet><host>10.211.55.35</host><port>exec (512/tcp)</port><nvt oid="0"><name></name><family></family><cvss_base></cvss_base><risk_factor></risk_factor><cve></cve><bid></bid><tags></tags><cert></cert><xref></xref></nvt><threat>Log</threat><description>Open port.</description><original_threat>Log</original_threat><notes></notes><overrides></overrides></result><result id="c3bbe863-8022-41d5-b3ea-093e6a891485"><subnet>10.211.55.35</subnet><host>10.211.55.35</host><port>ftp (21/tcp)</port><nvt oid="1.3.6.1.4.1.25623.1.0.10092"><name>FTP Server type and version</name><family>General</family><cvss_base>1.9</cvss_base><risk_factor>Low</risk_factor><cve>NOCVE</cve><bid>NOBID</bid><tags>cvss_base_vector=AV:L/AC:M/Au:N/C:N/I:N/A:P</tags><cert></cert><xref>NOXREF</xref></nvt><threat>Log</threat><description>Remote FTP server banner :
+220 (vsFTPd 2.3.4) 
+</description><original_threat>Log</original_threat><notes></notes><overrides></overrides></result><result id="53fab10b-4881-4e4d-874d-6729ed421b23"><subnet>10.211.55.35</subnet><host>10.211.55.35</host><port>ftp (21/tcp)</port><nvt oid="0"><name></name><family></family><cvss_base></cvss_base><risk_factor></risk_factor><cve></cve><bid></bid><tags></tags><cert></cert><xref></xref></nvt><threat>Log</threat><description>Open port.</description><original_threat>Log</original_threat><notes></notes><overrides></overrides></result><result id="feda9174-8ddc-4beb-9772-f1dc2d162404"><subnet>10.211.55.35</subnet><host>10.211.55.35</host><port>ftp (21/tcp)</port><nvt oid="1.3.6.1.4.1.25623.1.0.10330"><name>Services</name><family>Service detection</family><cvss_base>0.0</cvss_base><risk_factor>None</risk_factor><cve>NOCVE</cve><bid>NOBID</bid><tags>cvss_base_vector=AV:N/AC:L/Au:N/C:N/I:N/A:N</tags><cert></cert><xref>NOXREF</xref></nvt><threat>Log</threat><description>An FTP server is running on this port.
+Here is its banner : 
+220 (vsFTPd 2.3.4) 
+</description><original_threat>Log</original_threat><notes></notes><overrides></overrides></result><result id="b0c2a025-6ff0-4068-ab1d-ff3d0d73c78a"><subnet>10.211.55.35</subnet><host>10.211.55.35</host><port>general/CPE-T</port><nvt oid="1.3.6.1.4.1.25623.1.0.810002"><name>CPE Inventory</name><family>Service detection</family><cvss_base>0.0</cvss_base><risk_factor>None</risk_factor><cve>NOCVE</cve><bid>NOBID</bid><tags>cvss_base_vector=AV:N/AC:L/Au:N/C:N/I:N/A:N</tags><cert></cert><xref>NOXREF</xref></nvt><threat>Log</threat><description>10.211.55.35|cpe:/a:apache:http_server:2.2.8
+10.211.55.35|cpe:/a:php:php:5.2.4
+10.211.55.35|cpe:/a:samba:samba:3.0.20
+10.211.55.35|cpe:/a:openbsd:openssh:4.7p1
+10.211.55.35|cpe:/a:phpmyadmin:phpmyadmin
+10.211.55.35|cpe:/a:tikiwiki:tikiwiki:1.9.5
+10.211.55.35|cpe:/a:postfix:postfix
+10.211.55.35|cpe:/a:x.org:x11:11.0
+10.211.55.35|cpe:/a:mysql:mysql:5.0.51a
+10.211.55.35|cpe:/a:postgresql:postgresql:8.3.1
+10.211.55.35|cpe:/a:proftpd:proftpd:1.3.1
+10.211.55.35|cpe:/o:canonical:ubuntu_linux
+
+</description><original_threat>Log</original_threat><notes></notes><overrides></overrides></result><result id="b23520b7-7515-4263-bfb8-c56a7584514c"><subnet>10.211.55.35</subnet><host>10.211.55.35</host><port>general/HOST-T</port><nvt oid="1.3.6.1.4.1.25623.1.0.810003"><name>Host Summary</name><family>General</family><cvss_base>0.0</cvss_base><risk_factor>None</risk_factor><cve>NOCVE</cve><bid>NOBID</bid><tags>cvss_base_vector=AV:N/AC:L/Au:N/C:N/I:N/A:N</tags><cert></cert><xref>NOXREF</xref></nvt><threat>Log</threat><description>traceroute:10.211.55.44,10.211.55.35
+TCP ports:445,3632,5900,8009,8787,21,111,6667,22,23,512,2049,513,6000,25,514,1099,139,2121,3306,53,1524,5432,80
+UDP ports:
+
+</description><original_threat>Log</original_threat><notes></notes><overrides></overrides></result><result id="9e2538a8-36e9-4ff1-be68-1f8f63c6b809"><subnet>10.211.55.35</subnet><host>10.211.55.35</host><port>general/SMBClient</port><nvt oid="1.3.6.1.4.1.25623.1.0.90011"><name>SMB Test</name><family>Windows</family><cvss_base>0.0</cvss_base><risk_factor>None</risk_factor><cve>NOCVE</cve><bid>NOBID</bid><tags>cvss_base_vector=AV:N/AC:L/Au:N/C:N/I:N/A:N</tags><cert></cert><xref>NOXREF</xref></nvt><threat>Log</threat><description>The tool &quot;smbclient&quot; is not available for openvasd.
+Therefore none of the tests using smbclient are executed.
+</description><original_threat>Log</original_threat><notes></notes><overrides></overrides></result><result id="2b3f44eb-43fd-440a-8d2d-e9ecce6226da"><subnet>10.211.55.35</subnet><host>10.211.55.35</host><port>general/icmp</port><nvt oid="1.3.6.1.4.1.25623.1.0.103190"><name>ICMP Timestamp Detection</name><family>Service detection</family><cvss_base>0.0</cvss_base><risk_factor>None</risk_factor><cve>CVE-1999-0524</cve><bid>NOBID</bid><tags>cvss_base_vector=AV:L/AC:L/Au:N/C:N/I:N/A:N</tags><cert></cert><xref>NOXREF</xref></nvt><threat>Log</threat><description>
+ Summary:
+ The remote host responded to an ICMP timestamp request. The Timestamp Reply is
+an ICMP message which replies to a Timestamp message. It consists of the
+originating timestamp sent by the sender of the Timestamp as well as a receive
+timestamp and a transmit timestamp. This information could theoretically be used
+to exploit weak time-based random number generators in other services.
+</description><original_threat>Log</original_threat><notes></notes><overrides></overrides></result><result id="8d3be82d-9e29-4933-9c8e-7ddde5602658"><subnet>10.211.55.35</subnet><host>10.211.55.35</host><port>general/tcp</port><nvt oid="1.3.6.1.4.1.25623.1.0.80103"><name>3com switch2hub</name><family>Denial of Service</family><cvss_base>7.8</cvss_base><risk_factor>High</risk_factor><cve>NOCVE</cve><bid>NOBID</bid><tags>cvss_base_vector=AV:N/AC:L/Au:N/C:N/I:N/A:C</tags><cert></cert><xref>NOXREF</xref></nvt><threat>Log</threat><description>Fake IP address not specified. Skipping this check. 
+</description><original_threat>Log</original_threat><notes></notes><overrides></overrides></result><result id="ec711cd0-75af-4807-9573-332f7f355955"><subnet>10.211.55.35</subnet><host>10.211.55.35</host><port>general/tcp</port><nvt oid="1.3.6.1.4.1.25623.1.0.102002"><name>OS fingerprinting</name><family>Product detection</family><cvss_base>0.0</cvss_base><risk_factor>None</risk_factor><cve>NOCVE</cve><bid>NOBID</bid><tags>cvss_base_vector=AV:N/AC:L/Au:N/C:N/I:N/A:N</tags><cert></cert><xref>NOXREF</xref></nvt><threat>Log</threat><description>ICMP based OS fingerprint results: (91% confidence)
+
+Linux Kernel
+</description><original_threat>Log</original_threat><notes></notes><overrides></overrides></result><result id="972b4873-9382-414c-aca6-e8d4041cf987"><subnet>10.211.55.35</subnet><host>10.211.55.35</host><port>general/tcp</port><nvt oid="1.3.6.1.4.1.25623.1.0.103079"><name>DIRB (NASL wrapper)</name><family>Web application abuses</family><cvss_base>0.0</cvss_base><risk_factor>None</risk_factor><cve>NOCVE</cve><bid>NOBID</bid><tags>cvss_base_vector=AV:N/AC:L/Au:N/C:N/I:N/A:N</tags><cert></cert><xref>NOXREF</xref></nvt><threat>Log</threat><description>DIRB could not be found in your system path.
+OpenVAS was unable to execute DIRB and to perform the scan you
+requested.
+Please make sure that DIRB is installed and is
+available in the PATH variable defined for your environment.
+</description><original_threat>Log</original_threat><notes></notes><overrides></overrides></result><result id="576abade-e125-4afa-919d-dadb1b3924ad"><subnet>10.211.55.35</subnet><host>10.211.55.35</host><port>general/tcp</port><nvt oid="1.3.6.1.4.1.25623.1.0.103978"><name>Checks for open udp ports</name><family>General</family><cvss_base>0.0</cvss_base><risk_factor>None</risk_factor><cve>NOCVE</cve><bid>NOBID</bid><tags>cvss_base_vector=AV:N/AC:L/Au:N/C:N/I:N/A:N</tags><cert></cert><xref>NOXREF</xref></nvt><threat>Log</threat><description>Open UDP ports: [None found]
+</description><original_threat>Log</original_threat><notes></notes><overrides></overrides></result><result id="8d08106e-d6a6-49ad-b087-064f02f38f95"><subnet>10.211.55.35</subnet><host>10.211.55.35</host><port>general/tcp</port><nvt oid="1.3.6.1.4.1.25623.1.0.110001"><name>arachni (NASL wrapper)</name><family>Web application abuses</family><cvss_base>0.0</cvss_base><risk_factor>None</risk_factor><cve>NOCVE</cve><bid>NOBID</bid><tags>cvss_base_vector=AV:N/AC:L/Au:N/C:N/I:N/A:N</tags><cert></cert><xref>NOXREF</xref></nvt><threat>Log</threat><description>Arachni could not be found in your system path.
+OpenVAS was unable to execute Arachni and to perform the scan you
+requested.
+Please make sure that Arachni is installed and that arachni is
+available in the PATH variable defined for your environment.
+</description><original_threat>Log</original_threat><notes></notes><overrides></overrides></result><result id="4de8dd5b-7705-47b2-afe5-d6002a140124"><subnet>10.211.55.35</subnet><host>10.211.55.35</host><port>general/tcp</port><nvt oid="1.3.6.1.4.1.25623.1.0.14260"><name>Nikto (NASL wrapper)</name><family>Web application abuses</family><cvss_base>0.0</cvss_base><risk_factor>None</risk_factor><cve>NOCVE</cve><bid>NOBID</bid><tags>cvss_base_vector=AV:N/AC:L/Au:N/C:N/I:N/A:N</tags><cert></cert><xref>NOXREF</xref></nvt><threat>Log</threat><description>Nikto could not be found in your system path.
+OpenVAS was unable to execute Nikto and to perform the scan you
+requested.
+Please make sure that Nikto is installed and that nikto.pl or nikto is
+available in the PATH variable defined for your environment.
+</description><original_threat>Log</original_threat><notes></notes><overrides></overrides></result><result id="b9caa823-5261-42fc-a979-e7b01531087b"><subnet>10.211.55.35</subnet><host>10.211.55.35</host><port>general/tcp</port><nvt oid="1.3.6.1.4.1.25623.1.0.51662"><name>Traceroute</name><family>General</family><cvss_base>0.0</cvss_base><risk_factor>None</risk_factor><cve>NOCVE</cve><bid>NOBID</bid><tags>cvss_base_vector=AV:N/AC:L/Au:N/C:N/I:N/A:N</tags><cert></cert><xref>NOXREF</xref></nvt><threat>Log</threat><description>Here is the route from 10.211.55.44 to 10.211.55.35:
+
+10.211.55.44
+10.211.55.35
+
+</description><original_threat>Log</original_threat><notes></notes><overrides></overrides></result><result id="2252bd98-af26-4fd0-9881-b615f75c2ce3"><subnet>10.211.55.35</subnet><host>10.211.55.35</host><port>general/tcp</port><nvt oid="1.3.6.1.4.1.25623.1.0.800399"><name>TWiki Version Detection</name><family>Service detection</family><cvss_base>0.0</cvss_base><risk_factor>None</risk_factor><cve>NOCVE</cve><bid>NOBID</bid><tags>cvss_base_vector=AV:N/AC:L/Au:N/C:N/I:N/A:N</tags><cert></cert><xref>NOXREF</xref></nvt><threat>Log</threat><description>Detected TWiki version: unknown
+Location: /twiki
+CPE: 
+
+Concluded from version identification result:
+
+</description><original_threat>Log</original_threat><notes></notes><overrides></overrides></result><result id="e184d34b-b7d4-4a00-a955-09168084721c"><subnet>10.211.55.35</subnet><host>10.211.55.35</host><port>general/tcp</port><nvt oid="1.3.6.1.4.1.25623.1.0.802726"><name>Microsoft SMB Signing Disabled</name><family>Windows</family><cvss_base>0.0</cvss_base><risk_factor>None</risk_factor><cve>NOCVE</cve><bid>NOBID</bid><tags>cvss_base_vector=AV:N/AC:L/Au:N/C:N/I:N/A:N</tags><cert></cert><xref>NOXREF</xref></nvt><threat>Log</threat><description>SMB signing is disabled on this host
+</description><original_threat>Log</original_threat><notes></notes><overrides></overrides></result><result id="d3efa365-c151-4485-8c75-fba8643731a2"><subnet>10.211.55.35</subnet><host>10.211.55.35</host><port>general/tcp</port><nvt oid="1.3.6.1.4.1.25623.1.0.900239"><name>Checks for open tcp ports</name><family>General</family><cvss_base>0.0</cvss_base><risk_factor>None</risk_factor><cve>NOCVE</cve><bid>NOBID</bid><tags>cvss_base_vector=AV:N/AC:L/Au:N/C:N/I:N/A:N</tags><cert></cert><xref>NOXREF</xref></nvt><threat>Log</threat><description>Open TCP ports: 445, 3632, 5900, 8009, 8787, 21, 111, 6667, 22, 23, 512, 2049, 513, 6000, 25, 514, 1099, 139, 2121, 3306, 53, 1524, 5432, 80
+</description><original_threat>Log</original_threat><notes></notes><overrides></overrides></result><result id="ef927a77-f894-4470-8d2d-569a83ed7cc1"><subnet>10.211.55.35</subnet><host>10.211.55.35</host><port>general/tcp</port><nvt oid="1.3.6.1.4.1.25623.1.0.900600"><name>Anonymous FTP Checking</name><family>FTP</family><cvss_base>0.0</cvss_base><risk_factor>None</risk_factor><cve>CVE-1999-0497</cve><bid>NOBID</bid><tags>cvss_base_vector=AV:N/AC:L/Au:N/C:N/I:N/A:N</tags><cert></cert><xref>NOXREF</xref></nvt><threat>Log</threat><description>
+  Summary:
+  This FTP Server allows anonymous logins.
+
+   A host that provides an FTP service may additionally provide Anonymous FTP
+   access as well. Under this arrangement, users do not strictly need an account
+   on the host. Instead the user typically enters &apos;anonymous&apos; or &apos;ftp&apos; when
+   prompted for username. Although users are commonly asked to send their email
+   address as their password, little to no verification is actually performed on
+   the supplied data.
+  Solution:
+  If you do not want to share files, you should disable anonymous logins.
+</description><original_threat>Log</original_threat><notes></notes><overrides></overrides></result><result id="709e0729-3b9b-48ac-b5b6-ff052d079d04"><subnet>10.211.55.35</subnet><host>10.211.55.35</host><port>http (80/tcp)</port><nvt oid="0"><name></name><family></family><cvss_base></cvss_base><risk_factor></risk_factor><cve></cve><bid></bid><tags></tags><cert></cert><xref></xref></nvt><threat>Log</threat><description>Open port.</description><original_threat>Log</original_threat><notes></notes><overrides></overrides></result><result id="78b995d8-96b3-40cf-bf0c-988b9b606afa"><subnet>10.211.55.35</subnet><host>10.211.55.35</host><port>http (80/tcp)</port><nvt oid="1.3.6.1.4.1.25623.1.0.10107"><name>HTTP Server type and version</name><family>General</family><cvss_base>0.0</cvss_base><risk_factor>None</risk_factor><cve>NOCVE</cve><bid>NOBID</bid><tags>cvss_base_vector=AV:N/AC:L/Au:N/C:N/I:N/A:N</tags><cert></cert><xref>NOXREF</xref></nvt><threat>Log</threat><description>The remote web server type is :
+
+Apache/2.2.8 (Ubuntu) DAV/2 
+
+
+Solution : You can set the directive &apos;ServerTokens Prod&apos; to limit
+the information emanating from the server in its response headers.
+</description><original_threat>Log</original_threat><notes></notes><overrides></overrides></result><result id="912f85c9-c156-4feb-b004-e705632324b5"><subnet>10.211.55.35</subnet><host>10.211.55.35</host><port>http (80/tcp)</port><nvt oid="1.3.6.1.4.1.25623.1.0.10330"><name>Services</name><family>Service detection</family><cvss_base>0.0</cvss_base><risk_factor>None</risk_factor><cve>NOCVE</cve><bid>NOBID</bid><tags>cvss_base_vector=AV:N/AC:L/Au:N/C:N/I:N/A:N</tags><cert></cert><xref>NOXREF</xref></nvt><threat>Log</threat><description>A web server is running on this port
+</description><original_threat>Log</original_threat><notes></notes><overrides></overrides></result><result id="d7155f01-02d3-43c4-b483-e01bc4d6b584"><subnet>10.211.55.35</subnet><host>10.211.55.35</host><port>http (80/tcp)</port><nvt oid="1.3.6.1.4.1.25623.1.0.10662"><name>Web mirroring</name><family>Web application abuses</family><cvss_base>0.0</cvss_base><risk_factor>None</risk_factor><cve>NOCVE</cve><bid>NOBID</bid><tags>cvss_base_vector=AV:N/AC:L/Au:N/C:N/I:N/A:N</tags><cert></cert><xref>NOXREF</xref></nvt><threat>Log</threat><description>The following CGI have been discovered :
+
+Syntax : cginame (arguments [default value])
+
+/twiki/bin/view/TWiki/WelcomeGuest (topic [] )
+/twiki/bin/view/TWiki/StartingPoints (topic [] skin [print] rev [1.2] )
+/twiki/bin/edit/TWiki/StartingPoints (t [1409091568] )
+/twiki/bin/rdiff/TWiki/StartingPoints (rev1 [1.3] rev2 [1.2] )
+/twiki/bin/oops/TWiki/StartingPoints (template [oopsmore] param1 [1.3] param2 [1.3] )
+/twiki/bin/view/TWiki/GoodStyle (topic [] skin [print] rev [1.5] )
+/twiki/bin/edit/TWiki/GoodStyle (t [1409091581] )
+/twiki/bin/rdiff/TWiki/GoodStyle (rev1 [1.6] rev2 [1.5] )
+/twiki/bin/oops/TWiki/GoodStyle (template [oopsmore] param1 [1.6] param2 [1.6] )
+/twiki/bin/view/TWiki/InterwikiPlugin (topic [] )
+/twiki/bin/view/Main/TWikiAdminGroup (topic [] skin [print] rev [1.6] )
+/twiki/bin/edit/Main/TWikiAdminGroup (t [1409091606] )
+/twiki/bin/rdiff/Main/TWikiAdminGroup (rev1 [1.7] rev2 [1.6] )
+/twiki/bin/oops/Main/TWikiAdminGroup (template [oopsmore] param1 [1.7] param2 [1.7] )
+/twiki/bin/view/TWiki/BookView (topic [] skin [print] rev [1.1] )
+/twiki/bin/edit/TWiki/BookView (t [1409091638] )
+/twiki/bin/rdiff/TWiki/BookView (rev1 [1.2] rev2 [1.1] )
+/twiki/bin/oops/TWiki/BookView (template [oopsmore] param1 [1.2] param2 [1.2] )
+/phpMyAdmin/phpmyadmin.css.php (token [0f3cd9de883ae880ec1b19a1631b8c6b] convcharset [utf-8] js_frame [right] lang [en-utf-8] nocache [2457687151] )
+/mutillidae/styles/ (C=S;O [A] C=N;O [D] C=M;O [A] C=D;O [A] )
+/twiki/bin/view/TWiki/WebChangesAlert (topic [] skin [print] rev [1.12] )
+/twiki/bin/edit/TWiki/WebChangesAlert (t [1409091585] )
+/twiki/bin/rdiff/TWiki/WebChangesAlert (rev1 [1.13] rev2 [1.12] )
+/twiki/bin/oops/TWiki/WebChangesAlert (template [oopsmore] param1 [1.13] param2 [1.13] )
+/twiki/bin/rename/TWiki/WebChangesAlert (newweb [TWiki] newtopic [WebChangesNotify] confirm [on] )
+/twiki/bin/view/TWiki/TextFormattingFAQ (topic [] )
+/twiki/bin/edit/TWiki/WikiStyleWord (topicparent [TWiki.TextFormattingFAQ] )
+/twiki/bin/view/Main/WebSearch (topic [] )
+/twiki/bin/edit/TWiki/YearTwoThousand (topicparent [TWiki.WikiWord] )
+/twiki/bin/view/TWiki/StandardColors (topic [] skin [print] rev [1.3] )
+/twiki/bin/edit/TWiki/StandardColors (t [1409091644] )
+/twiki/bin/rdiff/TWiki/StandardColors (rev1 [1.4] rev2 [1.3] )
+/twiki/bin/oops/TWiki/StandardColors (template [oopsmore] param1 [1.4] param2 [1.4] )
+/twiki/bin/edit/TWiki/TWikiTopic (topicparent [TWiki.TWikiTopics] )
+/twiki/bin/view/TWiki/FileAttachment (topic [] )
+/twiki/bin/view/Sandbox/WebNotify (topic [] skin [print] rev [1.4] )
+/twiki/bin/edit/Sandbox/WebNotify (t [1409091602] )
+/twiki/bin/rdiff/Sandbox/WebNotify (rev1 [1.5] rev2 [1.4] )
+/twiki/bin/oops/Sandbox/WebNotify (template [oopsmore] param1 [1.5] param2 [1.5] )
+/twiki/bin/view/Main/LondonOffice (topic [] skin [print] rev [1.2] )
+/twiki/bin/edit/Main/LondonOffice (t [1409091616] )
+/twiki/bin/rdiff/Main/LondonOffice (rev1 [1.3] rev2 [1.2] )
+/twiki/bin/oops/Main/LondonOffice (template [oopsmore] param1 [1.3] param2 [1.3] )
+/twiki/bin/view/Main/FileAttachment (topic [] rev [r1.3] )
+/twiki/bin/viewfile/TWiki/FileAttachment (rev [] filename [Sample.txt] )
+/twiki/bin/attach/TWiki/FileAttachment (filename [Sample.txt] revInfo [1] )
+/twiki/bin/edit/Sandbox/TestTopic1 (topicparent [Sandbox.WebHome] )
+/twiki/bin/view/Main/WebIndex (topic [] )
+/twiki/bin/view/TWiki/TWikiSite (topic [] skin [print] )
+/twiki/bin/edit/TWiki/TWikiSite (t [1409091579] )
+/twiki/bin/view/TWiki/TWikiVariables (topic [] )
+/twiki/bin/view/Know/ReadmeFirst (topic [] skin [print] rev [1.5] )
+/twiki/bin/edit/Know/ReadmeFirst (t [1409091592] )
+/twiki/bin/rdiff/Know/ReadmeFirst (rev1 [1.6] rev2 [1.5] )
+/twiki/bin/oops/Know/ReadmeFirst (template [oopsmore] param1 [1.6] param2 [1.6] )
+/twiki/bin/view/Know/WebStatistics (topic [] skin [print] rev [1.3] )
+/twiki/bin/edit/Know/WebStatistics (t [1409091596] )
+/twiki/bin/rdiff/Know/WebStatistics (rev1 [1.4] rev2 [1.3] )
+/twiki/bin/oops/Know/WebStatistics (template [oopsmore] param1 [1.4] param2 [1.4] )
+/twiki/bin/view/Sandbox/WebStatistics (topic [] skin [print] rev [1.2] )
+/twiki/bin/edit/Sandbox/WebStatistics (t [1409091603] )
+/twiki/bin/rdiff/Sandbox/WebStatistics (rev1 [1.3] rev2 [1.2] )
+/twiki/bin/oops/Sandbox/WebStatistics (template [oopsmore] param1 [1.3] param2 [1.3] )
+/twiki/bin/view/Main/WebStatistics (topic [] skin [print] rev [1.4] )
+/twiki/bin/edit/Main/WebStatistics (t [1409091618] )
+/twiki/bin/rdiff/Main/WebStatistics (rev1 [1.5] rev2 [1.4] )
+/twiki/bin/oops/Main/WebStatistics (param1 [1.5] param2 [1.5] template [oopsmore] )
+/twiki/bin/view/Main/TWikiVariables (topic [] skin [print] rev [1.2] )
+/twiki/bin/edit/Main/TWikiVariables (t [1409091627] )
+/twiki/bin/rdiff/Main/TWikiVariables (rev1 [1.3] rev2 [1.2] )
+/twiki/bin/oops/Main/TWikiVariables (template [oopsmore] param1 [1.3] param2 [1.3] )
+/twiki/bin/view/TWiki/WikiReferences (topic [] skin [print] rev [1.1] )
+/twiki/bin/edit/TWiki/WikiReferences (t [1409091642] )
+/twiki/bin/rdiff/TWiki/WikiReferences (rev1 [1.2] rev2 [1.1] )
+/twiki/bin/oops/TWiki/WikiReferences (template [oopsmore] param1 [1.2] param2 [1.2] )
+/phpMyAdmin/index.php (pma_password [] token [0f3cd9de883ae880ec1b19a1631b8c6b] pma_username [] convcharset [utf-8] table [] lang [] server [1] db [] phpMyAdmin [48d7e24da74a2975a7673d7ecf9beee13243c571] )
+/twiki/bin/view/TWiki/WebHome (topic [] )
+/twiki/bin/edit/Sandbox/TestTopic2 (topicparent [Sandbox.WebHome] )
+/twiki/bin/view/TWiki/TWikiRegistration (topic [] skin [print] rev [1.7] )
+/twiki/bin/edit/TWiki/TWikiRegistration (t [1409091567] )
+/twiki/bin/rdiff/TWiki/TWikiRegistration (rev1 [1.8] rev2 [1.7] )
+/twiki/bin/oops/TWiki/TWikiRegistration (template [oopsmore] param1 [1.8] param2 [1.8] )
+/twiki/bin/view/TWiki/TWikiTutorial (topic [] )
+/twiki/bin/view/TWiki/TWikiAdminCookBook (topic [] )
+/twiki/bin/view/Sandbox/TestTopic2 (unlock [on] )
+/twiki/bin/preview/Sandbox/TestTopic2 (formtemplate [] topicparent [] cmd [] )
+/twiki/bin/view/TWiki/TWikiAccessControl (topic [] )
+/twiki/bin/edit/Main/TWikiRegistration (topicparent [Main.OfficeLocations] )
+/twiki/bin/view/Main/MikeMannix (topic [] skin [print] rev [1.4] )
+/twiki/bin/edit/Main/MikeMannix (t [1409091637] )
+/twiki/bin/rdiff/Main/MikeMannix (rev1 [1.5] rev2 [1.4] )
+/twiki/bin/oops/Main/MikeMannix (template [oopsmore] param1 [1.5] param2 [1.5] )
+/twiki/bin/edit/TWiki/AVeryLongWikiTopicNameIsAlsoPossible (topicparent [TWiki.WikiWord] )
+/twiki/bin/upload/TWiki/TWikiRegistration (filename [] filepath [] filecomment [] createlink [] hidefile [] )
+/twiki/bin/upload/TWiki/WebHome (filepath [] filename [] filecomment [] hidefile [] createlink [] )
+/twiki/bin/edit/Sandbox/TestTopic3 (topicparent [Sandbox.WebHome] )
+/twiki/bin/view/Main/TWikiUsers (topic [] rev [r1.15] )
+/twiki/bin/search/Main/ (showlock [] search [] web [] scope [topic] nosearch [] reverse [] casesensitive [] regex [] order [] nototal [] limit [all] bookview [] nosummary [] )
+/twiki/bin/view/TWiki/WebSearch (topic [] )
+/twiki/bin/view/TWiki/TWikiForms (topic [] )
+/twiki/bin/view/TWiki/WebIndex (topic [] )
+/twiki/bin/view/TWiki/TWikiFAQ (topic [] )
+/twiki/bin/view/Sandbox/TestTopic3 (unlock [on] )
+/twiki/bin/preview/Sandbox/TestTopic3 (formtemplate [] topicparent [] cmd [] )
+/twiki/bin/edit/Main/IncludeTopicsAndWebPages (topicparent [Main.TWikiVariables] )
+/twiki/bin/edit/Main/TWikiForms (topicparent [Main.TWikiVariables] )
+/twiki/bin/view/TWiki/WikiNotation (topic [] skin [print] rev [1.2] )
+/twiki/bin/edit/TWiki/WikiNotation (t [1409091649] )
+/twiki/bin/rdiff/TWiki/WikiNotation (rev1 [1.3] rev2 [1.2] )
+/twiki/bin/oops/TWiki/WikiNotation (template [oopsmore] param1 [1.3] param2 [1.3] )
+/twiki/bin/edit/Sandbox/TestTopic4 (topicparent [Sandbox.WebHome] )
+/twiki/bin/view/Know/WebNotify (topic [] skin [print] rev [1.6] )
+/twiki/bin/edit/Know/WebNotify (t [1409091594] )
+/twiki/bin/rdiff/Know/WebNotify (rev1 [1.7] rev2 [1.6] )
+/twiki/bin/oops/Know/WebNotify (template [oopsmore] param1 [1.7] param2 [1.7] )
+/twiki/bin/view/Sandbox/WebIndex (topic [] skin [print] rev [1.1] )
+/twiki/bin/edit/Sandbox/WebIndex (t [1409091597] )
+/twiki/bin/rdiff/Sandbox/WebIndex (rev1 [1.2] rev2 [1.1] )
+/twiki/bin/oops/Sandbox/WebIndex (template [oopsmore] param1 [1.2] param2 [1.2] )
+/twiki/bin/view/Sandbox/TestTopic4 (unlock [on] )
+/twiki/bin/preview/Sandbox/TestTopic4 (formtemplate [] topicparent [] cmd [] )
+/twiki/bin/view/Main/JohnTalintyre (topic [] skin [print] rev [1.2] )
+/twiki/bin/edit/Main/JohnTalintyre (t [1409091626] )
+/twiki/bin/rdiff/Main/JohnTalintyre (rev1 [1.3] rev2 [1.2] )
+/twiki/bin/oops/Main/JohnTalintyre (template [oopsmore] param1 [1.3] param2 [1.3] )
+/twiki/bin/view/Main/KevinKinnell (topic [] skin [print] rev [r1.2] )
+/twiki/bin/oops/Main/KevinKinnell (param1 [1.2] param2 [1.2] template [oopsmore] )
+/twiki/bin/edit/Main/KevinKinnell (t [1409091636] )
+/twiki/bin/rdiff/Main/KevinKinnell (rev1 [1.2] rev2 [1.1] )
+/dav/ (C=S;O [A] C=N;O [D] C=M;O [A] C=D;O [A] )
+/twiki/bin/edit/Sandbox/TestTopic5 (topicparent [Sandbox.WebHome] )
+/twiki/bin/view/Main/WebPreferences (topic [] skin [print] rev [1.12] unlock [on] )
+/twiki/bin/edit/Main/WebTopicEditTemplate (topicparent [Main.WebPreferences] )
+/twiki/bin/edit/Main/WebPreferences (t [1409091566] )
+/twiki/bin/rdiff/Main/WebPreferences (rev1 [1.13] rev2 [1.12] )
+/twiki/bin/view/TWiki/WebPreferences (topic [] skin [print] )
+/twiki/bin/edit/TWiki/WebPreferences (t [1409091570] )
+/twiki/bin/view/Know/WebPreferences (topic [] skin [print] rev [1.10] )
+/twiki/bin/edit/Know/WebPreferences (t [1409091573] )
+/twiki/bin/rdiff/Know/WebPreferences (rev1 [1.11] rev2 [1.10] )
+/twiki/bin/oops/Know/WebPreferences (template [oopsmore] param1 [1.11] param2 [1.11] )
+/twiki/bin/view/Sandbox/WebPreferences (topic [] skin [print] rev [1.9] )
+/twiki/bin/edit/Sandbox/WebTopicEditTemplate (topicparent [Sandbox.WebPreferences] )
+/twiki/bin/edit/Sandbox/WebPreferences (t [1409091575] )
+/twiki/bin/rdiff/Sandbox/WebPreferences (rev1 [1.10] rev2 [1.9] )
+/twiki/bin/oops/Sandbox/WebPreferences (template [oopsmore] param1 [1.10] param2 [1.10] )
+/phpMyAdmin/themes/original/img/ (C=S;O [A] C=N;O [D] C=M;O [A] C=D;O [A] )
+/twiki/bin/view/TWiki/TWikiPreferences (topic [] )
+/twiki/bin/view/TWiki/WikiCulture (topic [] skin [print] rev [1.7] )
+/twiki/bin/edit/TWiki/WikiCulture (t [1409091608] )
+/twiki/bin/rdiff/TWiki/WikiCulture (rev1 [1.8] rev2 [1.7] )
+/twiki/bin/oops/TWiki/WikiCulture (template [oopsmore] param1 [1.8] param2 [1.8] )
+/twiki/bin/edit/Main/WebTopicNonWikiTemplate (topicparent [Main.TWikiVariables] )
+/twiki/bin/view/TWiki/WebTopicEditTemplate (topic [] skin [print] rev [1.4] )
+/twiki/bin/edit/TWiki/WebTopicEditTemplate (t [1409091646] )
+/twiki/bin/rdiff/TWiki/WebTopicEditTemplate (rev1 [1.5] rev2 [1.4] )
+/twiki/bin/oops/TWiki/WebTopicEditTemplate (template [oopsmore] param1 [1.5] param2 [1.5] )
+/twiki/bin/preview/Main/WebPreferences (formtemplate [] topicparent [] cmd [] )
+/twiki/bin/upload/Main/WebPreferences (filename [] filepath [] filecomment [] createlink [] hidefile [] )
+/mutillidae/index.php (username [anonymous] do [toggle-hints] page [home.php] )
+/twiki/bin/search/TWiki/ (showlock [] search [] web [] nosearch [] scope [topic] casesensitive [] reverse [] regex [] limit [all] nototal [] order [] nosummary [] bookview [] )
+/twiki/bin/edit/Sandbox/TestTopic6 (topicparent [Sandbox.WebHome] )
+/twiki/bin/view/Sandbox/TestTopic6 (unlock [on] )
+/twiki/bin/preview/Sandbox/TestTopic6 (formtemplate [] topicparent [] cmd [] )
+/twiki/bin/edit/TWiki/TWikiFormTemplate (topicparent [Main.WebPreferences] )
+/twiki/bin/edit/Main/WikiSyntax (topicparent [Main.TWikiVariables] )
+/twiki/bin/edit/Main/WebTopicViewTemplate (topicparent [Main.TWikiVariables] )
+/twiki/bin/edit/Main/UnlockTopic (topicparent [Main.TWikiVariables] )
+/twiki/bin/view/TWiki/WikiSyntax (topic [] skin [print] rev [1.14] )
+/twiki/bin/edit/TWiki/WikiSyntax (t [1409091643] )
+/twiki/bin/rdiff/TWiki/WikiSyntax (rev1 [1.15] rev2 [1.14] )
+/twiki/bin/oops/TWiki/WikiSyntax (template [oopsmore] param1 [1.15] param2 [1.15] )
+/mutillidae/styles/ddsmoothmenu/ (C=S;O [A] C=N;O [D] C=M;O [A] C=D;O [A] )
+/twiki/bin/edit/Sandbox/TestTopic7 (topicparent [Sandbox.WebHome] )
+/twiki/bin/view/Main/OfficeLocations (topic [] skin [print] rev [1.3] unlock [on] )
+/twiki/bin/edit/Main/OfficeLocations (t [1409091563] )
+/twiki/bin/rdiff/Main/OfficeLocations (rev1 [1.4] rev2 [1.3] )
+/twiki/bin/oops/Main/OfficeLocations (template [oopsmore] param1 [1.4] param2 [1.4] )
+/twiki/bin/view/Main/WebChanges (topic [] )
+/twiki/bin/view/TWiki/WebChanges (topic [] )
+/twiki/bin/view/Know/WebChanges (topic [] )
+/twiki/bin/view/Sandbox/WebChanges (topic [] skin [print] )
+/twiki/bin/edit/Sandbox/WebChanges (t [1409091574] )
+/twiki/bin/rdiff/Sandbox/WebChanges (rev1 [1.2] rev2 [1.1] )
+/twiki/bin/view/TWiki/TWikiGlossary (topic [] skin [print] rev [1.1] )
+/twiki/bin/edit/TWiki/TWikiGlossary (t [1409091586] )
+/twiki/bin/rdiff/TWiki/TWikiGlossary (rev1 [1.2] rev2 [1.1] )
+/twiki/bin/oops/TWiki/TWikiGlossary (template [oopsmore] param1 [1.2] param2 [1.2] )
+/twiki/bin/view/Main/SanJoseOffice (topic [] skin [print] rev [1.2] )
+/twiki/bin/edit/Main/SanJoseOffice (t [1409091615] )
+/twiki/bin/rdiff/Main/SanJoseOffice (rev1 [1.3] rev2 [1.2] )
+/twiki/bin/oops/Main/SanJoseOffice (template [oopsmore] param1 [1.3] param2 [1.3] )
+/twiki/bin/preview/Main/OfficeLocations (formtemplate [] topicparent [] cmd [] )
+/twiki/bin/upload/Main/OfficeLocations (filename [] filepath [] filecomment [] createlink [] hidefile [] )
+/twiki/bin/view/Main/NobodyGroup (topic [] skin [print] rev [1.1] )
+/twiki/bin/edit/Main/NobodyGroup (t [1409091625] )
+/twiki/bin/rdiff/Main/NobodyGroup (rev1 [1.2] rev2 [1.1] )
+/twiki/bin/oops/Main/NobodyGroup (param1 [1.2] param2 [1.2] template [oopsmore] )
+/twiki/bin/view/Main/AndreaSterbini (topic [] skin [print] rev [1.1] )
+/twiki/bin/edit/Main/AndreaSterbini (t [1409091631] )
+/twiki/bin/rdiff/Main/AndreaSterbini (rev1 [1.2] rev2 [1.1] )
+/twiki/bin/oops/Main/AndreaSterbini (param1 [1.2] param2 [1.2] template [oopsmore] )
+/twiki/bin/edit/Sandbox/TestTopic8 (topicparent [Sandbox.WebHome] )
+/twiki/bin/edit/Main/EngineeringGroup (topicparent [Main.TWikiGroups] )
+/twiki/bin/view/Sandbox/WebSearch (topic [] )
+/twiki/bin/view/TWiki/InterWikis (topic [] )
+/twiki/bin/view/Sandbox/TestTopic8 (unlock [on] )
+/twiki/bin/preview/Sandbox/TestTopic8 (formtemplate [] topicparent [] cmd [] )
+/twiki/bin/view/Main/EngineeringGroup (unlock [on] )
+/twiki/bin/preview/Main/EngineeringGroup (formtemplate [] topicparent [] cmd [] )
+/twiki/bin/view/Main/PeterThoeny (topic [] skin [print] rev [1.7] )
+/twiki/bin/edit/Main/PeterThoeny (t [1409091610] )
+/twiki/bin/rdiff/Main/PeterThoeny (rev1 [1.8] rev2 [1.7] )
+/twiki/bin/oops/Main/PeterThoeny (template [oopsmore] param1 [1.8] param2 [1.8] )
+/twiki/bin/view/Main/WebNotify (topic [] skin [print] rev [1.6] )
+/twiki/bin/edit/Main/WebNotify (t [1409091623] )
+/twiki/bin/rdiff/Main/WebNotify (rev1 [1.7] rev2 [1.6] )
+/twiki/bin/oops/Main/WebNotify (template [oopsmore] param1 [1.7] param2 [1.7] )
+/mutillidae/ (page [add-to-your-blog.php] )
+/twiki/bin/view/Main/WebHome (topic [] rev [r1.20] )
+/twiki/bin/register/Main/WebHome (Twk1Name [] Twk1WikiName [] Twk1LoginName [] Twk1Email [] Twk0Phone [] Twk0Department [] Twk1Location [] TopicName [TWikiRegistration] )
+/twiki/bin/view/TWiki/InstantEnhancements (topic [] )
+/twiki/bin/upload/Main/WebHome (filepath [] filename [] filecomment [] hidefile [] createlink [] )
+/twiki/bin/view/Know/WebHome (topic [] )
+/twiki/bin/edit/Main/SupportGroup (topicparent [Main.TWikiGroups] )
+/twiki/bin/edit/TWiki/WikiOrg (topicparent [TWiki.TWikiAdminCookBook] )
+/twiki/bin/view/TWiki/WikiName (topic [] skin [print] rev [1.2] )
+/twiki/bin/edit/TWiki/WikiName (t [1409091598] )
+/twiki/bin/rdiff/TWiki/WikiName (rev1 [1.3] rev2 [1.2] )
+/twiki/bin/oops/TWiki/WikiName (template [oopsmore] param1 [1.3] param2 [1.3] )
+/twiki/bin/view/Main/SupportGroup (unlock [on] )
+/twiki/bin/preview/Main/SupportGroup (formtemplate [] topicparent [] cmd [] )
+/twiki/bin/view/Main/WebRss (topic [] rev [r1.1] )
+/twiki/bin/edit/Main/RegularExpression (topicparent [Main.TWikiVariables] )
+/twiki/bin/view/TWiki/RegularExpression (topic [] skin [print] rev [1.2] )
+/twiki/bin/edit/TWiki/RegularExpression (t [1409091639] )
+/twiki/bin/rdiff/TWiki/RegularExpression (rev1 [1.3] rev2 [1.2] )
+/twiki/bin/oops/TWiki/RegularExpression (template [oopsmore] param1 [1.3] param2 [1.3] )
+/twiki/bin/view/Sandbox/WebHome (topic [] unlock [on] )
+/twiki/bin/search/Know/ (search [%54opicClassification.%2ANoDisclosure] web [] scope [text] regex [on] bookview [] )
+/twiki/bin/search/Sandbox/ (showlock [] search [%5C.*] web [] scope [topic] nosearch [on] reverse [on] casesensitive [] regex [on] order [modified] limit [100] nototal [] bookview [] nosummary [] )
+/mutillidae/images/ (C=S;O [A] C=N;O [D] C=M;O [A] C=D;O [A] )
+/twiki/bin/view/TWiki/TWikiTopics (topic [] )
+/twiki/bin/view/TWiki/TWikiShorthand (topic [] skin [print] )
+/twiki/bin/edit/TWiki/NewTopic (topicparent [TWiki.TWikiShorthand] )
+/twiki/bin/edit/TWiki/TWikiShorthand (t [1409091582] )
+/twiki/bin/oops/TWiki/TWikiShorthand (template [oopsmore] param1 [1.1] param2 [1.1] )
+/twiki/bin/view/TWiki/TextFormattingRules (topic [] )
+/twiki/bin/view/TWiki/DefaultPlugin (topic [] skin [print] rev [1.4] )
+/twiki/bin/edit/TWiki/DefaultPlugin (t [1409091589] )
+/twiki/bin/rdiff/TWiki/DefaultPlugin (rev1 [1.5] rev2 [1.4] )
+/twiki/bin/oops/TWiki/DefaultPlugin (template [oopsmore] param1 [1.5] param2 [1.5] )
+/twiki/bin/preview/Sandbox/WebHome (formtemplate [] topicparent [] cmd [] )
+/twiki/bin/view/Main/CharleytheHorse (topic [] skin [print] rev [r1.1] )
+/twiki/bin/edit/Main/CharleytheHorse (t [1409091604] )
+/twiki/bin/oops/Main/CharleytheHorse (param1 [1.1] param2 [1.1] template [oopsmore] )
+/twiki/bin/edit/Main/DontNotify (topicparent [Main.TWikiVariables] )
+/twiki/bin/view/Main/GrantBow (topic [] skin [print] rev [r1.1] )
+/twiki/bin/edit/Main/GrantBow (t [1409091634] )
+/twiki/bin/oops/Main/GrantBow (param1 [1.1] param2 [1.1] template [oopsmore] )
+/twiki/bin/view/TWiki/WikiWord (topic [] skin [print] rev [1.3] )
+/twiki/bin/edit/TWiki/WikiWord (t [1409091640] )
+/twiki/bin/rdiff/TWiki/WikiWord (rev1 [1.4] rev2 [1.3] )
+/twiki/bin/oops/TWiki/WikiWord (template [oopsmore] param1 [1.4] param2 [1.4] )
+/twiki/bin/view/TWiki/SiteMap (topic [] skin [print] rev [1.1] )
+/twiki/bin/edit/TWiki/SiteMap (t [1409091645] )
+/twiki/bin/rdiff/TWiki/SiteMap (rev1 [1.2] rev2 [1.1] )
+/twiki/bin/search/Know/SearchResult (search [] scope [text] regex [on] )
+/twiki/bin/search/Sandbox/SearchResult (search [] nosearch [on] scope [topic] reverse [on] regex [on] order [modified] )
+/twiki/bin/search/Main/SearchResult (search [TWiki%20*Groups%5B%5EA-Za-z%5D] scope [text] regex [on] )
+/twiki/bin/search/TWiki/SearchResult (search [TWiki%20*Registration%5B%5EA-Za-z%5D] scope [text] regex [on] )
+/twiki/bin/view/Know/WebSearch (topic [] )
+/twiki/bin/view/TWiki/WebTopicList (topic [] )
+/twiki/bin/view/Know/WebTopicList (topic [] skin [print] )
+/twiki/bin/edit/Know/WebTopicList (t [1409091594] )
+/twiki/bin/view/Sandbox/WebTopicList (topic [] skin [print] )
+/twiki/bin/edit/Sandbox/WebTopicList (t [1409091601] )
+/twiki/bin/oops/Sandbox/WebTopicList (template [oopsmore] param1 [1.1] param2 [1.1] )
+/twiki/bin/view/Main/TokyoOffice (topic [] skin [print] rev [1.2] )
+/twiki/bin/edit/Main/TokyoOffice (t [1409091617] )
+/twiki/bin/rdiff/Main/TokyoOffice (rev1 [1.3] rev2 [1.2] )
+/twiki/bin/oops/Main/TokyoOffice (template [oopsmore] param1 [1.3] param2 [1.3] )
+/twiki/bin/edit/Main/TWikiDocumentation (topicparent [Main.WebStatistics] )
+/twiki/bin/edit/Main/BookView (topicparent [Main.TWikiVariables] )
+/twiki/bin/edit/Main/FormattedSearch (topicparent [Main.TWikiVariables] )
+/twiki/bin/view/TWiki/FormattedSearch (topic [] )
+/twiki/bin/view/Main/TWikiGroups (topic [] skin [print] rev [1.2] unlock [on] )
+/twiki/bin/edit/Main/TWikiGroups (t [1409091561] )
+/twiki/bin/rdiff/Main/TWikiGroups (rev1 [1.3] rev2 [1.2] )
+/twiki/bin/oops/Main/TWikiGroups (template [oopsmore] param1 [1.3] param2 [1.3] )
+/twiki/bin/edit/TWiki/MeaningfulTitle (topicparent [TWiki.TextFormattingFAQ] )
+/twiki/bin/view/Know/WebIndex (topic [] )
+/twiki/bin/upload/Main/TWikiGroups (filename [] filepath [] filecomment [] createlink [] hidefile [] )
+/twiki/bin/view/Main/TWikiGuest (topic [] skin [print] rev [1.4] )
+/twiki/bin/edit/Main/TWikiGuest (t [1409091619] )
+/twiki/bin/rdiff/Main/TWikiGuest (rev1 [1.5] rev2 [1.4] )
+/twiki/bin/oops/Main/TWikiGuest (template [oopsmore] param1 [1.5] param2 [1.5] )
+/twiki/bin/edit/Main/CoreTeam (topicparent [Main.AndreaSterbini] )
+
+
+Directory index found at /dav/
+Directory index found at /twiki/TWikiDocumentation.html
+Directory index found at /phpMyAdmin/themes/original/img/
+Directory index found at /mutillidae/styles/
+Directory index found at /mutillidae/styles/ddsmoothmenu/
+Directory index found at /mutillidae/images/
+
+</description><original_threat>Log</original_threat><notes></notes><overrides></overrides></result><result id="bda48ee7-5cb4-4821-aa11-d3fd7d8e2c0d"><subnet>10.211.55.35</subnet><host>10.211.55.35</host><port>http (80/tcp)</port><nvt oid="1.3.6.1.4.1.25623.1.0.11032"><name>Directory Scanner</name><family>Service detection</family><cvss_base>0.0</cvss_base><risk_factor>None</risk_factor><cve>NOCVE</cve><bid>NOBID</bid><tags>cvss_base_vector=AV:N/AC:L/Au:N/C:N/I:N/A:N</tags><cert></cert><xref>OWASP:OWASP-CM-006</xref></nvt><threat>Log</threat><description>The following directories were discovered:
+/cgi-bin, /doc, /test, /icons, /phpMyAdmin
+
+While this is not, in and of itself, a bug, you should manually inspect 
+these directories to ensure that they are in compliance with company
+security standards
+
+</description><original_threat>Log</original_threat><notes></notes><overrides></overrides></result><result id="f80dd409-1b25-43d1-abfe-17def6f87695"><subnet>10.211.55.35</subnet><host>10.211.55.35</host><port>http (80/tcp)</port><nvt oid="1.3.6.1.4.1.25623.1.0.800109"><name>PHP Version Detection</name><family>Product detection</family><cvss_base>0.0</cvss_base><risk_factor>None</risk_factor><cve>NOCVE</cve><bid>NOBID</bid><tags>cvss_base_vector=AV:N/AC:L/Au:N/C:N/I:N/A:N</tags><cert></cert><xref>NOXREF</xref></nvt><threat>Log</threat><description>Detected PHP version: 5.2.4
+Location: tcp/80
+CPE: cpe:/a:php:php:5.2.4
+
+Concluded from version identification result:
+X-Powered-By: PHP/5.2.4-2ubuntu5.10 
+
+
+</description><original_threat>Log</original_threat><notes></notes><overrides></overrides></result><result id="27f2b30d-33ee-40ea-bc81-2ace9dd82f40"><subnet>10.211.55.35</subnet><host>10.211.55.35</host><port>http (80/tcp)</port><nvt oid="1.3.6.1.4.1.25623.1.0.80110"><name>wapiti (NASL wrapper)</name><family>Web application abuses</family><cvss_base>0.0</cvss_base><risk_factor>None</risk_factor><cve>NOCVE</cve><bid>NOBID</bid><tags>cvss_base_vector=AV:N/AC:L/Au:N/C:N/I:N/A:N</tags><cert></cert><xref>NOXREF</xref></nvt><threat>Log</threat><description>wapiti could not be found in your system path.
+OpenVAS was unable to execute wapiti and to perform the scan you
+requested.
+Please make sure that wapiti is installed and that wapiti is
+available in the PATH variable defined for your environment.
+</description><original_threat>Log</original_threat><notes></notes><overrides></overrides></result><result id="61c453d3-ec1e-4c3f-bef2-6ae4c4d44d3f"><subnet>10.211.55.35</subnet><host>10.211.55.35</host><port>http (80/tcp)</port><nvt oid="1.3.6.1.4.1.25623.1.0.900129"><name>phpMyAdmin Detection</name><family>Product detection</family><cvss_base>0.0</cvss_base><risk_factor>None</risk_factor><cve>NOCVE</cve><bid>NOBID</bid><tags>cvss_base_vector=AV:N/AC:L/Au:N/C:N/I:N/A:N</tags><cert></cert><xref>NOXREF</xref></nvt><threat>Log</threat><description>Detected phpMyAdmin version: unknown
+Location: /phpMyAdmin
+CPE: cpe:/a:phpmyadmin:phpmyadmin
+
+Concluded from version identification result:
+unknown
+
+</description><original_threat>Log</original_threat><notes></notes><overrides></overrides></result><result id="846c0be7-55b4-4d54-aa2f-b773a7093968"><subnet>10.211.55.35</subnet><host>10.211.55.35</host><port>http (80/tcp)</port><nvt oid="1.3.6.1.4.1.25623.1.0.900498"><name>Apache Web ServerVersion Detection</name><family>Product detection</family><cvss_base>0.0</cvss_base><risk_factor>None</risk_factor><cve>NOCVE</cve><bid>NOBID</bid><tags>cvss_base_vector=AV:N/AC:L/Au:N/C:N/I:N/A:N</tags><cert></cert><xref>NOXREF</xref></nvt><threat>Log</threat><description>Detected Apache version: 2.2.8
+Location: 80/tcp
+CPE: cpe:/a:apache:http_server:2.2.8
+
+Concluded from version identification result:
+Server: Apache/2.2.8
+
+</description><original_threat>Log</original_threat><notes></notes><overrides></overrides></result><result id="715597b9-e6ae-49bd-b5fc-abcf6817fc6b"><subnet>10.211.55.35</subnet><host>10.211.55.35</host><port>http (80/tcp)</port><nvt oid="1.3.6.1.4.1.25623.1.0.901001"><name>TikiWiki Version Detection</name><family>Product detection</family><cvss_base>0.0</cvss_base><risk_factor>None</risk_factor><cve>NOCVE</cve><bid>NOBID</bid><tags>cvss_base_vector=AV:N/AC:L/Au:N/C:N/I:N/A:N|detection=remote probe</tags><cert></cert><xref>NOXREF</xref></nvt><threat>Log</threat><description>Detected TikiWiki version: 1.9.5 under /tikiwiki
+Location: /tikiwiki
+CPE: cpe:/a:tikiwiki:tikiwiki:1.9.5
+
+Concluded from version identification result:
+1.9.5
+</description><original_threat>Log</original_threat><notes></notes><overrides></overrides></result><result id="fa9919d1-573f-4c29-940e-65dd2e874c0d"><subnet>10.211.55.35</subnet><host>10.211.55.35</host><port>ingreslock (1524/tcp)</port><nvt oid="0"><name></name><family></family><cvss_base></cvss_base><risk_factor></risk_factor><cve></cve><bid></bid><tags></tags><cert></cert><xref></xref></nvt><threat>Log</threat><description>Open port.</description><original_threat>Log</original_threat><notes></notes><overrides></overrides></result><result id="55ec650b-ae97-4abd-86d5-220e529f6ef1"><subnet>10.211.55.35</subnet><host>10.211.55.35</host><port>ircd (6667/tcp)</port><nvt oid="0"><name></name><family></family><cvss_base></cvss_base><risk_factor></risk_factor><cve></cve><bid></bid><tags></tags><cert></cert><xref></xref></nvt><threat>Log</threat><description>Open port.</description><original_threat>Log</original_threat><notes></notes><overrides></overrides></result><result id="8681ca54-758f-4f3a-8e02-cd85551b3002"><subnet>10.211.55.35</subnet><host>10.211.55.35</host><port>ircd (6667/tcp)</port><nvt oid="1.3.6.1.4.1.25623.1.0.66286"><name>Identify unknown services with nmap</name><family>Service detection</family><cvss_base>0.0</cvss_base><risk_factor>None</risk_factor><cve>NOCVE</cve><bid>NOBID</bid><tags>cvss_base_vector=AV:N/AC:L/Au:N/C:N/I:N/A:N</tags><cert></cert><xref>NOXREF</xref></nvt><threat>Log</threat><description>Nmap service detection result for this port: irc
+</description><original_threat>Log</original_threat><notes></notes><overrides></overrides></result><result id="047c5931-fcc9-4617-8268-3f630fe357fb"><subnet>10.211.55.35</subnet><host>10.211.55.35</host><port>login (513/tcp)</port><nvt oid="0"><name></name><family></family><cvss_base></cvss_base><risk_factor></risk_factor><cve></cve><bid></bid><tags></tags><cert></cert><xref></xref></nvt><threat>Log</threat><description>Open port.</description><original_threat>Log</original_threat><notes></notes><overrides></overrides></result><result id="a5a4a6f1-4b30-4134-97bd-767daf2821f3"><subnet>10.211.55.35</subnet><host>10.211.55.35</host><port>login (513/tcp)</port><nvt oid="1.3.6.1.4.1.25623.1.0.66286"><name>Identify unknown services with nmap</name><family>Service detection</family><cvss_base>0.0</cvss_base><risk_factor>None</risk_factor><cve>NOCVE</cve><bid>NOBID</bid><tags>cvss_base_vector=AV:N/AC:L/Au:N/C:N/I:N/A:N</tags><cert></cert><xref>NOXREF</xref></nvt><threat>Log</threat><description>Nmap service detection result for this port: login
+This is a guess. A confident identification of the service was not possible.
+</description><original_threat>Log</original_threat><notes></notes><overrides></overrides></result><result id="572bbda0-2798-4d39-a089-a6c89bd65ea2"><subnet>10.211.55.35</subnet><host>10.211.55.35</host><port>microsoft-ds (445/tcp)</port><nvt oid="0"><name></name><family></family><cvss_base></cvss_base><risk_factor></risk_factor><cve></cve><bid></bid><tags></tags><cert></cert><xref></xref></nvt><threat>Log</threat><description>Open port.</description><original_threat>Log</original_threat><notes></notes><overrides></overrides></result><result id="226246d8-8a72-4c68-98cb-dc341168c967"><subnet>10.211.55.35</subnet><host>10.211.55.35</host><port>microsoft-ds (445/tcp)</port><nvt oid="1.3.6.1.4.1.25623.1.0.102011"><name>SMB NativeLanMan</name><family>Service detection</family><cvss_base>0.0</cvss_base><risk_factor>None</risk_factor><cve>NOCVE</cve><bid>NOBID</bid><tags>cvss_base_vector=AV:N/AC:L/Au:N/C:N/I:N/A:N</tags><cert></cert><xref>NOXREF</xref></nvt><threat>Log</threat><description>
+ Summary:
+ It is possible to extract OS, domain and SMB server information
+from the Session Setup AndX Response packet which is generated
+during NTLM authentication.Detected SMB workgroup: WORKGROUP
+Detected SMB server: Samba 3.0.20-Debian
+Detected OS: Unix
+
+</description><original_threat>Log</original_threat><notes></notes><overrides></overrides></result><result id="01b2ff5c-51b8-4727-8800-7078897f60c8"><subnet>10.211.55.35</subnet><host>10.211.55.35</host><port>microsoft-ds (445/tcp)</port><nvt oid="1.3.6.1.4.1.25623.1.0.10394"><name>SMB log in</name><family>Windows</family><cvss_base>0.0</cvss_base><risk_factor>None</risk_factor><cve>NOCVE</cve><bid>NOBID</bid><tags>cvss_base_vector=AV:N/AC:L/Au:N/C:N/I:N/A:N</tags><cert></cert><xref>NOXREF</xref></nvt><threat>Log</threat><description>It was possible to log into the remote host using the SMB protocol.
+
+</description><original_threat>Log</original_threat><notes></notes><overrides></overrides></result><result id="34e46ff9-586b-47a8-bee8-6c5149e81ecc"><subnet>10.211.55.35</subnet><host>10.211.55.35</host><port>microsoft-ds (445/tcp)</port><nvt oid="1.3.6.1.4.1.25623.1.0.11011"><name>SMB on port 445</name><family>Windows</family><cvss_base>0.0</cvss_base><risk_factor>None</risk_factor><cve>NOCVE</cve><bid>NOBID</bid><tags>cvss_base_vector=AV:N/AC:L/Au:N/C:N/I:N/A:N</tags><cert></cert><xref>NOXREF</xref></nvt><threat>Log</threat><description>A CIFS server is running on this port
+</description><original_threat>Log</original_threat><notes></notes><overrides></overrides></result><result id="9d09a62d-dd79-4097-a1ac-557fce5cdb6d"><subnet>10.211.55.35</subnet><host>10.211.55.35</host><port>microsoft-ds (445/tcp)</port><nvt oid="1.3.6.1.4.1.25623.1.0.902425"><name>Microsoft Windows SMB Accessible Shares</name><family>Windows</family><cvss_base>0.0</cvss_base><risk_factor>None</risk_factor><cve>NOCVE</cve><bid>NOBID</bid><tags>cvss_base_vector=AV:N/AC:L/Au:N/C:N/I:N/A:N</tags><cert></cert><xref>NOXREF</xref></nvt><threat>Log</threat><description>The following shares where found
+IPC$
+
+</description><original_threat>Log</original_threat><notes></notes><overrides></overrides></result><result id="ce483608-dc9a-4382-8372-2b4cad975067"><subnet>10.211.55.35</subnet><host>10.211.55.35</host><port>msgsrvr (8787/tcp)</port><nvt oid="0"><name></name><family></family><cvss_base></cvss_base><risk_factor></risk_factor><cve></cve><bid></bid><tags></tags><cert></cert><xref></xref></nvt><threat>Log</threat><description>Open port.</description><original_threat>Log</original_threat><notes></notes><overrides></overrides></result><result id="8ec517e5-ff27-4156-a558-034d07ac1064"><subnet>10.211.55.35</subnet><host>10.211.55.35</host><port>mysql (3306/tcp)</port><nvt oid="0"><name></name><family></family><cvss_base></cvss_base><risk_factor></risk_factor><cve></cve><bid></bid><tags></tags><cert></cert><xref></xref></nvt><threat>Log</threat><description>Open port.</description><original_threat>Log</original_threat><notes></notes><overrides></overrides></result><result id="18645d5a-d789-49ae-a097-f5d10a41389b"><subnet>10.211.55.35</subnet><host>10.211.55.35</host><port>mysql (3306/tcp)</port><nvt oid="1.3.6.1.4.1.25623.1.0.100152"><name>MySQL/MariaDB Detection</name><family>Product detection</family><cvss_base>0.0</cvss_base><risk_factor>None</risk_factor><cve>NOCVE</cve><bid>NOBID</bid><tags>cvss_base_vector=AV:N/AC:L/Au:N/C:N/I:N/A:N</tags><cert></cert><xref>NOXREF</xref></nvt><threat>Log</threat><description>Detected MySQL version: 5.0.51a-3ubuntu5
+Location: 3306/tcp
+CPE: cpe:/a:mysql:mysql:5.0.51a
+
+Concluded from version identification result:
+
+5.0.51a-3ubuntu5 s   pP&quot;Uh-AB ,ª                f]|xdo#Z~+XY 
+
+</description><original_threat>Log</original_threat><notes></notes><overrides></overrides></result><result id="9078713c-79a4-4966-850c-ab521be500d1"><subnet>10.211.55.35</subnet><host>10.211.55.35</host><port>mysql (3306/tcp)</port><nvt oid="1.3.6.1.4.1.25623.1.0.10330"><name>Services</name><family>Service detection</family><cvss_base>0.0</cvss_base><risk_factor>None</risk_factor><cve>NOCVE</cve><bid>NOBID</bid><tags>cvss_base_vector=AV:N/AC:L/Au:N/C:N/I:N/A:N</tags><cert></cert><xref>NOXREF</xref></nvt><threat>Log</threat><description>An unknown service is running on this port.
+It is usually reserved for MySQL
+</description><original_threat>Log</original_threat><notes></notes><overrides></overrides></result><result id="6deb3f62-ac52-4644-aaea-94227f441c5a"><subnet>10.211.55.35</subnet><host>10.211.55.35</host><port>mysql (3306/tcp)</port><nvt oid="1.3.6.1.4.1.25623.1.0.902799"><name>Database Open Access Vulnerability</name><family>Databases</family><cvss_base>0.0</cvss_base><risk_factor>None</risk_factor><cve>NOCVE</cve><bid>NOBID</bid><tags>cvss_base_vector=AV:N/AC:L/Au:N/C:N/I:N/A:N</tags><cert></cert><xref>NOXREF</xref></nvt><threat>Log</threat><description>MySQL can be accessed by remote attackers
+</description><original_threat>Log</original_threat><notes></notes><overrides></overrides></result><result id="0c6d8dab-10d8-4b14-9180-2d109043dd31"><subnet>10.211.55.35</subnet><host>10.211.55.35</host><port>netbios-ns (137/udp)</port><nvt oid="1.3.6.1.4.1.25623.1.0.10150"><name>Using NetBIOS to retrieve information from a Windows host</name><family>Windows</family><cvss_base>0.0</cvss_base><risk_factor>None</risk_factor><cve>NOCVE</cve><bid>NOBID</bid><tags>cvss_base_vector=AV:N/AC:L/Au:N/C:N/I:N/A:N</tags><cert></cert><xref>NOXREF</xref></nvt><threat>Log</threat><description>The following 7 NetBIOS names have been gathered :
+ METASPLOITABLE  = This is the computer name registered for workstation services by a WINS client.
+ METASPLOITABLE  = This is the current logged in user registered for this workstation.
+ METASPLOITABLE  = Computer name
+   __MSBROWSE__ 
+ WORKGROUP       = Workgroup / Domain name
+ WORKGROUP      
+ WORKGROUP       = Workgroup / Domain name (part of the Browser elections)
+
+. This SMB server seems to be a SAMBA server (this is not a security
+risk, this is for your information). This can be told because this server 
+claims to have a null MAC address
+
+If you do not want to allow everyone to find the NetBios name
+of your computer, you should filter incoming traffic to this port.
+</description><original_threat>Log</original_threat><notes></notes><overrides></overrides></result><result id="549df728-feed-4423-a355-0087c4ba3154"><subnet>10.211.55.35</subnet><host>10.211.55.35</host><port>netbios-ssn (139/tcp)</port><nvt oid="0"><name></name><family></family><cvss_base></cvss_base><risk_factor></risk_factor><cve></cve><bid></bid><tags></tags><cert></cert><xref></xref></nvt><threat>Log</threat><description>Open port.</description><original_threat>Log</original_threat><notes></notes><overrides></overrides></result><result id="a82a756d-e20d-4842-b6e9-be2edf507625"><subnet>10.211.55.35</subnet><host>10.211.55.35</host><port>netbios-ssn (139/tcp)</port><nvt oid="1.3.6.1.4.1.25623.1.0.11011"><name>SMB on port 445</name><family>Windows</family><cvss_base>0.0</cvss_base><risk_factor>None</risk_factor><cve>NOCVE</cve><bid>NOBID</bid><tags>cvss_base_vector=AV:N/AC:L/Au:N/C:N/I:N/A:N</tags><cert></cert><xref>NOXREF</xref></nvt><threat>Log</threat><description>An SMB server is running on this port
+</description><original_threat>Log</original_threat><notes></notes><overrides></overrides></result><result id="5c5f7b5c-0e88-4493-880f-11b3b31cb0d5"><subnet>10.211.55.35</subnet><host>10.211.55.35</host><port>nfs (2049/tcp)</port><nvt oid="0"><name></name><family></family><cvss_base></cvss_base><risk_factor></risk_factor><cve></cve><bid></bid><tags></tags><cert></cert><xref></xref></nvt><threat>Log</threat><description>Open port.</description><original_threat>Log</original_threat><notes></notes><overrides></overrides></result><result id="f9d0fa39-8962-4286-8c49-bc9fc9db166f"><subnet>10.211.55.35</subnet><host>10.211.55.35</host><port>postgresql (5432/tcp)</port><nvt oid="0"><name></name><family></family><cvss_base></cvss_base><risk_factor></risk_factor><cve></cve><bid></bid><tags></tags><cert></cert><xref></xref></nvt><threat>Log</threat><description>Open port.</description><original_threat>Log</original_threat><notes></notes><overrides></overrides></result><result id="1d0cab5c-179f-4420-ae45-c892602f68cc"><subnet>10.211.55.35</subnet><host>10.211.55.35</host><port>postgresql (5432/tcp)</port><nvt oid="1.3.6.1.4.1.25623.1.0.100151"><name>PostgreSQL Detection</name><family>Product detection</family><cvss_base>0.0</cvss_base><risk_factor>None</risk_factor><cve>NOCVE</cve><bid>NOBID</bid><tags>cvss_base_vector=AV:N/AC:L/Au:N/C:N/I:N/A:N|detection=remote probe</tags><cert></cert><xref>NOXREF</xref></nvt><threat>Log</threat><description>Detected PostgreSQL version: 8.3.1
+Location: 5432/tcp
+CPE: cpe:/a:postgresql:postgresql:8.3.1
+
+Concluded from version identification result:
+T versionDg]PostgreSQL 8.3.1 on i486-pc-linux-gnu, compiled by GCC cc (GCC) 4.2.3 (Ubuntu 4.2.3-2ubuntu4)CSELECTZI
+
+</description><original_threat>Log</original_threat><notes></notes><overrides></overrides></result><result id="581ac616-3873-46a1-92dc-ed2128f8604d"><subnet>10.211.55.35</subnet><host>10.211.55.35</host><port>postgresql (5432/tcp)</port><nvt oid="1.3.6.1.4.1.25623.1.0.10330"><name>Services</name><family>Service detection</family><cvss_base>0.0</cvss_base><risk_factor>None</risk_factor><cve>NOCVE</cve><bid>NOBID</bid><tags>cvss_base_vector=AV:N/AC:L/Au:N/C:N/I:N/A:N</tags><cert></cert><xref>NOXREF</xref></nvt><threat>Log</threat><description>An unknown service is running on this port.
+It is usually reserved for Postgres
+</description><original_threat>Log</original_threat><notes></notes><overrides></overrides></result><result id="3bf9c127-d328-4a26-b944-c827dbd10d36"><subnet>10.211.55.35</subnet><host>10.211.55.35</host><port>postgresql (5432/tcp)</port><nvt oid="1.3.6.1.4.1.25623.1.0.902799"><name>Database Open Access Vulnerability</name><family>Databases</family><cvss_base>0.0</cvss_base><risk_factor>None</risk_factor><cve>NOCVE</cve><bid>NOBID</bid><tags>cvss_base_vector=AV:N/AC:L/Au:N/C:N/I:N/A:N</tags><cert></cert><xref>NOXREF</xref></nvt><threat>Log</threat><description>Postgresql database can be accessed by remote attackers
+</description><original_threat>Log</original_threat><notes></notes><overrides></overrides></result><result id="c63978a6-b474-4423-bd50-7594884fe244"><subnet>10.211.55.35</subnet><host>10.211.55.35</host><port>rmiregistry (1099/tcp)</port><nvt oid="0"><name></name><family></family><cvss_base></cvss_base><risk_factor></risk_factor><cve></cve><bid></bid><tags></tags><cert></cert><xref></xref></nvt><threat>Log</threat><description>Open port.</description><original_threat>Log</original_threat><notes></notes><overrides></overrides></result><result id="72abf43b-7134-49e5-9707-c9a02861ab73"><subnet>10.211.55.35</subnet><host>10.211.55.35</host><port>rmiregistry (1099/tcp)</port><nvt oid="1.3.6.1.4.1.25623.1.0.66286"><name>Identify unknown services with nmap</name><family>Service detection</family><cvss_base>0.0</cvss_base><risk_factor>None</risk_factor><cve>NOCVE</cve><bid>NOBID</bid><tags>cvss_base_vector=AV:N/AC:L/Au:N/C:N/I:N/A:N</tags><cert></cert><xref>NOXREF</xref></nvt><threat>Log</threat><description>Nmap service detection result for this port: rmiregistry
+</description><original_threat>Log</original_threat><notes></notes><overrides></overrides></result><result id="d1c8b187-230d-4405-8bf8-38d850726ca5"><subnet>10.211.55.35</subnet><host>10.211.55.35</host><port>scientia-ssdb (2121/tcp)</port><nvt oid="1.3.6.1.4.1.25623.1.0.10092"><name>FTP Server type and version</name><family>General</family><cvss_base>1.9</cvss_base><risk_factor>Low</risk_factor><cve>NOCVE</cve><bid>NOBID</bid><tags>cvss_base_vector=AV:L/AC:M/Au:N/C:N/I:N/A:P</tags><cert></cert><xref>NOXREF</xref></nvt><threat>Log</threat><description>Remote FTP server banner :
+220 ProFTPD 1.3.1 Server (Debian) [::ffff:10.211.55.35] 
+</description><original_threat>Log</original_threat><notes></notes><overrides></overrides></result><result id="ecdc61cd-3daa-49de-97e0-d694adfef611"><subnet>10.211.55.35</subnet><host>10.211.55.35</host><port>scientia-ssdb (2121/tcp)</port><nvt oid="0"><name></name><family></family><cvss_base></cvss_base><risk_factor></risk_factor><cve></cve><bid></bid><tags></tags><cert></cert><xref></xref></nvt><threat>Log</threat><description>Open port.</description><original_threat>Log</original_threat><notes></notes><overrides></overrides></result><result id="49affa00-a8a7-4611-9491-802599219966"><subnet>10.211.55.35</subnet><host>10.211.55.35</host><port>scientia-ssdb (2121/tcp)</port><nvt oid="1.3.6.1.4.1.25623.1.0.10330"><name>Services</name><family>Service detection</family><cvss_base>0.0</cvss_base><risk_factor>None</risk_factor><cve>NOCVE</cve><bid>NOBID</bid><tags>cvss_base_vector=AV:N/AC:L/Au:N/C:N/I:N/A:N</tags><cert></cert><xref>NOXREF</xref></nvt><threat>Log</threat><description>An FTP server is running on this port.
+Here is its banner : 
+220 ProFTPD 1.3.1 Server (Debian) [::ffff:10.211.55.35] 
+</description><original_threat>Log</original_threat><notes></notes><overrides></overrides></result><result id="119fde7a-8e61-4a8f-8795-d7bb44bb3a14"><subnet>10.211.55.35</subnet><host>10.211.55.35</host><port>shell (514/tcp)</port><nvt oid="0"><name></name><family></family><cvss_base></cvss_base><risk_factor></risk_factor><cve></cve><bid></bid><tags></tags><cert></cert><xref></xref></nvt><threat>Log</threat><description>Open port.</description><original_threat>Log</original_threat><notes></notes><overrides></overrides></result><result id="ef3b70b5-13e8-41f0-9734-b6e8fa8aa2c3"><subnet>10.211.55.35</subnet><host>10.211.55.35</host><port>smtp (25/tcp)</port><nvt oid="0"><name></name><family></family><cvss_base></cvss_base><risk_factor></risk_factor><cve></cve><bid></bid><tags></tags><cert></cert><xref></xref></nvt><threat>Log</threat><description>Open port.</description><original_threat>Log</original_threat><notes></notes><overrides></overrides></result><result id="09765404-4b8a-4d67-8c9e-9fba40e4e04f"><subnet>10.211.55.35</subnet><host>10.211.55.35</host><port>smtp (25/tcp)</port><nvt oid="1.3.6.1.4.1.25623.1.0.10263"><name>SMTP Server type and version</name><family>General</family><cvss_base>0.0</cvss_base><risk_factor>None</risk_factor><cve>NOCVE</cve><bid>NOBID</bid><tags>cvss_base_vector=AV:N/AC:L/Au:N/C:N/I:N/A:N</tags><cert></cert><xref>NOXREF</xref></nvt><threat>Log</threat><description>Remote SMTP server banner :
+220 metasploitable.localdomain ESMTP Postfix (Ubuntu) 
+
+
+
+This is probably: Postfix
+
+
+Detected Postfix version: unknown
+Location: 25/tcp
+CPE: cpe:/a:postfix:postfix
+</description><original_threat>Log</original_threat><notes></notes><overrides></overrides></result><result id="740bcbea-abf7-4fb0-96ad-0c34a14ec04b"><subnet>10.211.55.35</subnet><host>10.211.55.35</host><port>smtp (25/tcp)</port><nvt oid="1.3.6.1.4.1.25623.1.0.103118"><name>SMTP STARTTLS Detection Detection</name><family>Service detection</family><cvss_base>0.0</cvss_base><risk_factor>None</risk_factor><cve>NOCVE</cve><bid>NOBID</bid><tags>cvss_base_vector=AV:N/AC:L/Au:N/C:N/I:N/A:N</tags><cert></cert><xref>NOXREF</xref></nvt><threat>Log</threat><description>
+ Summary:
+ The remote Mailserver supports the STARTTLS command.
+</description><original_threat>Log</original_threat><notes></notes><overrides></overrides></result><result id="3853c820-0cd0-4733-9117-d16e4c39ad60"><subnet>10.211.55.35</subnet><host>10.211.55.35</host><port>smtp (25/tcp)</port><nvt oid="1.3.6.1.4.1.25623.1.0.10330"><name>Services</name><family>Service detection</family><cvss_base>0.0</cvss_base><risk_factor>None</risk_factor><cve>NOCVE</cve><bid>NOBID</bid><tags>cvss_base_vector=AV:N/AC:L/Au:N/C:N/I:N/A:N</tags><cert></cert><xref>NOXREF</xref></nvt><threat>Log</threat><description>An SMTP server is running on this port
+Here is its banner : 
+220 metasploitable.localdomain ESMTP Postfix (Ubuntu) 
+</description><original_threat>Log</original_threat><notes></notes><overrides></overrides></result><result id="3b0aeadf-c98d-44f6-ba6a-87210ec4ab6e"><subnet>10.211.55.35</subnet><host>10.211.55.35</host><port>ssh (22/tcp)</port><nvt oid="0"><name></name><family></family><cvss_base></cvss_base><risk_factor></risk_factor><cve></cve><bid></bid><tags></tags><cert></cert><xref></xref></nvt><threat>Log</threat><description>Open port.</description><original_threat>Log</original_threat><notes></notes><overrides></overrides></result><result id="20af3a15-4a60-4228-a63a-b014b2b81815"><subnet>10.211.55.35</subnet><host>10.211.55.35</host><port>ssh (22/tcp)</port><nvt oid="1.3.6.1.4.1.25623.1.0.100259"><name>SSH Protocol Versions Supported</name><family>Service detection</family><cvss_base>0.0</cvss_base><risk_factor>None</risk_factor><cve>NOCVE</cve><bid>NOBID</bid><tags>cvss_base_vector=AV:N/AC:L/Au:N/C:N/I:N/A:N</tags><cert></cert><xref>NOXREF</xref></nvt><threat>Log</threat><description>The remote SSH Server supports the following SSH Protocol Versions:
+1.99
+2.0
+
+SSHv2 Fingerprint: 56:56:24:0f:21:1d:de:a7:2b:ae:61:b1:24:3d:e8:f3
+
+</description><original_threat>Log</original_threat><notes></notes><overrides></overrides></result><result id="0b7c8ee1-da9b-4c82-ba73-119662aaab54"><subnet>10.211.55.35</subnet><host>10.211.55.35</host><port>ssh (22/tcp)</port><nvt oid="1.3.6.1.4.1.25623.1.0.10267"><name>SSH Server type and version</name><family>Product detection</family><cvss_base>0.0</cvss_base><risk_factor>None</risk_factor><cve>NOCVE</cve><bid>NOBID</bid><tags>cvss_base_vector=AV:N/AC:L/Au:N/C:N/I:N/A:N|detection=remote probe</tags><cert></cert><xref>NOXREF</xref></nvt><threat>Log</threat><description>Detected SSH server version: SSH-2.0-OpenSSH_4.7p1 Debian-8ubuntu1
+Remote SSH supported authentication: publickey,password
+Remote SSH banner: 
+(not available)
+
+CPE: cpe:/a:openbsd:openssh:4.7p1
+
+Concluded from remote connection attempt with credentials:
+  Login: OpenVAS
+  Password: OpenVAS
+
+</description><original_threat>Log</original_threat><notes></notes><overrides></overrides></result><result id="ec5a541a-e92b-497b-8ffe-6fa6e60bd8e7"><subnet>10.211.55.35</subnet><host>10.211.55.35</host><port>ssh (22/tcp)</port><nvt oid="1.3.6.1.4.1.25623.1.0.10330"><name>Services</name><family>Service detection</family><cvss_base>0.0</cvss_base><risk_factor>None</risk_factor><cve>NOCVE</cve><bid>NOBID</bid><tags>cvss_base_vector=AV:N/AC:L/Au:N/C:N/I:N/A:N</tags><cert></cert><xref>NOXREF</xref></nvt><threat>Log</threat><description>An ssh server is running on this port
+</description><original_threat>Log</original_threat><notes></notes><overrides></overrides></result><result id="c17e4e2e-6138-4c11-8023-744217734777"><subnet>10.211.55.35</subnet><host>10.211.55.35</host><port>sunrpc (111/tcp)</port><nvt oid="0"><name></name><family></family><cvss_base></cvss_base><risk_factor></risk_factor><cve></cve><bid></bid><tags></tags><cert></cert><xref></xref></nvt><threat>Log</threat><description>Open port.</description><original_threat>Log</original_threat><notes></notes><overrides></overrides></result><result id="f6f69a84-0de4-4b39-a1e9-e350d9e24869"><subnet>10.211.55.35</subnet><host>10.211.55.35</host><port>sunrpc (111/tcp)</port><nvt oid="1.3.6.1.4.1.25623.1.0.11111"><name>rpcinfo -p</name><family>RPC</family><cvss_base>0.0</cvss_base><risk_factor>None</risk_factor><cve>NOCVE</cve><bid>NOBID</bid><tags>cvss_base_vector=AV:N/AC:L/Au:N/C:N/I:N/A:N</tags><cert></cert><xref>NOXREF</xref></nvt><threat>Log</threat><description>These are the registered RPC programs:
+
+RPC program #100000 version 2 &apos;portmapper&apos; (portmap sunrpc rpcbind) on port 111/TCP
+
+RPC program #100003 version 2 &apos;nfs&apos; (nfsprog) on port 2049/TCP
+
+RPC program #100003 version 3 &apos;nfs&apos; (nfsprog) on port 2049/TCP
+
+RPC program #100003 version 4 &apos;nfs&apos; (nfsprog) on port 2049/TCP
+
+RPC program #100021 version 1 &apos;nlockmgr&apos; on port 41311/TCP
+
+RPC program #100021 version 3 &apos;nlockmgr&apos; on port 41311/TCP
+
+RPC program #100021 version 4 &apos;nlockmgr&apos; on port 41311/TCP
+
+RPC program #100024 version 1 &apos;status&apos; on port 43886/TCP
+
+RPC program #100005 version 1 &apos;mountd&apos; (mount showmount) on port 54789/TCP
+
+RPC program #100005 version 2 &apos;mountd&apos; (mount showmount) on port 54789/TCP
+
+RPC program #100005 version 3 &apos;mountd&apos; (mount showmount) on port 54789/TCP
+
+RPC program #100000 version 2 &apos;portmapper&apos; (portmap sunrpc rpcbind) on port 111/UDP
+
+RPC program #100003 version 2 &apos;nfs&apos; (nfsprog) on port 2049/UDP
+
+RPC program #100003 version 3 &apos;nfs&apos; (nfsprog) on port 2049/UDP
+
+RPC program #100003 version 4 &apos;nfs&apos; (nfsprog) on port 2049/UDP
+
+RPC program #100024 version 1 &apos;status&apos; on port 35723/UDP
+
+RPC program #100005 version 1 &apos;mountd&apos; (mount showmount) on port 37517/UDP
+
+RPC program #100005 version 2 &apos;mountd&apos; (mount showmount) on port 37517/UDP
+
+RPC program #100005 version 3 &apos;mountd&apos; (mount showmount) on port 37517/UDP
+
+RPC program #100021 version 1 &apos;nlockmgr&apos; on port 43274/UDP
+
+RPC program #100021 version 3 &apos;nlockmgr&apos; on port 43274/UDP
+
+RPC program #100021 version 4 &apos;nlockmgr&apos; on port 43274/UDP
+
+
+</description><original_threat>Log</original_threat><notes></notes><overrides></overrides></result><result id="9813d12f-4473-40bd-ac58-05003905cd7f"><subnet>10.211.55.35</subnet><host>10.211.55.35</host><port>telnet (23/tcp)</port><nvt oid="0"><name></name><family></family><cvss_base></cvss_base><risk_factor></risk_factor><cve></cve><bid></bid><tags></tags><cert></cert><xref></xref></nvt><threat>Log</threat><description>Open port.</description><original_threat>Log</original_threat><notes></notes><overrides></overrides></result><result id="f2ad2af0-0daf-4f97-bdf0-8def7a4c37f8"><subnet>10.211.55.35</subnet><host>10.211.55.35</host><port>telnet (23/tcp)</port><nvt oid="1.3.6.1.4.1.25623.1.0.10281"><name>Detect Server type and version via Telnet</name><family>General</family><cvss_base>0.0</cvss_base><risk_factor>None</risk_factor><cve>NOCVE</cve><bid>NOBID</bid><tags>cvss_base_vector=AV:N/AC:L/Au:N/C:N/I:N/A:N</tags><cert></cert><xref>NOXREF</xref></nvt><threat>Log</threat><description>Remote telnet banner :
+                _                  _       _ _        _     _      ____   
+ _ __ ___   ___| |_ __ _ ___ _ __ | | ___ (_) |_ __ _| |__ | | ___|___ \  
+| &apos;_ ` _ \ / _ \ __/ _` / __| &apos;_ \| |/ _ \| | __/ _` | &apos;_ \| |/ _ \ __) | 
+| | | | | |  __/ || (_| \__ \ |_) | | (_) | | || (_| | |_) | |  __// __/  
+|_| |_| |_|\___|\__\__,_|___/ .__/|_|\___/|_|\__\__,_|_.__/|_|\___|_____| 
+                            |_|                                           
+ 
+ 
+Warning: Never expose this VM to an untrusted network! 
+ 
+Contact: msfdev[at]metasploit.com 
+ 
+Login with msfadmin/msfadmin to get started 
+ 
+ 
+metasploitable login: 
+</description><original_threat>Log</original_threat><notes></notes><overrides></overrides></result><result id="3cb898d3-2698-40a6-a8a0-efd307242901"><subnet>10.211.55.35</subnet><host>10.211.55.35</host><port>telnet (23/tcp)</port><nvt oid="1.3.6.1.4.1.25623.1.0.10330"><name>Services</name><family>Service detection</family><cvss_base>0.0</cvss_base><risk_factor>None</risk_factor><cve>NOCVE</cve><bid>NOBID</bid><tags>cvss_base_vector=AV:N/AC:L/Au:N/C:N/I:N/A:N</tags><cert></cert><xref>NOXREF</xref></nvt><threat>Log</threat><description>A telnet server seems to be running on this port
+</description><original_threat>Log</original_threat><notes></notes><overrides></overrides></result><result id="4cba6a21-877c-4875-95f4-2bf1fc5270ac"><subnet>10.211.55.35</subnet><host>10.211.55.35</host><port>vnc (5900/tcp)</port><nvt oid="0"><name></name><family></family><cvss_base></cvss_base><risk_factor></risk_factor><cve></cve><bid></bid><tags></tags><cert></cert><xref></xref></nvt><threat>Log</threat><description>Open port.</description><original_threat>Log</original_threat><notes></notes><overrides></overrides></result><result id="c308a066-8de7-448f-b09b-f308be6e705c"><subnet>10.211.55.35</subnet><host>10.211.55.35</host><port>x11 (6000/tcp)</port><nvt oid="0"><name></name><family></family><cvss_base></cvss_base><risk_factor></risk_factor><cve></cve><bid></bid><tags></tags><cert></cert><xref></xref></nvt><threat>Log</threat><description>Open port.</description><original_threat>Log</original_threat><notes></notes><overrides></overrides></result></results><result_count>196<full>196</full><filtered>159</filtered><debug><full>0</full><filtered>0</filtered></debug><hole><full>45</full><filtered>45</filtered></hole><info><full>9</full><filtered>9</filtered></info><log><full>80</full><filtered>80</filtered></log><warning><full>25</full><filtered>25</filtered></warning><false_positive><full>0</full><filtered>0</filtered></false_positive></result_count><host><ip>10.211.55.35</ip><start>2014-04-13T02:19:39Z</start><end>2014-04-13T02:45:53Z</end><detail><name>App</name><value>cpe:/a:samba:samba:3.0.20</value><source><type>nvt</type><name>1.3.6.1.4.1.25623.1.0.102011</name><description>Extracts info about the OS through NTLM authentication packets</description></source></detail><detail><name>OS</name><value>Unix</value><source><type>nvt</type><name>1.3.6.1.4.1.25623.1.0.102011</name><description>Extracts info about the OS through NTLM authentication packets</description></source></detail><detail><name>OS</name><value>Linux Kernel</value><source><type>nvt</type><name>1.3.6.1.4.1.25623.1.0.102002</name><description>Detects remote operating system version</description></source></detail><detail><name>OS</name><value>cpe:/o:linux:kernel</value><source><type>nvt</type><name>1.3.6.1.4.1.25623.1.0.102002</name><description>Detects remote operating system version</description></source></detail><detail><name>ports</name><value>445,3632,5900,8009,8787,21,111,6667,22,23,512,2049,513,6000,25,514,1099,139,2121,3306,53,1524,5432,80</value><source><type>nvt</type><name>1.3.6.1.4.1.25623.1.0.900239</name><description>Check Open TCP Ports</description></source></detail><detail><name>tcp_ports</name><value>445,3632,5900,8009,8787,21,111,6667,22,23,512,2049,513,6000,25,514,1099,139,2121,3306,53,1524,5432,80</value><source><type>nvt</type><name>1.3.6.1.4.1.25623.1.0.900239</name><description>Check Open TCP Ports</description></source></detail><detail><name>MAC</name><value>00:1C:42:96:DD:06</value><source><type>nvt</type><name>1.3.6.1.4.1.25623.1.0.103585</name><description>Nmap MAC Scan</description></source></detail><detail><name>App</name><value>cpe:/a:postgresql:postgresql:8.3.1</value><source><type>nvt</type><name>1.3.6.1.4.1.25623.1.0.100151</name><description></description></source></detail><detail><name>cpe:/a:postgresql:postgresql:8.3.1</name><value>5432/tcp</value><source><type>nvt</type><name>1.3.6.1.4.1.25623.1.0.100151</name><description></description></source></detail><detail><name>traceroute</name><value>10.211.55.44,10.211.55.35</value><source><type>nvt</type><name>1.3.6.1.4.1.25623.1.0.51662</name><description>Traceroute</description></source></detail><detail><name>App</name><value>cpe:/a:tikiwiki:tikiwiki:1.9.5</value><source><type>nvt</type><name>1.3.6.1.4.1.25623.1.0.901001</name><description></description></source></detail><detail><name>cpe:/a:tikiwiki:tikiwiki:1.9.5</name><value>/tikiwiki</value><source><type>nvt</type><name>1.3.6.1.4.1.25623.1.0.901001</name><description></description></source></detail><detail><name>App</name><value>cpe:/a:php:php:5.2.4</value><source><type>nvt</type><name>1.3.6.1.4.1.25623.1.0.800109</name><description></description></source></detail><detail><name>cpe:/a:php:php:5.2.4</name><value>tcp/80</value><source><type>nvt</type><name>1.3.6.1.4.1.25623.1.0.800109</name><description></description></source></detail><detail><name>App</name><value>cpe:/a:mysql:mysql:5.0.51a</value><source><type>nvt</type><name>1.3.6.1.4.1.25623.1.0.100152</name><description></description></source></detail><detail><name>cpe:/a:mysql:mysql:5.0.51a</name><value>3306/tcp</value><source><type>nvt</type><name>1.3.6.1.4.1.25623.1.0.100152</name><description></description></source></detail><detail><name>App</name><value>cpe:/a:phpmyadmin:phpmyadmin</value><source><type>nvt</type><name>1.3.6.1.4.1.25623.1.0.900129</name><description></description></source></detail><detail><name>cpe:/a:phpmyadmin:phpmyadmin</name><value>/phpMyAdmin</value><source><type>nvt</type><name>1.3.6.1.4.1.25623.1.0.900129</name><description></description></source></detail><detail><name>App</name><value>cpe:/a:postfix:postfix</value><source><type>nvt</type><name>1.3.6.1.4.1.25623.1.0.10263</name><description></description></source></detail><detail><name>cpe:/a:postfix:postfix</name><value>25/tcp</value><source><type>nvt</type><name>1.3.6.1.4.1.25623.1.0.10263</name><description></description></source></detail><detail><name>App</name><value>cpe:/a:proftpd:proftpd:1.3.1</value><source><type>nvt</type><name>1.3.6.1.4.1.25623.1.0.900815</name><description>ProFTPD Server Remote Version Detection</description></source></detail><detail><name>App</name><value>cpe:/a:apache:http_server:2.2.8</value><source><type>nvt</type><name>1.3.6.1.4.1.25623.1.0.900498</name><description></description></source></detail><detail><name>cpe:/a:apache:http_server:2.2.8</name><value>80/tcp</value><source><type>nvt</type><name>1.3.6.1.4.1.25623.1.0.900498</name><description></description></source></detail><detail><name>App</name><value>cpe:/a:openbsd:openssh:4.7p1</value><source><type>nvt</type><name>1.3.6.1.4.1.25623.1.0.10267</name><description>SSH Server type and version</description></source></detail><detail><name>OS</name><value>cpe:/o:canonical:ubuntu_linux</value><source><type>nvt</type><name>1.3.6.1.4.1.25623.1.0.10267</name><description>SSH Server type and version</description></source></detail><detail><name>cpe:/a:openbsd:openssh:4.7p1</name><value>22/tcp</value><source><type>nvt</type><name>1.3.6.1.4.1.25623.1.0.10267</name><description>SSH Server type and version</description></source></detail><detail><name>hostname</name><value>METASPLOITABLE </value><source><type>nvt</type><name>1.3.6.1.4.1.25623.1.0.103996</name><description>Gather hardware related information</description></source></detail><detail><name>App</name><value>cpe:/a:x.org:x11:11.0</value><source><type>nvt</type><name>1.3.6.1.4.1.25623.1.0.10407</name><description>X Server</description></source></detail><detail><name>scanned_with_scanner</name><value>6.0.0</value><source><type>nvt</type><name>1.3.6.1.4.1.25623.1.0.103739</name><description>Host Scan End</description></source></detail><detail><name>scanned_with_feedversion</name><value>201408210928</value><source><type>nvt</type><name>1.3.6.1.4.1.25623.1.0.103739</name><description>Host Scan End</description></source></detail><detail><name>scanned_with_feedtype</name><value>OpenVAS NVT Feed</value><source><type>nvt</type><name>1.3.6.1.4.1.25623.1.0.103739</name><description>Host Scan End</description></source></detail><detail><name>best_os_cpe</name><value>cpe:/o:canonical:ubuntu_linux</value><source><type>nvt</type><name>1.3.6.1.4.1.25623.1.0.10267</name><description>SSH Server type and version</description></source></detail><detail><name>best_os_txt</name><value>Unix</value><source><type>nvt</type><name>1.3.6.1.4.1.25623.1.0.102011</name><description>Extracts info about the OS through NTLM authentication packets</description></source></detail></host><host_start>2014-04-13T02:19:39Z<host>10.211.55.35</host></host_start><host_end>2014-04-13T02:45:53Z<host>10.211.55.35</host></host_end><scan_end>2014-04-13T02:45:54Z</scan_end></report></report>
