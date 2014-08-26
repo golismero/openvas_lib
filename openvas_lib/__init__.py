@@ -47,7 +47,7 @@ from .data import *
 
 
 #------------------------------------------------------------------------------
-def setInterval(interval, times=-1):
+def set_interval(interval, times=-1):
     """
     Decorator to execute a function periodically using a timer.
     The function is executed in a background thread.
@@ -55,7 +55,7 @@ def setInterval(interval, times=-1):
     Example:
 
         >>> from time import gmtime, strftime
-        >>> @setInterval(2) # Execute every 2 seconds until stopped.
+        >>> @set_interval(2) # Execute every 2 seconds until stopped.
         ... def my_func():
         ...     print strftime("%Y-%m-%d %H:%M:%S", gmtime())
         ...
@@ -65,7 +65,7 @@ def setInterval(interval, times=-1):
         2013-07-25 22:40:59
         2013-07-25 22:41:01
         >>> handler.set() # Stop the execution.
-        >>> @setInterval(2, 3) # Every 2 seconds, 3 times.
+        >>> @set_interval(2, 3) # Every 2 seconds, 3 times.
         ... def my_func():
         ...     print strftime("%Y-%m-%d %H:%M:%S", gmtime())
         ...
@@ -107,7 +107,7 @@ def setInterval(interval, times=-1):
             stop = Event()
 
             # This is another function to be executed
-            # in a different thread to simulate setInterval
+            # in a different thread to simulate set_interval
             def inner_wrap():
                 i = 0
                 while i != times and not stop.isSet():
@@ -272,6 +272,11 @@ class VulnscanManager(object):
         # Old progress
         self.__old_progress = 0.0
 
+        # Init various vars
+        self.__function_handle = None
+        self.__task_id = None
+        self.__target_id = None
+
     #----------------------------------------------------------------------
     def launch_scan(self, target, **kwargs):
         """
@@ -378,7 +383,7 @@ class VulnscanManager(object):
         if call_back_end or call_back_progress:
             # schedule a function to run each 10 seconds to check the estate in the server
             self.__function_handle = self._callback(call_back_end, call_back_progress)
-            self.__task_id  = m_task_id
+            self.__task_id = m_task_id
             self.__target_id = m_target_id
 
         return m_task_id, m_target_id
@@ -534,7 +539,7 @@ class VulnscanManager(object):
             raise VulnscanVersionError()
 
     #----------------------------------------------------------------------
-    @setInterval(10.0)
+    @set_interval(10.0)
     def _callback(self, func_end, func_status):
         """
         This callback function is called periodically from a timer.
@@ -644,13 +649,13 @@ def _get_connector(host, username, password, port=9390, timeout=None):
     Get concrete connector version for server.
 
     :param host: string with host where OpenVAS manager are running.
-    :type host: str
+    :type host: basestring
 
     :param username: user name in the OpenVAS manager.
-    :type username: str
+    :type username: basestring
 
     :param password: user password.
-    :type password: str
+    :type password: basestring
 
     :param port: port of the OpenVAS Manager
     :type port: int
@@ -1085,7 +1090,7 @@ class _OMP(object):
         If name param is provided, only get the ID associated to this name.
 
         :param name: config name to get
-        :type name: str
+        :type name: basestring
 
         :return: a dict with the format: {config_name: config_ID}
 
@@ -1101,7 +1106,7 @@ class _OMP(object):
         If name param is provided, only get the task associated to this name.
 
         :param task_id: task id to get
-        :type task_id: str
+        :type task_id: basestring
 
         :return: `ElementTree`
 
