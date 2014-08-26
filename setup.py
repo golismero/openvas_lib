@@ -21,6 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 __all__ = ["metadata", "main"]
 
+import os
+
 from distutils.core import setup
 
 # Text describing the module.
@@ -35,38 +37,41 @@ except Exception:
 metadata = {
 
     # Setup instructions.
-    'provides'          : ['openvas_lib'],
-    'packages'          : ['openvas_lib'],
+    'provides': ['openvas_lib'],
+    'packages': ['openvas_lib'],
 
     # Metadata.
-    'name'              : 'openvas_lib',
-    'version'           : '1.0',
-    'description'       : description,
-    'long_description'  : long_description,
-    'author'            : 'Daniel Garcia Garcia (cr0hn)',
-    'author_email'      : 'cr0hn' + '@' + 'cr0hn.com',
-    'license'           : 'GPLv2',
-    'url'               : 'http://golismero-project.com/',
-    'download_url'      : 'https://github.com/golismero/OpenVAS/zipball/master',
-    'classifiers'       : [
-                        'Development Status :: 4 - Beta',
-                        'Intended Audience :: Developers',
-                        'Intended Audience :: Information Technology',
-                        'License :: OSI Approved :: GNU General Public License v2 (GPLv2)',
-                        'Natural Language :: English',
-                        'Operating System :: MacOS :: MacOS X',
-                        'Operating System :: Microsoft :: Windows',
-                        'Operating System :: POSIX',
-                        'Operating System :: POSIX :: BSD :: FreeBSD',
-                        'Operating System :: POSIX :: Linux',
-                        'Operating System :: Unix',
-                        'Programming Language :: Python :: 2.7',
-                        'Topic :: Security',
-                        ],
-    }
+    'name': 'openvas_lib',
+    'version': '1.0',
+    'description': description,
+    'long_description': long_description,
+    'author': 'Daniel Garcia Garcia (cr0hn)',
+    'author_email': 'cr0hn' + '@' + 'cr0hn.com',
+    'license': 'GPLv2',
+    'url': 'http://www.golismero.com/',
+    'download_url': 'https://github.com/golismero/openvas_lib/zipball/master',
+    'classifiers': [
+        'Development Status :: 4 - Beta',
+        'Intended Audience :: Developers',
+        'Intended Audience :: Information Technology',
+        'License :: OSI Approved :: GNU General Public License v2 (GPLv2)',
+        'Natural Language :: English',
+        'Operating System :: MacOS :: MacOS X',
+        'Operating System :: Microsoft :: Windows',
+        'Operating System :: POSIX',
+        'Operating System :: POSIX :: BSD :: FreeBSD',
+        'Operating System :: POSIX :: Linux',
+        'Operating System :: Unix',
+        'Programming Language :: Python :: 2.7',
+        'Topic :: Security',
+    ],
+}
+
 
 # Execute the setup script.
 def main():
     setup(**metadata)
+
+
 if __name__ == '__main__':
     main()
