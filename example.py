@@ -1,4 +1,4 @@
-##!/usr/bin/env python
+#!/usr/bin/env python
 from openvas_lib import VulnscanManager,VulnscanException
 from threading import Semaphore
 from functools import partial

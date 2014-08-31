@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 
 __license__ = """
-OpenVAS connector for OMPv4.
+OpenVAS Manager OMPv4 and XML parser.
 
 This program is free software; you can redistribute it and/or
 modify it under the terms of the GNU General Public License
@@ -26,11 +26,11 @@ import os
 from distutils.core import setup
 
 # Text describing the module.
-description = 'OpenVAS connector for OMPv4.'
+description = 'OpenVAS Manager OMPv4 and XML report parser'
 try:
-    readme = os.path.join(here, 'README.md')
+    readme = os.path.join(os.getcwd(), 'README.rst')
     long_description = open(readme, 'rU').read()
-except Exception:
+except IOError:
     long_description = description
 
 # Set the parameters for the setup script.
