@@ -1,0 +1,64 @@
+<result id="eb1c0032-adc5-43f6-a2db-9e8431ef5464">
+  <subnet>10.211.55.35</subnet>
+  <host>10.211.55.35</host>
+  <port>distcc (3632/tcp)</port>
+  <nvt oid="1.3.6.1.4.1.25623.1.0.103553">
+    <name>distcc Remote Code Execution Vulnerability</name>
+    <family>General</family>
+    <cvss_base>9.3</cvss_base>
+    <risk_factor>Critical</risk_factor>
+    <cve>CVE-2004-2687</cve>
+    <bid>NOBID</bid>
+    <tags>cvss_base_vector=AV:N/AC:M/Au:N/C:C/I:C/A:C</tags>
+    <cert></cert>
+    <xref>NOXREF</xref>
+  </nvt>
+  <threat>High</threat>
+  <description>
+ Summary:
+ distcc 2.x, as used in XCode 1.5 and others, when not configured to restrict
+access to the server port, allows remote attackers to execute arbitrary
+commands via compilation jobs, which are executed by the server without
+authorization checks.
+ Solution:
+ Vendor updates are available. Please see the references for more
+information.
+  </description>
+  <original_threat>High</original_threat>
+  <notes></notes>
+  <overrides></overrides>
+</result>
+<result id="20b3acf3-41d8-47e0-b7f6-637d693e320f">
+  <subnet>10.211.55.35</subnet>
+  <host>10.211.55.35</host>
+  <port>ftp (21/tcp)</port>
+  <nvt oid="1.3.6.1.4.1.25623.1.0.103185">
+    <name>vsftpd Compromised Source Packages Backdoor Vulnerability</name>
+    <family>Gain a shell remotely</family>
+    <cvss_base>7.5</cvss_base>
+    <risk_factor>High</risk_factor>
+    <cve>NOCVE</cve>
+    <bid>48539</bid>
+    <tags>cvss_base_vector=AV:N/AC:L/Au:N/C:P/I:P/A:P</tags>
+    <cert></cert>
+    <xref>NOXREF</xref>
+  </nvt>
+  <threat>High</threat>
+  <description>
+ Summary:
+ vsftpd is prone to a backdoor vulnerability.
+
+Attackers can exploit this issue to execute arbitrary commands in the
+context of the application. Successful attacks will compromise the
+affected application.
+
+The vsftpd 2.3.4 source package is affected.
+ Solution:
+ The repaired package can be downloaded from
+https://security.appspot.com/vsftpd.html. Please validate the package
+with its signature.
+  </description>
+  <original_threat>High</original_threat>
+  <notes></notes>
+  <overrides></overrides>
+</result>
