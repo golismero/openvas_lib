@@ -41,20 +41,20 @@ To download the latest source code enter the following command:
 
 .. code-block:: bash
 
-    # git clone https://github.com/golismero/openvas_lib.git
+    git clone https://github.com/golismero/openvas_lib.git
 
 Then, install the library in your default Python installation run the following command:
 
 .. code-block:: bash
 
-    # python setup.py install
+    python setup.py install
 
 Install using pip
 _________________
 
 .. code-block:: bash
 
-    # pip install openvas_lib
+    pip install openvas_lib
 
 Manage OpenVas server
 ---------------------
