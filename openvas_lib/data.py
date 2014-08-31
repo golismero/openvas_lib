@@ -21,7 +21,14 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 """
 
-__all__ = ["OpenVASPort", "OpenVASNVT", "OpenVASOverride", "OpenVASNotes", "OpenVASResult"]
+import re
+
+from collections import OrderedDict
+
+
+# ------------------------------------------------------------------------------
+class _Common(object):
+    risk_levels = ("Critical", "High", "Medium", "Low", "None", "None", "Log", "Debug")
 
 
 # ------------------------------------------------------------------------------
@@ -48,16 +55,16 @@ class OpenVASPort(object):
         if number:
             if isinstance(number, int):
                 if not (0 < number < 65535):
-                    raise ValueError("port must be between ranges: [0-65535]")
+                    raise ValueError("port must be between ranges: [0-65535], got %s instead" % number)
             else:
                 raise TypeError("Expected int, got %r instead" % type(number))
 
         if not isinstance(proto, basestring):
             raise TypeError("Expected string, got %r instead" % type(proto))
 
-        self.__port_name = port_name
+        self.__port_name = port_name.strip()
         self.__number = number
-        self.__proto = proto
+        self.__proto = proto.strip()
 
     #----------------------------------------------------------------------
     @property
@@ -73,7 +80,7 @@ class OpenVASPort(object):
     def number(self):
         """
         :return: port number. None if not available.
-        :rtype: int|None
+        :rtype: float
         """
         return self.__number
 
@@ -86,9 +93,13 @@ class OpenVASPort(object):
         """
         return self.__port_name
 
+    #----------------------------------------------------------------------
+    def __str__(self):
+        return "%s (%s/%s)" % (self.port_name, self.number, self.proto)
+
 
 #----------------------------------------------------------------------
-class OpenVASNVT(object):
+class OpenVASNVT(_Common):
     """
     OpenVas NVT structure.
     """
@@ -96,104 +107,23 @@ class OpenVASNVT(object):
     #----------------------------------------------------------------------
     def __init__(self):
         self.__oid = None
-        self.__name = None
-        self.__cvss_base = None
-        self.__risk_factor = None
-        self.__category = None
-        self.__summary = None
-        self.__description = None
-        self.__family = None
+        self.__name = ""
+        self.__cvss_base = 0.0
+        self.__cvss_base_vector = None
+        self.__risk_factor = "None"
+        self.__category = "Unknown"
+        self.__summary = ""
+        self.__description = ""
+        self.__family = "Unknown"
 
-        self.__cve = None
-        self.__bid = None
-        self.__bugtraq = None
-        self.__xrefs = None
-        self.__fingerprints = None
-        self.__tags = None
-
-    #----------------------------------------------------------------------
-    @classmethod
-    def make_object(cls, oid, name, cvss_base, risk_factor,
-                    summary, description, family=None, category=None,
-                    cve=None, bid=None, bugtraq=None, xrefs=None, fingerprints=None, tags=None):
-        """
-        :type oid: str
-        :type name: str
-        :type cvss_base: str
-        :type risk_factor: int
-        :type summary: str
-        :type description: str
-        :type family: str
-        :type category: str
-        :type cve: str
-        :type bid: str
-        :type bugtraq: str
-        :type xrefs: str
-        :type fingerprints: str
-        :type tags: str
-
-        :rtype: OpenVASNVT
-        """
-
-        if not isinstance(oid, basestring):
-            raise TypeError("Expected string, got %r instead" % type(oid))
-        if not isinstance(name, basestring):
-            raise TypeError("Expected string, got %r instead" % type(name))
-        if not isinstance(cvss_base, str):
-            raise TypeError("Expected string, got %r instead" % type(cvss_base))
-        if not isinstance(risk_factor, int):
-            raise TypeError("Expected int, got %r instead" % type(risk_factor))
-        if not isinstance(summary, basestring):
-            raise TypeError("Expected string, got %r instead" % type(summary))
-        if not isinstance(description, basestring):
-            raise TypeError("Expected string, got %r instead" % type(description))
-
-        if family:
-            if not isinstance(family, basestring):
-                raise TypeError("Expected string, got %r instead" % type(family))
-        if category:
-            if not isinstance(category, basestring):
-                raise TypeError("Expected string, got %r instead" % type(category))
-        if cve:
-            if not isinstance(cve, basestring):
-                raise TypeError("Expected string, got %r instead" % type(cve))
-        if bid:
-            if not isinstance(bid, basestring):
-                raise TypeError("Expected string, got %r instead" % type(bid))
-        if bugtraq:
-            if not isinstance(bugtraq, basestring):
-                raise TypeError("Expected string, got %r instead" % type(bugtraq))
-        if xrefs:
-            if not isinstance(xrefs, basestring):
-                raise TypeError("Expected string, got %r instead" % type(xrefs))
-        if fingerprints:
-            if not isinstance(fingerprints, basestring):
-                raise TypeError("Expected string, got %r instead" % type(fingerprints))
-        if tags:
-            if not isinstance(tags, basestring):
-                raise TypeError("Expected string, got %r instead" % type(tags))
-
-        o = cls()
-
-        # Common vulnerability info
-        o.__oid = oid
-        o.__name = name
-        o.__cvss_base = cvss_base
-        o.__risk_factor = risk_factor
-        o.__category = category
-        o.__summary = summary
-        o.__description = description
-        o.__family = family
-
-        # References
-        o.__cve = cve
-        o.__bid = bid
-        o.__bugtraq = bugtraq
-        o.__xrefs = xrefs
-        o.__fingerprints = fingerprints
-        o.__tags = tags
-
-        return o
+        self.__cves = []
+        self.__bids = []
+        self.__bugtraqs = []
+        self.__xrefs = []
+        self.__fingerprints = ""
+        self.__tags = []
+        
+        super(OpenVASNVT, self).__init__()
 
     #----------------------------------------------------------------------
     @property
@@ -237,10 +167,31 @@ class OpenVASNVT(object):
 
     #----------------------------------------------------------------------
     @property
+    def cvss_base_vector(self):
+        """
+        :return: CVSS Base calculated
+        :rtype: float
+        """
+        return self.__cvss_base_vector
+
+    #----------------------------------------------------------------------
+    @cvss_base_vector.setter
+    def cvss_base_vector(self, val):
+        """
+        :param val: CVSS Base calculated
+        :type val: float
+        """
+        if not isinstance(val, basestring):
+            raise TypeError("Expected str, got %r instead" % type(val))
+
+        self.__cvss_base_vector = val
+
+    #----------------------------------------------------------------------
+    @property
     def cvss_base(self):
         """
         :return: CVSS Base calculated
-        :rtype: str
+        :rtype: float
         """
         return self.__cvss_base
 
@@ -249,12 +200,25 @@ class OpenVASNVT(object):
     def cvss_base(self, val):
         """
         :param val: CVSS Base calculated
-        :type val: str
+        :type val: float
         """
-        if not isinstance(val, basestring):
+        m = None
+        if isinstance(val, (basestring, int, float)):
+            try:
+                m = float(val)
+
+                if not (0.0 <= m <= 10.0):
+                    raise ValueError("CVSS value must be between 0.0 - 10.0, got %s instead" % m)
+
+            except ValueError:
+                if val is None or val == '':
+                    m = 0.0
+                else:
+                    raise TypeError("Expected number, got %r instead" % type(val))
+        else:
             raise TypeError("Expected string, got %r instead" % type(val))
 
-        self.__cvss_base = val
+        self.__cvss_base = m
 
     #----------------------------------------------------------------------
     @property
@@ -274,6 +238,8 @@ class OpenVASNVT(object):
         """
         if not isinstance(val, basestring):
             raise TypeError("Expected int, got %r instead" % type(val))
+        if val not in self.risk_levels:
+            raise ValueError("Value incorrect. Allowed values are: Critical|High|Medium|Low|None|Log|Debug, got %s instead" % val)
 
         self.__risk_factor = val
 
@@ -302,7 +268,7 @@ class OpenVASNVT(object):
     @property
     def description(self):
         """
-        :return: The description of NVT
+        :return: The raw_description of NVT
         :rtype: basestring
         """
         return self.__description
@@ -311,12 +277,10 @@ class OpenVASNVT(object):
     @description.setter
     def description(self, val):
         """
-        :param val: The description of NVT
+        :param val: The raw_description of NVT
         :type val: basestring
         """
-        if not val:
-            val = ""
-        elif not isinstance(val, basestring):
+        if not isinstance(val, basestring):
             raise TypeError("Expected string, got %r instead" % type(val))
 
         self.__description = val
@@ -370,7 +334,7 @@ class OpenVASNVT(object):
         :return: the CVE associated
         :rtype: basestring
         """
-        return self.__cve
+        return self.__cves
 
     #----------------------------------------------------------------------
     @cve.setter
@@ -379,10 +343,7 @@ class OpenVASNVT(object):
         :param val: the CVE associated
         :type val: basestring
         """
-        if not isinstance(val, basestring):
-            raise TypeError("Expected string, got %r instead" % type(val))
-
-        self.__cve = val
+        self.__set_list_value(self.__cves, val)
 
     #----------------------------------------------------------------------
     @property
@@ -391,7 +352,7 @@ class OpenVASNVT(object):
         :return: The BID number associated
         :rtype: basestring
         """
-        return self.__bid
+        return self.__bids
 
     #----------------------------------------------------------------------
     @bid.setter
@@ -400,10 +361,7 @@ class OpenVASNVT(object):
         :param val: The BID number associated
         :type val: basestring
         """
-        if not isinstance(val, basestring):
-            raise TypeError("Expected string, got %r instead" % type(val))
-
-        self.__bid = val
+        self.__set_list_value(self.__bids, val)
 
     #----------------------------------------------------------------------
     @property
@@ -412,7 +370,7 @@ class OpenVASNVT(object):
         :return: The Bugtraq ID associated
         :rtype: basestring
         """
-        return self.__bugtraq
+        return self.__bugtraqs
 
     #----------------------------------------------------------------------
     @bugtraq.setter
@@ -421,10 +379,7 @@ class OpenVASNVT(object):
         :param val: The Bugtraq ID associated
         :type val: basestring
         """
-        if not isinstance(val, basestring):
-            raise TypeError("Expected string, got %r instead" % type(val))
-
-        self.__bugtraq = val
+        self.__set_list_value(self.__bugtraqs, val)
 
     #----------------------------------------------------------------------
     @property
@@ -442,10 +397,7 @@ class OpenVASNVT(object):
         :param val: The xrefs associated
         :type val: basestring
         """
-        if not isinstance(val, basestring):
-            raise TypeError("Expected string, got %r instead" % type(val))
-
-        self.__xrefs = val
+        self.__set_list_value(self.__xrefs, val)
 
     #----------------------------------------------------------------------
     @property
@@ -484,14 +436,32 @@ class OpenVASNVT(object):
         :param val: The tags associated
         :type val: basestring
         """
-        if not isinstance(val, basestring):
-            raise TypeError("Expected string, got %r instead" % type(val))
+        self.__set_list_value(self.__tags, val)
 
-        self.__tags = val
+    #----------------------------------------------------------------------
+    def __set_list_value(self, prop, val):
+        """
+        Checks if value is a string of a list and add the new value to it.
+
+        :param prop: object property
+        :type prop: property
+
+        :param val: value
+        :type val: str|list
+
+        """
+        if isinstance(val, basestring):
+            if val != "":
+                prop.append(val)
+        elif isinstance(val, list):
+            if val:
+                prop.extend([x.strip() for x in val])
+        else:
+            raise TypeError("Expected string, got %r instead" % type(val))
 
 
 #------------------------------------------------------------------------------
-class OpenVASOverride(object):
+class OpenVASOverride(_Common):
     """
     Override object of OpenVas results.
     """
@@ -499,42 +469,14 @@ class OpenVASOverride(object):
     #----------------------------------------------------------------------
     def __init__(self):
         self.__nvt_oid = None
-        self.__nvt_name = None
-        self.__text = None
-        self.__text_is_excerpt = None
-        self.__threat = None
-        self.__new_threat = None
-        self.__orphan = None
-
-    #----------------------------------------------------------------------
-    @classmethod
-    def make_object(cls, oid, name, text, text_is_excerpt, threat, new_threat, orphan):
-
-        if not isinstance(oid, basestring):
-            raise TypeError("Expected string, got %r instead" % type(oid))
-        if not isinstance(name, basestring):
-            raise TypeError("Expected string, got %r instead" % type(name))
-        if not isinstance(text, basestring):
-            raise TypeError("Expected string, got %r instead" % type(text))
-        if not isinstance(text_is_excerpt, bool):
-            raise TypeError("Expected bool, got %r instead" % type(text_is_excerpt))
-        if not isinstance(threat, basestring):
-            raise TypeError("Expected string, got %r instead" % type(threat))
-        if not isinstance(new_threat, basestring):
-            raise TypeError("Expected string, got %r instead" % type(new_threat))
-        if not isinstance(orphan, bool):
-            raise TypeError("Expected bool, got %r instead" % type(orphan))
-
-        o = cls()
-        o.__nvt_oid = oid
-        o.__nvt_name = name
-        o.__text = text
-        o.__text_is_excerpt = text_is_excerpt
-        o.__threat = threat
-        o.__new_threat = new_threat
-        o.__orphan = orphan
-
-        return o
+        self.__nvt_name = ""
+        self.__text = ""
+        self.__text_is_excerpt = False
+        self.__threat = "None"
+        self.__new_threat = "None"
+        self.__orphan = False
+        
+        super(OpenVASOverride, self).__init__()
 
     #----------------------------------------------------------------------
     @property
@@ -620,7 +562,7 @@ class OpenVASOverride(object):
     @property
     def threat(self):
         """
-        :return: one of these values: High|Medium|Low|Log|Debug
+        :return: one of these values: Critical|High|Medium|Low|None|Log|Debug
         :rtype: str
         """
         return self.__threat
@@ -629,10 +571,12 @@ class OpenVASOverride(object):
     @threat.setter
     def threat(self, val):
         """
-        :type val: str - (High|Medium|Low|Log|Debug)
+        :type val: str - (Critical|High|Medium|Low|None|Log|Debug)
         """
         if not isinstance(val, basestring):
             raise TypeError("Expected  str - (), got %r instead" % type(val))
+        if val not in self.risk_levels:
+            raise ValueError("Value incorrect. Allowed values are: Critical|High|Medium|Low|None|Log|Debug, got %s instead" % val)
 
         self.__threat = val
 
@@ -640,7 +584,7 @@ class OpenVASOverride(object):
     @property
     def new_threat(self):
         """
-        :return: one of these values: High|Medium|Low|Log|Debug
+        :return: one of these values: Critical|High|Medium|Low|None|Log|Debug
         :rtype: str
         """
         return self.__new_threat
@@ -649,10 +593,12 @@ class OpenVASOverride(object):
     @new_threat.setter
     def new_threat(self, val):
         """
-        :type val: str - (High|Medium|Low|Log|Debug)
+        :type val: str - (Critical|High|Medium|Low|None|Log|Debug)
         """
         if not isinstance(val, basestring):
             raise TypeError("Expected  str - (), got %r instead" % type(val))
+        if val not in self.risk_levels:
+            raise ValueError("Value incorrect. Allowed values are: Critical|High|Medium|Low|None|Log|Debug, got %s instead" % val)
 
         self.__new_threat = val
 
@@ -750,14 +696,13 @@ class OpenVASNotes(object):
 
 
 #------------------------------------------------------------------------------
-class OpenVASResult(object):
+class OpenVASResult(_Common):
     """
     Main structure to store audit results.
     """
 
     #----------------------------------------------------------------------
     def __init__(self):
-        """Constructor"""
         self.__id = None
         self.__subnet = None
         self.__host = None
@@ -768,43 +713,37 @@ class OpenVASResult(object):
         self.__notes = None
         self.__overrides = None
 
-    #----------------------------------------------------------------------
-    @classmethod
-    def make_object(cls, result_id, subnet, host, port, nvt, threat, description=None, notes=None, overrides=None):
+        # auto generated
+        self.__impact = ""
+        self.__summary = ""
+        self.__vulnerability_insight = ""
+        self.__affected_software = ""
+        self.__solution = ""
+        
+        super(OpenVASResult, self).__init__()
 
-        if not isinstance(subnet, basestring):
-            raise TypeError("Expected string, got %r instead" % type(subnet))
-        if not isinstance(host, basestring):
-            raise TypeError("Expected string, got %r instead" % type(host))
-        if not isinstance(port, basestring):
-            raise TypeError("Expected string, got %r instead" % type(port))
-        if not isinstance(nvt, OpenVASNVT):
-            raise TypeError("Expected OpenVASNVT, got %r instead" % type(nvt))
-        if isinstance(threat, basestring):
-            if threat not in ("High", "Medium", "Low", "Log", "Debug"):
-                raise ValueError("Value incorrect. Allowed values are: High|Medium|Low|Log|Debug")
-        else:
-            raise TypeError("Expected OpenVASThreat, got %r instead" % type(threat))
+    # --------------------------------------------------------------------------
+    # Auto generated read only
+    # --------------------------------------------------------------------------
+    @property
+    def impact(self):
+        return self.__impact
 
-        if not isinstance(description, basestring):
-            raise TypeError("Expected string, got %r instead" % type(description))
-        if not isinstance(notes, OpenVASNotes):
-            raise TypeError("Expected OpenVASNotes, got %r instead" % type(notes))
-        if not isinstance(overrides, OpenVASOverride):
-            raise TypeError("Expected OpenVASOverride, got %r instead" % type(overrides))
+    @property
+    def summary(self):
+        return self.__summary
 
-        o = cls()
-        o.__id = result_id
-        o.__subnet = subnet
-        o.__host = host
-        o.__port = port
-        o.__nvt = nvt
-        o.__threat = threat
-        o.__description = description
-        o.__notes = notes
-        o.__overrides = overrides
+    @property
+    def vulnerability_insight(self):
+        return self.__vulnerability_insight
 
-        return o
+    @property
+    def affected_software(self):
+        return self.__affected_software
+
+    @property
+    def solution(self):
+        return self.__solution
 
     #----------------------------------------------------------------------
     @property
@@ -909,7 +848,7 @@ class OpenVASResult(object):
     @property
     def threat(self):
         """
-        :return: "High", "Medium", "Low", "Log", "Debug"
+        :return: "Critical", "High", "Medium", "Low", "None", "Log", "Debug"
         :rtype: str
         """
         return self.__threat
@@ -918,12 +857,12 @@ class OpenVASResult(object):
     @threat.setter
     def threat(self, val):
         """
-        :param val: valid values: "High", "Medium", "Low", "Log", "Debug"
+        :param val: valid values: "Critical", "High", "Medium", "Low", "None", "Log", "Debug"
         :type val: basestring
         """
         if isinstance(val, basestring):
-            if val not in ("High", "Medium", "Low", "Log", "Debug"):
-                raise ValueError("Value incorrect. Allowed values are: High|Medium|Low|Log|Debug")
+            if val not in self.risk_levels:
+                raise ValueError("Value incorrect. Allowed values are: Critical|High|Medium|Low|None|Log|Debug, got %s instead" % val)
         else:
             raise TypeError("Expected string , got %r instead" % type(val))
 
@@ -931,22 +870,80 @@ class OpenVASResult(object):
 
     #----------------------------------------------------------------------
     @property
-    def description(self):
+    def raw_description(self):
         """
         :rtype: str
         """
         return self.__description
 
     #----------------------------------------------------------------------
-    @description.setter
-    def description(self, val):
+    @raw_description.setter
+    def raw_description(self, val):
         """
         :type val: basestring
         """
-        if not val:
+        if val is None:
             val = ""
         elif not isinstance(val, basestring):
             raise TypeError("Expected string, got %r instead" % type(val))
+
+        # --------------------------------------------------------------------------
+        # Get "Solution", "Impact", "Summary" and "Affected Software", "Vulnerability Insight"
+        # --------------------------------------------------------------------------
+        stops_words = (
+            "[iI]mpact[\s]*:",
+            "[sS]ummary[\s]*:",
+            "[aA]ffected[\w\W\s]*[sS]oftware[\s\w\W]*:",
+            "[sS]olution[\s]*:",
+            "[vV]ulnerability[\w\s\W]*[iI]nsight[\s]*:",
+        )
+
+        var_maps = dict(mpact="impact",
+                        ummary="summary",
+                        ffected="affected_software",
+                        olution="solution",
+                        ulnerability="vulnerability_insight")
+
+        # Get start positions
+        positions = OrderedDict()
+        for word in stops_words:
+            p = re.search(word, val)
+
+            if p:
+                positions[p.span()[0]] = word
+
+        keys = sorted(positions.keys())
+
+        for x in xrange(len(positions)):
+            start = "(%s)" % positions[keys[x]]
+            end = "%s" % "(%s)" % positions[keys[x + 1]] if x < len(keys) - 1 else ""
+
+            # Get first range of text
+            regex = "%s([\w\W\n\s\r]+)%s" % (start, end)
+
+            range_text = re.search(regex, val)
+
+            if range_text:
+                # Looking for text and their var correspondence
+                var_name = None
+                for y, v in var_maps.iteritems():
+                    if y in positions[keys[x]]:
+                        var_name = v
+                        break
+
+                # Filter text
+                text = range_text.group(2)
+
+                # Replace special chars by space
+                text = re.sub("[\r\n\t]", " ", text)
+
+                # Replace 2 or more spaces by only one
+                text = re.sub("\s\s+", " ", text)
+
+                # Remove start and end spaces
+                text = text.strip()
+
+                setattr(self, "_OpenVASResult__%s" % var_name, text)
 
         self.__description = val
 
@@ -990,3 +987,6 @@ class OpenVASResult(object):
             raise TypeError("Expected OpenVASOverride, got %r instead" % type(val))
 
         self.__overrides = val
+
+
+__all__ = [x for x in dir() if x.startswith("OpenVAS")]

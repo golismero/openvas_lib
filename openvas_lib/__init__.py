@@ -26,15 +26,10 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 """
 
-__all__ = ["VulnscanManager"]
+__all__ = [x for x in dir() if x.startswith("Vulnscan") or x.startswith("report_parser")]
 
-import re
-import ssl
-import socket
-from random import choice
-from threading import RLock
-from threading import Event, Timer
-from string import ascii_letters, digits
+import os
+import logging
 
 from collections import Iterable
 
@@ -43,99 +38,337 @@ try:
 except ImportError:
     from xml.etree import ElementTree as etree
 
-from .data import *
+from openvas_lib.data import *
+from openvas_lib.utils import *
+from openvas_lib.common import *
 
 
 #------------------------------------------------------------------------------
-def set_interval(interval, times=-1):
+#
+# Stand alone parser
+#
+#------------------------------------------------------------------------------
+def report_parser_from_text(text, ignore_log_info=True):
     """
-    Decorator to execute a function periodically using a timer.
-    The function is executed in a background thread.
+    This functions transform XML OpenVas file report to OpenVASResult object structure.
 
-    Example:
+    To pass string as parameter:
+    >>> xml='<report extension="xml" type="scan" id="aaaa" content_type="text/xml" format_id="a994b278-1f62-11e1-96ac-406186ea4fc5"></report>'
+    >>> report_parser_from_text(f)
+    [OpenVASResult]
 
-        >>> from time import gmtime, strftime
-        >>> @set_interval(2) # Execute every 2 seconds until stopped.
-        ... def my_func():
-        ...     print strftime("%Y-%m-%d %H:%M:%S", gmtime())
-        ...
-        >>> handler = my_func()
-        2013-07-25 22:40:55
-        2013-07-25 22:40:57
-        2013-07-25 22:40:59
-        2013-07-25 22:41:01
-        >>> handler.set() # Stop the execution.
-        >>> @set_interval(2, 3) # Every 2 seconds, 3 times.
-        ... def my_func():
-        ...     print strftime("%Y-%m-%d %H:%M:%S", gmtime())
-        ...
-        >>> handler = my_func()
-        2013-07-25 22:40:55
-        2013-07-25 22:40:57
-        2013-07-25 22:40:59
+    Language specification: http://www.openvas.org/omp-4-0.html
+
+    :param text: xml text to parse.
+    :type text: str
+
+    :param ignore_log_info: Ignore Threats with Log and Debug info
+    :type ignore_log_info: bool
+
+    :raises: etree.ParseError, IOError, TypeError
+
+    :return: list of OpenVASResult structures.
+    :rtype: list(OpenVASResult)
     """
-    # Validate the parameters.
-    if isinstance(interval, int):
-        interval = float(interval)
-    elif not isinstance(interval, float):
-        raise TypeError("Expected int or float, got %r instead" % type(interval))
-    if not isinstance(times, int):
-        raise TypeError("Expected int, got %r instead" % type(times))
+    if not isinstance(text, basestring):
+        raise TypeError("Expected basestring, got '%s' instead" % type(text))
 
-    # Code adapted from: http://stackoverflow.com/q/5179467
+    try:
+        import cStringIO as S
+    except ImportError:
+        import StringIO as S
 
-    # This will be the actual decorator,
-    # with fixed interval and times parameter
-    def outer_wrap(function):
-        if not callable(function):
-            raise TypeError("Expected function, got %r instead" % type(function))
-
-        # This will be the function to be
-        # called
-        def wrap(*args, **kwargs):
-
-            stop = Event()
-
-            # This is another function to be executed
-            # in a different thread to simulate set_interval
-            def inner_wrap():
-                i = 0
-                while i != times and not stop.isSet():
-                    stop.wait(interval)
-                    function(*args, **kwargs)
-                    i += 1
-
-            t = Timer(0, inner_wrap)
-            t.daemon = True
-            t.start()
-
-            return stop
-
-        return wrap
-
-    return outer_wrap
+    return report_parser(S.StringIO(text), ignore_log_info)
 
 
-#----------------------------------------------------------------------
-def generate_random_string(length=30):
+def report_parser(path_or_file, ignore_log_info=True):
     """
-    Generates a random string of the specified length.
+    This functions transform XML OpenVas file report to OpenVASResult object structure.
 
-    The key space used to generate random strings are:
+    To pass StringIO file as parameter, you must do that:
+    >>> import StringIO
+    >>> xml='<report extension="xml" type="scan" id="aaaa" content_type="text/xml" format_id="a994b278-1f62-11e1-96ac-406186ea4fc5"></report>'
+    >>> f=StringIO.StringIO(xml)
+    >>> report_parser(f)
+    [OpenVASResult]
 
-    - ASCII letters (both lowercase and uppercase).
-    - Digits (0-9).
+    To pass a file path:
+    >>> xml_path='/home/my_user/openvas_result.xml'
+    >>> report_parser(xml_path)
+    [OpenVASResult]
+
+    Language specification: http://www.openvas.org/omp-4-0.html
+
+    :param path_or_file: path or file descriptor to xml file.
+    :type path_or_file: str | file | StringIO
+
+    :param ignore_log_info: Ignore Threats with Log and Debug info
+    :type ignore_log_info: bool
+
+    :raises: etree.ParseError, IOError, TypeError
+
+    :return: list of OpenVASResult structures.
+    :rtype: list(OpenVASResult)
     """
-    m_available_chars = ascii_letters + digits
+    if isinstance(path_or_file, basestring):
+        if not os.path.exists(path_or_file):
+            raise IOError("File %s not exits." % path_or_file)
+        if not os.path.isfile(path_or_file):
+            raise IOError("%s is not a file." % path_or_file)
+    else:
+        if not getattr(getattr(path_or_file, "__class__", ""), "__name__", "") in ("file", "StringIO", "StringO"):
+            raise TypeError("Expected basestring or file, got '%s' instead" % type(path_or_file))
 
-    return "".join(choice(m_available_chars) for _ in xrange(length))
+    # Parse XML file
+    try:
+        xml_parsed = etree.parse(path_or_file)
+    except etree.ParseError:
+        raise etree.ParseError("Invalid XML file. Ensure file is correct and all tags are properly closed.")
+
+    # Use this method, because API not exposes real path and if you write isisntance(xml_results, Element)
+    # doesn't works
+    if type(xml_parsed).__name__ == "Element":
+        xml = xml_parsed
+    elif type(xml_parsed).__name__ == "ElementTree":
+        xml = xml_parsed.getroot()
+    else:
+        raise TypeError("Expected ElementTree or Element, got '%s' instead" % type(xml_parsed))
+
+    # Check valid xml format
+    if "id" not in xml.keys():
+        raise ValueError("XML format is not valid, doesn't contains id attribute.")
+
+    # Regex
+    port_regex_specific = re.compile("([\w\d\s]*)\(([\d]+)/([\w\W\d]+)\)")
+    port_regex_generic = re.compile("([\w\d\s]*)/([\w\W\d]+)")
+    cvss_regex = re.compile("(cvss_base_vector=[\s]*)([\w:/]+)")
+    vulnerability_IDs = ("cve", "bid", "bugtraq")
+
+    m_return = []
+    m_return_append = m_return.append
+
+    # All the results
+    for l_results in xml.findall(".//result"):
+        l_partial_result = OpenVASResult()
+
+        # Id
+        l_vid = None
+        try:
+            l_vid = l_results.get("id")
+            l_partial_result.id = l_vid
+        except TypeError, e:
+            logging.warning("%s is not a valid vulnerability ID, skipping vulnerability..." % l_vid)
+            logging.debug(e)
+            continue
+
+        # --------------------------------------------------------------------------
+        # Filter invalid vulnerability
+        # --------------------------------------------------------------------------
+        threat = l_results.find("threat")
+        if threat is None:
+            logging.warning("Vulnerability %s can't has 'None' as thread value, skipping vulnerability..." % l_vid)
+            continue
+        else:
+            # Valid threat?
+            if threat.text not in OpenVASResult.risk_levels:
+                logging.warning("%s is not a valid risk level for %s vulnerability. skipping vulnerability..."
+                                % (threat.text,
+                                   l_vid))
+                continue
+
+        # Ignore log/debug messages, only get the results
+        if threat.text in ("Log", "Debug") and ignore_log_info is True:
+            continue
+
+        # For each result
+        for l_val in l_results.getchildren():
+
+            l_tag = l_val.tag
+
+            # --------------------------------------------------------------------------
+            # Common properties: subnet, host, threat, raw_description
+            #--------------------------------------------------------------------------
+            if l_tag in ("subnet", "host", "threat"):
+                # All text vars can be processes both.
+                try:
+                    setattr(l_partial_result, l_tag, l_val.text)
+                except (TypeError, ValueError), e:
+                    logging.warning(
+                        "%s is not a valid value for %s property in %s vulnerability. skipping vulnerability..."
+                        % (l_val.text,
+                           l_tag,
+                           l_partial_result.id))
+                    logging.debug(e)
+                    continue
+
+            elif l_tag == "description":
+                try:
+                    setattr(l_partial_result, "raw_description", l_val.text)
+                except TypeError, e:
+                    logging.warning("%s is not a valid description for %s vulnerability. skipping vulnerability..."
+                                    % (l_val.text,
+                                       l_vid))
+                    logging.debug(e)
+                    continue
+
+            # --------------------------------------------------------------------------
+            # Port
+            # --------------------------------------------------------------------------
+            elif l_tag == "port":
+
+                # Looking for port as format: https (443/tcp)
+                l_port = port_regex_specific.search(l_val.text)
+                if l_port:
+                    l_service = l_port.group(1)
+                    l_number = int(l_port.group(2))
+                    l_proto = l_port.group(3)
+
+                    try:
+                        l_partial_result.port = OpenVASPort(l_service,
+                                                            l_number,
+                                                            l_proto)
+                    except (TypeError, ValueError), e:
+                        logging.warning("%s is not a valid port for %s vulnerability. skipping vulnerability..."
+                                        % (l_val.text,
+                                           l_vid))
+                        logging.debug(e)
+                        continue
+                else:
+                    # Looking for port as format: general/tcp
+                    l_port = port_regex_generic.search(l_val.text)
+                    if l_port:
+                        l_service = l_port.group(1)
+                        l_proto = l_port.group(2)
+
+                        try:
+                            l_partial_result.port = OpenVASPort(l_service, 0, l_proto)
+                        except (TypeError, ValueError), e:
+                            logging.warning("%s is not a valid port for %s vulnerability. skipping vulnerability..."
+                                            % (l_val.text,
+                                               l_vid))
+                            logging.debug(e)
+                            continue
+
+            # --------------------------------------------------------------------------
+            # NVT
+            # --------------------------------------------------------------------------
+            elif l_tag == "nvt":
+
+                # The NVT Object
+                l_nvt_object = OpenVASNVT()
+                try:
+                    l_nvt_object.oid = l_val.attrib['oid']
+                except TypeError, e:
+                    logging.warning("%s is not a valid NVT oid for %s vulnerability. skipping vulnerability..."
+                                    % (l_val.attrib['oid'],
+                                       l_vid))
+                    logging.debug(e)
+                    continue
+
+                # Sub nodes of NVT tag
+                l_nvt_symbols = [x for x in dir(l_nvt_object) if not x.startswith("_")]
+
+                for l_nvt in l_val.getchildren():
+                    l_nvt_tag = l_nvt.tag
+
+                    # For each xml tag...
+                    if l_nvt_tag in l_nvt_symbols:
+
+                        # For tags with content, like: <cert>blah</cert>
+                        if l_nvt.text:
+
+                            # For filter tags like <cve>NOCVE</cve>
+                            if l_nvt.text.startswith("NO"):
+                                try:
+                                    setattr(l_nvt_object, l_nvt_tag, "")
+                                except (TypeError, ValueError), e:
+                                    logging.warning(
+                                        "Empty value is not a valid NVT value for %s property in %s vulnerability. skipping vulnerability..."
+                                        % (l_nvt_tag,
+                                           l_vid))
+                                    logging.debug(e)
+                                    continue
+
+                            # Tags with valid content
+                            else:
+                                # --------------------------------------------------------------------------
+                                # Vulnerability IDs: CVE-..., BID..., BugTraq...
+                                # --------------------------------------------------------------------------
+                                if l_nvt_tag.lower() in vulnerability_IDs:
+                                    l_nvt_text = getattr(l_nvt, "text", "")
+                                    try:
+                                        setattr(l_nvt_object, l_nvt_tag, l_nvt_text.split(","))
+                                    except (TypeError, ValueError), e:
+                                        logging.warning(
+                                            "%s value is not a valid NVT value for %s property in %s vulnerability. skipping vulnerability..."
+                                            % (l_nvt_text,
+                                               l_nvt_tag,
+                                               l_vid))
+                                        logging.debug(e)
+                                    continue
+
+                                else:
+                                    l_nvt_text = getattr(l_nvt, "text", "")
+                                    try:
+                                        setattr(l_nvt_object, l_nvt_tag, l_nvt_text)
+                                    except (TypeError, ValueError), e:
+                                        logging.warning(
+                                            "%s value is not a valid NVT value for %s property in %s vulnerability. skipping vulnerability..."
+                                            % (l_nvt_text,
+                                               l_nvt_tag,
+                                               l_vid))
+                                        logging.debug(e)
+                                    continue
+
+                        # For filter tags without content, like: <cert/>
+                        else:
+                            try:
+                                setattr(l_nvt_object, l_nvt_tag, "")
+                            except (TypeError, ValueError), e:
+                                logging.warning(
+                                    "Empty value is not a valid NVT value for %s property in %s vulnerability. skipping vulnerability..."
+                                    % (l_nvt_tag,
+                                       l_vid))
+                                logging.debug(e)
+                                continue
+
+                # Get CVSS
+                cvss_candidate = l_val.find("tags")
+                if cvss_candidate is not None and getattr(cvss_candidate, "text", None):
+                    # Extract data
+                    cvss_tmp = cvss_regex.search(cvss_candidate.text)
+                    if cvss_tmp:
+                        l_nvt_object.cvss_base_vector = cvss_tmp.group(2) if len(cvss_tmp.groups()) >= 2 else ""
+
+                # Add to the NVT Object
+                try:
+                    l_partial_result.nvt = l_nvt_object
+                except (TypeError, ValueError), e:
+                    logging.warning(
+                        "NVT oid %s is not a valid NVT value for %s vulnerability. skipping vulnerability..."
+                        % (l_nvt_object.oid,
+                           l_vid))
+                    logging.debug(e)
+                    continue
+
+            # --------------------------------------------------------------------------
+            # Unknown tags
+            # --------------------------------------------------------------------------
+            else:
+                # Unrecognised tag
+                logging.warning("%s tag unrecognised" % l_tag)
+
+        # Add to the return values
+        m_return_append(l_partial_result)
+
+    return m_return
+
 
 #------------------------------------------------------------------------------
 #
 # High level exceptions
 #
 #------------------------------------------------------------------------------
-
 
 #------------------------------------------------------------------------------
 class VulnscanException(Exception):
@@ -250,7 +483,7 @@ class VulnscanManager(object):
 
         # Create the manager
         try:
-            self.__manager = _get_connector(host, user, password, port, m_time_out)
+            self.__manager = get_connector(host, user, password, port, m_time_out)
         except ServerError, e:
             raise VulnscanServerError("Error while connecting to the server: %s" % e.message)
         except AuthFailedError:
@@ -290,7 +523,7 @@ class VulnscanManager(object):
                 Sem = Semaphore(0)
 
                 # Configure
-                manager = VulnscanManager.connectOpenVAS("localhost", "admin", "admin)
+                manager = VulnscanManager("localhost", "admin", "admin)
 
                 # Launch
                 manager.launch_scan(
@@ -342,13 +575,13 @@ class VulnscanManager(object):
             raise TypeError("Expected string, got %r instead" % type(profile))
 
         # Generate the random names used
-        m_target_name = "golismero_target_%s_%s" % (target, generate_random_string(20))
-        m_job_name = "golismero_scan_%s_%s" % (target, generate_random_string(20))
+        m_target_name = "openvas_lib_target_%s_%s" % (target, generate_random_string(20))
+        m_job_name = "openvas_lib_scan_%s_%s" % (target, generate_random_string(20))
 
         # Create the target
         try:
             m_target_id = self.__manager.create_target(m_target_name, target,
-                                                       "Temporal target from golismero OpenVAS plugin")
+                                                       "Temporal target from OpenVAS Lib")
         except ServerError, e:
             raise VulnscanTargetError("The target already exits on the server. Error: %s" % e.message)
 
@@ -364,7 +597,7 @@ class VulnscanManager(object):
         # Create task
         try:
             m_task_id = self.__manager.create_task(m_job_name, m_target_id, config=m_profile_id,
-                                                   comment="scan from golismero OpenVAS plugin")
+                                                   comment="scan from OpenVAS lib")
         except ServerError, e:
             raise VulnscanScanError("The target selected doesnn't exist in the server. Error: %s" % e.message)
 
@@ -451,7 +684,8 @@ class VulnscanManager(object):
         except ServerError, e:
             raise VulnscanServerError("Can't get the results for the task %s. Error: %s" % (task_id, e.message))
 
-        return VulnscanManager.transform(m_response, self.__manager.remote_server_version)
+        return report_parser(m_response)
+
     #----------------------------------------------------------------------
     def get_report_id(self, scan_id):
 
@@ -459,6 +693,7 @@ class VulnscanManager(object):
             raise TypeError("Expected string, got %r instead" % type(scan_id))
 
         return self.__manager.get_report_id(scan_id)
+
     #----------------------------------------------------------------------
     def get_report_html(self, report_id):
 
@@ -467,6 +702,8 @@ class VulnscanManager(object):
 
         return self.__manager.get_report_html(report_id)
         #----------------------------------------------------------------------
+
+    #----------------------------------------------------------------------
     def get_report_xml(self, report_id):
 
         if not isinstance(report_id, basestring):
@@ -474,6 +711,8 @@ class VulnscanManager(object):
 
         return self.__manager.get_report_xml(report_id)
         #----------------------------------------------------------------------
+
+    #----------------------------------------------------------------------
     def get_report_pdf(self, report_id):
 
         if not isinstance(report_id, basestring):
@@ -481,6 +720,7 @@ class VulnscanManager(object):
 
         return self.__manager.get_report_pdf(report_id)
 
+    #----------------------------------------------------------------------
     def get_progress(self, task_id):
         """
         Get the progress of a scan.
@@ -548,32 +788,6 @@ class VulnscanManager(object):
         return self.__manager.get_tasks_ids_by_status("Done")
 
     #----------------------------------------------------------------------
-    #
-    # Transform OpenVAS results to GoLismero structures
-    #
-    #----------------------------------------------------------------------
-    @staticmethod
-    def transform(xml_results, version="4.0"):
-        """
-        Transform the XML results of OpenVAS into GoLismero structures.
-
-        :param xml_results: Input results from OpenVAS in XML format.
-        :type xml_results: Element
-
-        :param version: OpenVAS result version.
-        :type version: str
-
-        :return: Results in GoLismero format.
-        :rtype: list(OpenVASResult)
-
-        :raises: ValueError, VulnscanVersionError
-        """
-        if version == "4.0":
-            return _OMPv4.transform(xml_results)
-        else:
-            raise VulnscanVersionError()
-
-    #----------------------------------------------------------------------
     @set_interval(10.0)
     def _callback(self, func_end, func_status):
         """
@@ -620,1216 +834,3 @@ class VulnscanManager(object):
             except (ClientError, ServerError,Exception), e:
 
                 func_status(self.__old_progress)
-
-
-#
-#
-# Some code and ideas of the next code has been taken from the official
-# OpenVAS library:
-#
-# https://pypi.python.org/pypi/OpenVAS.omplib
-#
-#
-#
-
-#------------------------------------------------------------------------------
-#
-# OMP low level exceptions
-#
-#------------------------------------------------------------------------------
-class Error(Exception):
-    """Base class for OMP errors."""
-    def __str__(self):
-        return repr(self)
-
-
-class _ErrorResponse(Error):
-    def __init__(self, msg="", *args):
-
-        self.message = msg
-
-        super(_ErrorResponse, self).__init__(*args)
-
-    def __str__(self):
-        return self.message
-
-
-class ClientError(_ErrorResponse):
-    """command issued could not be executed due to error made by the client"""
-
-
-class ServerError(_ErrorResponse):
-    """error occurred in the manager during the processing of this command"""
-
-
-class ResultError(Error):
-    """Get invalid answer from Server"""
-    def __str__(self):
-        return 'Result Error: answer from command %s is invalid' % self.args
-
-
-class AuthFailedError(Error):
-    """Authentication failed."""
-
-
-class RemoteVersionError(Error):
-    """Authentication failed."""
-
-
-class AuditNotRunningError(Error):
-    """Audit is not running."""
-
-
-class AuditNotFoundError(Error):
-    """Audit not found."""
-
-
-#------------------------------------------------------------------------------
-#
-# OMP Methods and utils
-#
-#------------------------------------------------------------------------------
-def _get_connector(host, username, password, port=9390, timeout=None):
-    """
-    Get concrete connector version for server.
-
-    :param host: string with host where OpenVAS manager are running.
-    :type host: str
-
-    :param username: user name in the OpenVAS manager.
-    :type username: str
-
-    :param password: user password.
-    :type password: str
-
-    :param port: port of the OpenVAS Manager
-    :type port: int
-
-    :param timeout: timeout for connection, in seconds.
-    :type timeout: int
-
-    :return: _OMP subtype.
-    :rtype: _OMP
-
-    :raises: RemoteVersionError, ServerError, AuthFailedError, TypeError
-    """
-
-    manager = _ConnectionManager(host, username, password, port, timeout)
-
-    # Make concrete connector from version
-    if manager.protocol_version == "4.0":
-        return _OMPv4(manager)
-    else:
-        raise RemoteVersionError("Unknown OpenVAS version for remote host.")
-
-
-#------------------------------------------------------------------------------
-class _ConnectionManager(object):
-    """
-    Connection manager for OMP objects.
-    """
-
-    TIMEOUT = 10.0
-
-    #----------------------------------------------------------------------
-    def __init__(self, host, username, password, port=9390, timeout=None):
-        """
-        Open a connection to the manager and authenticate the user.
-
-        :param host: string with host where OpenVAS manager are running.
-        :type host: str
-
-        :param username: user name in the OpenVAS manager.
-        :type username: str
-
-        :param password: user password.
-        :type password: str
-
-        :param port: port of the OpenVAS Manager
-        :type port: int
-
-        :param timeout: timeout for connection, in seconds.
-        :type timeout: int
-        """
-
-        if not isinstance(host, basestring):
-            raise TypeError("Expected string, got %r instead" % type(host))
-        if not isinstance(username, basestring):
-            raise TypeError("Expected string, got %r instead" % type(username))
-        if isinstance(port, int):
-            if not (0 < port < 65535):
-                raise ValueError("Port must be between 0-65535")
-        else:
-            raise TypeError("Expected int, got %r instead" % type(port))
-        if timeout:
-            if not isinstance(timeout, int):
-                raise TypeError("Expected int, got %r instead" % type(timeout))
-
-        self.__host = host
-        self.__username = username
-        self.__password = password
-        self.__port = port
-
-        # Controls for timeout
-        self.__timeout = _ConnectionManager.TIMEOUT
-        if timeout:
-            self.__timeout = timeout
-
-        # Synchronizes access to the socket,
-        # which is shared by all threads in this plugin
-        self.__socket_lock = RLock()
-        self.socket = None
-
-        # Make the connection
-        self._connect()
-
-        # Get version
-        self.__version = self._get_protocol_version()
-
-    #----------------------------------------------------------------------
-    #
-    # PROTECTED METHODS
-    #
-    #----------------------------------------------------------------------
-    def _connect(self):
-        """
-        Makes the connection and initializes the socket.
-
-        :raises: ServerError, AuthFailedError, TypeError
-        """
-
-        # Get the timeout
-        timeout = _ConnectionManager.TIMEOUT
-        if self.__timeout:
-            timeout = self.__timeout
-
-        # Connect to the server
-        sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-        sock.settimeout(timeout)
-        try:
-            sock.connect((self.__host, int(self.__port)))
-        except socket.error, e:
-            raise ServerError(str(e))
-        try:
-            self.socket = ssl.wrap_socket(sock, ssl_version=ssl.PROTOCOL_TLSv1)
-        except Exception, e:
-            raise ServerError(str(e))
-
-        # Authenticate to the server
-        self._authenticate(self.__username, self.__password)
-
-    #----------------------------------------------------------------------
-    def _authenticate(self, username, password):
-        """
-        Authenticate a user to the manager.
-
-        :param username: user name
-        :type username: str
-
-        :param password: user password
-        :type password: str
-
-        :raises: AuthFailedError, TypeError
-        """
-        if not isinstance(username, basestring):
-            raise TypeError("Expected string, got %r instead" % type(username))
-        if not isinstance(password, basestring):
-            raise TypeError("Expected string, got %r instead" % type(password))
-
-        m_request = """<authenticate>
-            <credentials>
-              <username>%s</username>
-              <password>%s</password>
-            </credentials>
-        </authenticate>""" % (username, password)
-
-        try:
-            self.make_xml_request(m_request)
-        except ClientError:
-            raise AuthFailedError(username)
-
-    #----------------------------------------------------------------------
-    def _get_protocol_version(self):
-        """
-        Get OMP protocol version
-
-        :return: version of protocol
-        :rtype: str
-
-        :raises: ServerError, RemoteVersionError
-        """
-        response = self.make_xml_request('<get_version/>', xml_result=True)
-
-        v = response.find("version").text
-
-        if not v:
-            raise RemoteVersionError("Unknown remote server version")
-        else:
-            return v
-
-    #----------------------------------------------------------------------
-    def _send(self, in_data):
-        """Send OMP data to the manager and read the result.
-
-        `in_data` may be either an unicode string, an utf-8 encoded
-        string or an etree Element. The result is as an etree Element.
-
-        :param in_data: data to send.
-        :type in_data: str | ElementTree
-
-        :return: XML tree element.
-        :rtype: `ElementTree`
-
-        :raises: ServerError
-        """
-        # Make sure the data is a string.
-        if etree.iselement(in_data):
-            in_data = etree.dump(in_data)
-        if isinstance(in_data, unicode):
-            in_data = in_data.encode('utf-8')
-
-        # Synchronize access to the socket.
-        with self.__socket_lock:
-
-            # Send the data to the server.
-            try:
-                self.socket.sendall(in_data)
-            except socket.error:
-                raise ServerError("Can't connect to the server.")
-
-            # Get the response from the server.
-            tree = None
-            data = ""
-            try:
-                while True:
-                    chunk = self.socket.recv(1024)
-                    if not chunk:
-                        break
-                    data += chunk
-
-                    # We use this tip for avoid socket blocking:
-                    # If xml is correct, we're finished to receive info. Otherwise,
-                    # continue receiving
-                    try:
-                        tree = etree.fromstring(data)
-                    except Exception:
-                        continue
-                    break
-            except socket.error, e:
-                raise ServerError("Can't receive info from the server: %s" % e)
-
-            # if tree is None:
-            if tree is None:
-                tree=etree.ElementTree()
-                return tree
-
-            # Return the parsed response.
-            return tree
-
-    #----------------------------------------------------------------------
-    #
-    # PUBLIC METHODS
-    #
-    #----------------------------------------------------------------------
-    def close(self):
-        """Close the connection to the manager."""
-        if self.socket is not None:
-            try:
-                self.socket.shutdown(2)
-            except Exception:
-                pass
-            try:
-                self.socket.close()
-            except Exception:
-                pass
-            self.socket = None
-
-    #----------------------------------------------------------------------
-    def make_xml_request(self, xmldata, xml_result=False):
-        """
-        Low-level interface to send OMP XML to the manager.
-
-        `xmldata` may be either a utf-8 encoded string or an etree
-        Element. If `xml_result` is true, the result is returned as an
-        etree Element, otherwise a utf-8 encoded string is returned.
-
-        :param xmldata: string with the XML data.
-        :type: xmldata: str
-
-        :param xml_result: boolean that indicates if the response will be in XML format.
-        :type xml_result: bool
-
-        :return: a text/xml data from the server.
-        :rtype: `ElementTree`|str
-
-        :raises: ClientError, ServerError, TypeError, ValueError
-        """
-        response = self._send(xmldata)
-
-        # Check the response
-        if response is None:
-            raise TypeError("Expected ElementTree, got '%s' instead" % type(response))
-
-        try:
-            status = response.get('status', None)
-        except Exception,e:
-            raise ValueError('response is missing status')
-
-        if status is None:
-            raise ValueError('response is missing status: %s' % etree.tostring(response))
-
-        if status.startswith('4'):
-            raise ClientError("[%s] %s: %s" % (status,
-                                               response.tag,
-                                               response.get('status_text')))
-
-        elif status.startswith('5'):
-            raise ServerError("[%s] %s: %s" % (status,
-                                               response.tag,
-                                               response.get('status_text')))
-        if xml_result:
-            return response
-        else:
-            return response.text
-
-    #----------------------------------------------------------------------
-    #
-    # PROPERTIES
-    #
-    #----------------------------------------------------------------------
-    @property
-    def protocol_version(self):
-        """
-        :return: Get protocol version.
-        :rtype: str
-        """
-        return self.__version
-
-
-#------------------------------------------------------------------------------
-#
-# OMP low level interface
-#
-#------------------------------------------------------------------------------
-class _OMP(object):
-    """
-    OMP interface
-    """
-
-    #----------------------------------------------------------------------
-    def __init__(self, omp_manager):
-        """
-        Constructor.
-
-        :param omp_manager: _OMPManager object.
-        :type omp_manager: _ConnectionManager
-        """
-        if not isinstance(omp_manager, _ConnectionManager):
-            raise TypeError("Expected _ConnectionManager, got '%s' instead" % type(omp_manager))
-
-        self._manager = omp_manager
-
-    #----------------------------------------------------------------------
-    #
-    # PUBLIC METHODS
-    #
-    #----------------------------------------------------------------------
-    def delete_task(self, task_id):
-        """
-        Delete a task in OpenVAS server.
-
-        :param task_id: task id
-        :type task_id: str
-
-        :raises: ClientError, ServerError
-        """
-        raise NotImplementedError()
-
-    #----------------------------------------------------------------------
-    def stop_task(self, task_id):
-        """
-        Stops a task in OpenVAS server.
-
-        :param task_id: task id
-        :type task_id: str
-
-        :raises: ClientError, ServerError
-        """
-        raise NotImplementedError()
-
-    #----------------------------------------------------------------------
-    def create_task(self, name, target, config=None, comment=""):
-        """
-        Creates a task in OpenVAS.
-
-        :param name: name to the task
-        :type name: str
-
-        :param target: target to scan
-        :type target: str
-
-        :param config: config (profile) name
-        :type config: str
-
-        :param comment: comment to add to task
-        :type comment: str
-
-        :return: the ID of the task created.
-        :rtype: str
-
-        :raises: ClientError, ServerError
-        """
-        raise NotImplementedError()
-
-    #----------------------------------------------------------------------
-    def create_target(self, name, hosts, comment=""):
-        """
-        Creates a target in OpenVAS.
-
-        :param name: name to the target
-        :type name: str
-
-        :param hosts: target list. Can be only one target or a list of targets
-        :type hosts: str | list(str)
-
-        :param comment: comment to add to task
-        :type comment: str
-
-        :return: the ID of the created target.
-        :rtype: str
-
-        :raises: ClientError, ServerError
-        """
-        raise NotImplementedError()
-
-    #----------------------------------------------------------------------
-    def delete_target(self, target_id):
-        """
-        Delete a target in OpenVAS server.
-
-        :param target_id: target id
-        :type target_id: str
-
-        :raises: ClientError, ServerError
-        """
-        raise NotImplementedError()
-
-    #----------------------------------------------------------------------
-    def get_configs(self, config_id=None):
-        """
-        Get information about the configs in the server.
-
-        If name param is provided, only get the config associated to this name.
-
-        :param config_id: config id to get
-        :type config_id: str
-
-        :return: `ElementTree`
-
-        :raises: ClientError, ServerError
-        """
-        raise NotImplementedError()
-
-    #----------------------------------------------------------------------
-    def get_configs_ids(self, name=None):
-        """
-        Get information about the configured profiles (configs)in the server.
-
-        If name param is provided, only get the ID associated to this name.
-
-        :param name: config name to get
-        :type name: str
-
-        :return: a dict with the format: {config_name: config_ID}
-
-        :raises: ClientError, ServerError
-        """
-        raise NotImplementedError()
-
-    #----------------------------------------------------------------------
-    def get_tasks(self, task_id=None):
-        """
-        Get information about the configured profiles in the server.
-
-        If name param is provided, only get the task associated to this name.
-
-        :param task_id: task id to get
-        :type task_id: str
-
-        :return: `ElementTree`
-
-        :raises: ClientError, ServerError
-        """
-        raise NotImplementedError()
-
-    #----------------------------------------------------------------------
-    def get_tasks_ids(self, name=None):
-        """
-        Get IDs of tasks of the server.
-
-        If name param is provided, only get the ID associated to this name.
-
-        :param name: task name to get
-        :type name: str
-
-        :return: a dict with the format: {task_name: task_ID}
-
-        :raises: ClientError, ServerError
-        """
-        raise NotImplementedError()
-
-    #----------------------------------------------------------------------
-    def get_tasks_progress(self, task_id):
-        """
-        Get the progress of the task.
-
-        :param task_id: ID of the task
-        :type task_id: str
-
-        :return: a float number between 0-100
-        :rtype: float
-
-        :raises: ClientError, ServerError
-        """
-        raise NotImplementedError()
-
-    #----------------------------------------------------------------------
-    def get_tasks_ids_by_status(self, status="Done"):
-        """
-        Get IDs of tasks of the server depending of their status.
-
-        Allowed status are: "Done", "Paused", "Running", "Stopped".
-
-        If name param is provided, only get the ID associated to this name.
-
-        :param status: get task with this status
-        :type status: str - ("Done" |"Paused" | "Running" | "Stopped".)
-
-        :return: a dict with the format: {task_name: task_ID}
-
-        :raises: ClientError, ServerError
-        """
-        raise NotImplementedError()
-
-    #----------------------------------------------------------------------
-    def get_task_status(self, task_id):
-        """
-        Get task status
-
-        :param task_id: ID of task to start.
-        :type task_id: str
-
-        :return: string with status text.
-        :rtype: str
-
-        :raises: ClientError, ServerError
-        """
-        raise NotImplementedError()
-
-    #----------------------------------------------------------------------
-    def is_task_running(self, task_id):
-        """
-        Return true if task is running
-
-        :param task_id: ID of task to start.
-        :type task_id: str
-
-        :return: bool
-        :rtype: bool
-
-        :raises: ClientError, ServerError
-        """
-        raise NotImplementedError()
-
-    #----------------------------------------------------------------------
-    def get_results(self, task_id=None):
-        """
-        Get the results associated to the scan ID.
-
-        :param task_id: ID of scan to get. All if not provided
-        :type task_id: str
-
-        :return: xml object
-        :rtype: `ElementTree`
-
-        :raises: ClientError, ServerError
-        """
-        raise NotImplementedError()
-
-    #----------------------------------------------------------------------
-    def start_task(self, task_id):
-        """
-        Start a task.
-
-        :param task_id: ID of task to start.
-        :type task_id: str
-
-        :raises: ClientError, ServerError
-        """
-        raise NotImplementedError()
-
-    #----------------------------------------------------------------------
-    @staticmethod
-    def transform(xml_results):
-        """
-        Transform the XML results of OpenVAS into GoLismero structures.
-
-        :param xml_results: Input results from OpenVAS in XML format.
-        :type xml_results: Element
-
-        :return: Results in GoLismero format.
-        :rtype: list(OpenVASResult)
-
-        :raises: ValueError
-        """
-        raise NotImplementedError()
-
-    #----------------------------------------------------------------------
-    @property
-    def remote_server_version(self):
-        """
-        Get OMP protocol version
-
-        :return: version of protocol
-        :rtype: str
-        """
-        return self._manager.protocol_version
-
-
-#------------------------------------------------------------------------------
-#
-# OMPv4 implementation
-#
-#------------------------------------------------------------------------------
-class _OMPv4(_OMP):
-    """
-    Internal manager for OpenVAS low level operations.
-
-    ..note:
-        This class is based in code from the original OpenVAS plugin:
-
-        https://pypi.python.org/pypi/OpenVAS.omplib
-
-    ..warning:
-        This code is only compatible with OMP 4.0.
-    """
-
-    #----------------------------------------------------------------------
-    def __init__(self, omp_manager):
-        """
-        Constructor.
-
-        :param omp_manager: _OMPManager object.
-        :type omp_manager: _ConnectionManager
-        """
-        # Call to super
-        super(_OMPv4, self).__init__(omp_manager)
-
-    #----------------------------------------------------------------------
-    #
-    # PUBLIC METHODS
-    #
-    #----------------------------------------------------------------------
-    def delete_task(self, task_id):
-        """
-        Delete a task in OpenVAS server.
-
-        :param task_id: task id
-        :type task_id: str
-
-        :raises: AuditNotFoundError, ServerError
-        """
-        request = """<delete_task task_id="%s" />""" % task_id
-
-        try:
-            self._manager.make_xml_request(request, xml_result=True)
-        except ClientError:
-            raise AuditNotFoundError()
-
-    #----------------------------------------------------------------------
-    def stop_task(self, task_id):
-        """
-        Stops a task in OpenVAS server.
-
-        :param task_id: task id
-        :type task_id: str
-
-        :raises: ServerError, AuditNotFoundError
-        """
-
-        request = """<stop_task task_id="%s" />""" % task_id
-        try:
-            self._manager.make_xml_request(request, xml_result=True)
-        except ClientError:
-            raise AuditNotFoundError()
-
-    #----------------------------------------------------------------------
-    def create_task(self, name, target, config=None, comment=""):
-        """
-        Creates a task in OpenVAS.
-
-        :param name: name to the task
-        :type name: str
-
-        :param target: target to scan
-        :type target: str
-
-        :param config: config (profile) name
-        :type config: str
-
-        :param comment: comment to add to task
-        :type comment: str
-
-        :return: the ID of the task created.
-        :rtype: str
-
-        :raises: ClientError, ServerError
-        """
-
-        if not config:
-            config = "Full and fast"
-
-        request = """<create_task>
-            <name>%s</name>
-            <comment>%s</comment>
-            <config id="%s"/>
-            <target id="%s"/>
-            </create_task>""" % (name, comment, config, target)
-
-        return self._manager.make_xml_request(request, xml_result=True).get("id")
-
-    #----------------------------------------------------------------------
-    def create_target(self, name, hosts, comment=""):
-        """
-        Creates a target in OpenVAS.
-
-        :param name: name to the target
-        :type name: str
-
-        :param hosts: target list. Can be only one target or a list of targets
-        :type hosts: str | list(str)
-
-        :param comment: comment to add to task
-        :type comment: str
-
-        :return: the ID of the created target.
-        :rtype: str
-
-        :raises: ClientError, ServerError
-        """
-        if isinstance(hosts, str):
-            m_targets = hosts
-        elif isinstance(hosts, Iterable):
-            m_targets = ",".join(hosts)
-
-        request = """<create_target>
-            <name>%s</name>
-            <hosts>%s</hosts>
-            <comment>%s</comment>
-        </create_target>""" % (name, m_targets, comment)
-
-        return self._manager.make_xml_request(request, xml_result=True).get("id")
-
-    #----------------------------------------------------------------------
-    def delete_target(self, target_id):
-        """
-        Delete a target in OpenVAS server.
-
-        :param target_id: target id
-        :type target_id: str
-
-        :raises: ClientError, ServerError
-        """
-
-        request = """<delete_target target_id="%s" />""" % target_id
-
-        self._manager.make_xml_request(request, xml_result=True)
-
-    #----------------------------------------------------------------------
-    def get_configs(self, config_id=None):
-        """
-        Get information about the configs in the server.
-
-        If name param is provided, only get the config associated to this name.
-
-        :param config_id: config id to get
-        :type config_id: str
-
-        :return: `ElementTree`
-
-        :raises: ClientError, ServerError
-        """
-        # Recover all config from OpenVAS
-        if config_id:
-            return self._manager.make_xml_request('<get_configs config_id="%s"/>' % config_id, xml_result=True)
-        else:
-            return self._manager.make_xml_request("<get_configs />", xml_result=True)
-
-    #----------------------------------------------------------------------
-    def get_configs_ids(self, name=None):
-        """
-        Get information about the configured profiles (configs)in the server.
-
-        If name param is provided, only get the ID associated to this name.
-
-        :param name: config name to get
-        :type name: str
-
-        :return: a dict with the format: {config_name: config_ID}
-
-        :raises: ClientError, ServerError
-        """
-        m_return = {}
-
-        for x in self.get_configs().findall("config"):
-            m_return[x.find("name").text] = x.get("id")
-
-        if name:
-            return {name: m_return[name]}
-        else:
-            return m_return
-
-    #----------------------------------------------------------------------
-    def get_tasks(self, task_id=None):
-        """
-        Get information about the configured profiles in the server.
-
-        If name param is provided, only get the task associated to this name.
-
-        :param task_id: task id to get
-        :type task_id: str
-
-        :return: `ElementTree` | None
-
-        :raises: ClientError, ServerError
-        """
-        # Recover all config from OpenVAS
-        if task_id:
-            return self._manager.make_xml_request('<get_tasks id="%s"/>' % task_id,
-                                                  xml_result=True).find('.//task[@id="%s"]' % task_id)
-        else:
-            return self._manager.make_xml_request("<get_tasks />", xml_result=True)
-
-    #----------------------------------------------------------------------
-    def is_task_running(self, task_id):
-        """
-        Return true if task is running
-
-        :param task_id: ID of task to start.
-        :type task_id: str
-
-        :return: bool
-        :rtype: bool
-
-        :raises: ClientError, ServerError
-        """
-        # Get status with xpath
-        status = self.get_tasks().find('.//task[@id="%s"]/status' % task_id)
-
-        if status is None:
-            raise ServerError("Task not found")
-
-        return status.text in ("Running", "Requested")
-
-    #----------------------------------------------------------------------
-    def get_tasks_ids(self, name=None):
-        """
-        Get IDs of tasks of the server.
-
-        If name param is provided, only get the ID associated to this name.
-
-        :param name: task name to get
-        :type name: str
-
-        :return: a dict with the format: {task_name: task_ID}
-
-        :raises: ClientError, ServerError
-        """
-
-        m_return = {}
-
-        for x in self.get_tasks().findall("task"):
-            m_return[x.find("name").text] = x.get("id")
-
-        if name:
-            return {name: m_return[name]}
-        else:
-            return m_return
-
-    #----------------------------------------------------------------------
-    def get_task_status(self, task_id):
-        """
-        Get task status
-
-        :param task_id: ID of task to start.
-        :type task_id: str
-
-        :raises: ClientError, ServerError
-        """
-        if not isinstance(task_id, basestring):
-            raise TypeError("Expected string, got %r instead" % type(task_id))
-
-        status = self.get_tasks().find('.//task[@id="%s"]/status' % task_id)
-
-        if status is None:
-            raise ServerError("Task not found")
-
-        return status.text
-
-    #----------------------------------------------------------------------
-    def get_tasks_progress(self, task_id):
-        """
-        Get the progress of the task.
-
-        :param task_id: ID of the task
-        :type task_id: str
-
-        :return: a float number between 0-100
-        :rtype: float
-
-        :raises: ClientError, ServerError
-        """
-        if not isinstance(task_id, basestring):
-            raise TypeError("Expected string, got %r instead" % type(task_id))
-
-        m_sum_progress = 0.0  # Partial progress
-        m_progress_len = 0.0  # All of tasks
-
-        # Get status with xpath
-        tasks = self.get_tasks()
-        status = tasks.find('.//task[@id="%s"]/status' % task_id)
-
-        if status is None:
-            raise ServerError("Task not found")
-
-        if status.text in ("Running", "Pause Requested", "Paused"):
-            h = tasks.findall('.//task[@id="%s"]/progress/host_progress/host' % task_id)
-
-            if h is not None:
-                m_progress_len += float(len(h))
-                m_sum_progress += sum([float(x.tail) for x in h])
-
-        elif status.text in ("Delete Requested", "Done", "Stop Requested", "Stopped", "Internal Error"):
-            return 100.0  # Task finished
-
-        try:
-            return m_sum_progress/m_progress_len
-        except ZeroDivisionError:
-            return 0.0
-
-    #----------------------------------------------------------------------
-    def get_tasks_ids_by_status(self, status="Done"):
-        """
-        Get IDs of tasks of the server depending of their status.
-
-        Allowed status are: "Done", "Paused", "Running", "Stopped".
-
-        If name param is provided, only get the ID associated to this name.
-
-        :param status: get task with this status
-        :type status: str - ("Done" |"Paused" | "Running" | "Stopped".)
-
-        :return: a dict with the format: {task_name: task_ID}
-
-        :raises: ClientError, ServerError
-        """
-        if status not in ("Done", "Paused", "Running", "Stopped"):
-            raise ValueError("Requested status are not allowed")
-
-        m_task_ids = {}
-
-        for x in self.get_tasks().findall("task"):
-            if x.find("status").text == status:
-                m_task_ids[x.find("name").text] = x.attrib["id"]
-
-        return m_task_ids
-
-    #----------------------------------------------------------------------
-    def get_results(self, task_id=None):
-        """
-        Get the results associated to the scan ID.
-
-        :param task_id: ID of scan to get. All if not provided
-        :type task_id: str
-
-        :return: xml object
-        :rtype: `ElementTree`
-
-        :raises: ClientError, ServerError
-        """
-
-        if task_id:
-            m_query = '<get_results task_id="%s"/>' % task_id
-        else:
-            m_query = '<get_results/>'
-
-        return self._manager.make_xml_request(m_query, xml_result=True)
-
-    #----------------------------------------------------------------------
-    def get_tasks_detail(self, scan_id):
-        if not isinstance(scan_id, basestring):
-            raise TypeError("Expected string, got %r instead" % type(scan_id))
-
-        try:
-            m_response = self._manager.make_xml_request('<get_tasks task_id="%s" details="1"/>' % scan_id, xml_result=True)
-        except ServerError, e:
-            raise VulnscanServerError("Can't get the detail for the task %s. Error: %s" % (scan_id, e.message))
-        return m_response
-
-    #----------------------------------------------------------------------
-    def get_report_id(self, scan_id):
-        m_response = self.get_tasks_detail(scan_id)
-        return m_response.find('task').find('last_report')[0].get("id")
-
-    #----------------------------------------------------------------------
-    def get_report_pdf(self, report_id):
-        if not isinstance(report_id, basestring):
-            raise TypeError("Expected string, got %r instead" % type(report_id))
-
-        try:
-            m_response = self._manager.make_xml_request('<get_reports report_id="%s" format_id="c402cc3e-b531-11e1-9163-406186ea4fc5"/>' % report_id, xml_result=True)
-        except ServerError, e:
-            raise VulnscanServerError("Can't get the pdf for the report %s. Error: %s" % (report_id, e.message))
-        return m_response
-
-    #----------------------------------------------------------------------
-    def get_report_html(self, report_id):
-        if not isinstance(report_id,basestring):
-            raise TypeError("Expected string, got %r instead" % type(report_id))
-
-        try:
-            m_response = self._manager.make_xml_request('<get_reports report_id="%s" format_id="6c248850-1f62-11e1-b082-406186ea4fc5"/>' % report_id, xml_result=True)
-        except ServerError, e:
-            raise VulnscanServerError("Can't get the pdf for the report %s. Error: %s" % (report_id, e.message))
-        return m_response
-
-    #----------------------------------------------------------------------
-    def get_report_xml(self, report_id):
-        if not isinstance(report_id, basestring):
-            raise TypeError("Expected string, got %r instead" % type(report_id))
-
-        try:
-            m_response = self._manager.make_xml_request('<get_reports report_id="%s" />' % report_id, xml_result=True)
-        except ServerError, e:
-            raise VulnscanServerError("Can't get the xml for the report%s. Error: %s" % (report_id, e.message))
-
-        return m_response
-
-    #----------------------------------------------------------------------
-    def start_task(self, task_id):
-        """
-        Start a task.
-
-        :param task_id: ID of task to start.
-        :type task_id: str
-
-        :raises: ClientError, ServerError
-        """
-        if not isinstance(task_id, basestring):
-            raise TypeError("Expected string, got %r instead" % type(task_id))
-
-        m_query = '<start_task task_id="%s"/>' % task_id
-
-        self._manager.make_xml_request(m_query, xml_result=True)
-
-    #----------------------------------------------------------------------
-    @staticmethod
-    def transform(xml_results):
-        """
-        Transform the XML results of OpenVAS into GoLismero structures.
-
-        :param xml_results: Input results from OpenVAS in XML format.
-        :type xml_results: Element
-
-        :return: Results in GoLismero format.
-        :rtype: list(OpenVASResult)
-
-        :raises: ValueError
-        """
-        port_regex_specific = re.compile("([\w\d\s]*)\(([\d]+)/([\w\W\d]+)\)")
-        port_regex_generic = re.compile("([\w\d\s]*)/([\w\W\d]+)")
-        cvss_regex = re.compile("(cvss_base_vector=[\s]*)([\w:/]+)")
-
-        m_return = []
-        m_return_append = m_return.append
-
-        # All the results
-        for l_results in xml_results.findall(".//result"):
-            l_partial_result = OpenVASResult.make_empty_object()
-
-            # Ignore log/debug messages, only get the results
-            threat = l_results.find("threat")
-            if threat is None:
-                continue
-            if threat.text in ("Log", "Debug"):
-                continue
-
-            # For each result
-            for l_val in l_results.getchildren():
-
-                l_tag = l_val.tag
-
-                if l_tag in ("subnet", "host", "threat", "description"):
-                    # All text vars can be processes both.
-                    setattr(l_partial_result, l_tag, l_val.text)
-
-                elif l_tag == "port":
-
-                    # Looking for port as format: https (443/tcp)
-                    l_port = port_regex_specific.search(l_val.text)
-                    if l_port:
-                            l_service = l_port.group(1)
-                            l_number = int(l_port.group(2))
-                            l_proto = l_port.group(3)
-
-                            l_partial_result.port = OpenVASPort(l_service,
-                                                                l_number,
-                                                                l_proto)
-                    else:
-                        # Looking for port as format: general/tcp
-                        l_port = port_regex_generic.search(l_val.text)
-                        if l_port:
-                            l_service = l_port.group(1)
-                            l_proto = l_port.group(2)
-
-                            l_partial_result.port = OpenVASPort(l_service,
-                                                                None,
-                                                                l_proto)
-
-                elif l_tag == "nvt":
-
-                    # The NVT Object
-                    l_nvt_object = OpenVASNVT.make_empty_object()
-                    l_nvt_object.oid = l_val.attrib['oid']
-                    l_nvt_symbols = [x for x in dir(l_nvt_object) if not x.startswith("_")]
-
-                    for l_nvt in l_val.getchildren():
-                        l_nvt_tag = l_nvt.tag
-                        if l_nvt_tag in l_nvt_symbols:
-                            if l_nvt.text:  # For filter tags like <cert/>
-                                if l_nvt.text.startswith("NO"):  # For filter tags like <cve>NOCVE</cve>
-                                    setattr(l_nvt_object, l_nvt_tag, "")
-                                else:
-                                    setattr(l_nvt_object, l_nvt_tag, l_nvt.text)
-                            else:
-                                setattr(l_nvt_object, l_nvt_tag, "")
-
-                    # Get CVSS
-                    cvss_candidate = l_val.find("tags")
-                    if cvss_candidate is not None and cvss_candidate.text:
-                        # Extract data
-                        cvss_tmp = cvss_regex.search(cvss_candidate.text)
-                        if cvss_tmp:
-                            l_nvt_object.cvss_base_vector = cvss_tmp.group(2)
-
-                    # Add to the NVT Object
-                    l_partial_result.nvt = l_nvt_object
-
-                else:
-                    # "Unrecognised tag
-                    pass
-
-            # Add to the return values
-            m_return_append(l_partial_result)
-
-        return m_return
