@@ -228,6 +228,50 @@ class OMPv4(OMP):
             return m_return
 
     #----------------------------------------------------------------------
+    def get_targets(self, target_id=None):
+        """
+        Get information about the targets in the server.
+
+        If name param is provided, only get the target associated to this name.
+
+        :param target_id: target id to get
+        :type target_id: str
+
+        :return: `ElementTree` | None
+
+        :raises: ClientError, ServerError
+        """
+        # Recover all config from OpenVAS
+        if target_id:
+            return self._manager.make_xml_request('<get_targets id="%s"/>' % target_id,
+                                                xml_result=True)
+        else:
+            return self._manager.make_xml_request("<get_targets />", xml_result=True)
+
+    def get_targets_ids(self, name=None):
+        """
+        Get IDs of targets of the server.
+
+        If name param is provided, only get the ID associated to this name.
+
+        :param name: target name to get
+        :type name: str
+
+        :return: a dict with the format: {target_name: target_ID}
+
+        :raises: ClientError, ServerError
+        """
+        m_return = {}
+        
+        for x in self.get_targets().findall("target"):
+            m_return[x.find("name").text] = x.get("id")
+        
+        if name:
+            return {name: m_return[name]}
+        else:
+            return m_return
+
+    #----------------------------------------------------------------------
     def get_tasks(self, task_id=None):
         """
         Get information about the configured profiles in the server.
