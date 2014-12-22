@@ -155,6 +155,7 @@ class OMPv4(OMP):
 
         :raises: ClientError, ServerError
         """
+        from collections import Iterable
         if isinstance(hosts, str):
             m_targets = hosts
         elif isinstance(hosts, Iterable):
@@ -244,7 +245,7 @@ class OMPv4(OMP):
         # Recover all config from OpenVAS
         if target_id:
             return self._manager.make_xml_request('<get_targets id="%s"/>' % target_id,
-                                                xml_result=True)
+                xml_result=True).find('.//target[@id="%s"]' % target_id)
         else:
             return self._manager.make_xml_request("<get_targets />", xml_result=True)
 
@@ -262,10 +263,10 @@ class OMPv4(OMP):
         :raises: ClientError, ServerError
         """
         m_return = {}
-        
+
         for x in self.get_targets().findall("target"):
             m_return[x.find("name").text] = x.get("id")
-        
+
         if name:
             return {name: m_return[name]}
         else:
