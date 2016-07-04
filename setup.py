@@ -1,6 +1,11 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
+import os
+
+from distutils.core import setup
+
+
 __license__ = """
 OpenVAS Manager OMPv4 and XML parser.
 
@@ -19,14 +24,9 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 """
 
-__all__ = ["metadata", "main"]
-
-import os
-
-from distutils.core import setup
 
 # Text describing the module.
-description = 'OpenVAS Manager OMPv4 and XML report parser'
+description = 'OpenVAS Manager for OMPv4 and XML report parser'
 try:
     readme = os.path.join(os.getcwd(), 'README.rst')
     long_description = open(readme, 'rU').read()
@@ -42,7 +42,7 @@ metadata = {
 
     # Metadata.
     'name': 'openvas_lib',
-    'version': '1.0',
+    'version': '1.1',
     'description': description,
     'long_description': long_description,
     'author': 'Daniel Garcia Garcia (cr0hn)',
@@ -63,6 +63,7 @@ metadata = {
         'Operating System :: POSIX :: Linux',
         'Operating System :: Unix',
         'Programming Language :: Python :: 2.7',
+        'Programming Language :: Python :: 3',
         'Topic :: Security',
     ],
 }

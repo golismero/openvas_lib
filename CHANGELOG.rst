@@ -1,3 +1,9 @@
+Version 0.1.1
+=============
+
+- Added support for OpenVAS 7 and 8! (currently in beta mode).
+- Support for Python 3 (in testing also)
+
 Version 0.1.0
 =============
 

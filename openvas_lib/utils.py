@@ -1,9 +1,16 @@
 # -*- coding: utf-8 -*-
 
+from __future__ import print_function
 
 """
 Utils functions, like timer and random string generator.
 """
+
+import sys
+
+from random import choice
+from threading import Event, Timer
+from string import ascii_letters, digits
 
 __license__ = """
 OpenVAS connector for OMP protocol.
@@ -23,43 +30,44 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 """
 
-from random import choice
-from threading import Event, Timer
-from string import ascii_letters, digits
 
+if sys.version_info >= (3,):
+    _range = range
+else:
+    _range = xrange
 
-#------------------------------------------------------------------------------
+# ------------------------------------------------------------------------------
 #
 # Useful functions
 #
-#------------------------------------------------------------------------------
+# ------------------------------------------------------------------------------
 def set_interval(interval, times=-1):
     """
-    Decorator to execute a function periodically using a timer.
-    The function is executed in a background thread.
+	Decorator to execute a function periodically using a timer.
+	The function is executed in a background thread.
 
-    Example:
+	Example:
 
-        >>> from time import gmtime, strftime
-        >>> @set_interval(2) # Execute every 2 seconds until stopped.
-        ... def my_func():
-        ...     print strftime("%Y-%m-%d %H:%M:%S", gmtime())
-        ...
-        >>> handler = my_func()
-        2013-07-25 22:40:55
-        2013-07-25 22:40:57
-        2013-07-25 22:40:59
-        2013-07-25 22:41:01
-        >>> handler.set() # Stop the execution.
-        >>> @set_interval(2, 3) # Every 2 seconds, 3 times.
-        ... def my_func():
-        ...     print strftime("%Y-%m-%d %H:%M:%S", gmtime())
-        ...
-        >>> handler = my_func()
-        2013-07-25 22:40:55
-        2013-07-25 22:40:57
-        2013-07-25 22:40:59
-    """
+		>>> from time import gmtime, strftime
+		>>> @set_interval(2) # Execute every 2 seconds until stopped.
+		... def my_func():
+		...     print(strftime("%Y-%m-%d %H:%M:%S", gmtime()))
+		...
+		>>> handler = my_func()
+		2013-07-25 22:40:55
+		2013-07-25 22:40:57
+		2013-07-25 22:40:59
+		2013-07-25 22:41:01
+		>>> handler.set() # Stop the execution.
+		>>> @set_interval(2, 3) # Every 2 seconds, 3 times.
+		... def my_func():
+		...     print(strftime("%Y-%m-%d %H:%M:%S", gmtime()))
+		...
+		>>> handler = my_func()
+		2013-07-25 22:40:55
+		2013-07-25 22:40:57
+		2013-07-25 22:40:59
+	"""
     # Validate the parameters.
     if isinstance(interval, int):
         interval = float(interval)
@@ -102,16 +110,16 @@ def set_interval(interval, times=-1):
     return outer_wrap
 
 
-#----------------------------------------------------------------------
+# ----------------------------------------------------------------------
 def generate_random_string(length=30):
     """
-    Generates a random string of the specified length.
+	Generates a random string of the specified length.
 
-    The key space used to generate random strings are:
+	The key space used to generate random strings are:
 
-    - ASCII letters (both lowercase and uppercase).
-    - Digits (0-9).
-    """
+	- ASCII letters (both lowercase and uppercase).
+	- Digits (0-9).
+	"""
     m_available_chars = ascii_letters + digits
 
-    return "".join(choice(m_available_chars) for _ in xrange(length))
+    return "".join(choice(m_available_chars) for _ in _range(length))
