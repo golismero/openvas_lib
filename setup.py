@@ -26,7 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 # Text describing the module.
-description = 'OpenVAS Manager for OMPv4 and XML report parser'
+description = 'OpenVAS Manager for OpenVAS 6 to 8 and XML report parser'
 try:
     readme = os.path.join(os.getcwd(), 'README.rst')
     long_description = open(readme, 'rU').read()
