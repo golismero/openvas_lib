@@ -1,20 +1,9 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
 
-from __future__ import print_function
-
 """
 This file contains OMPv4 implementation
 """
-
-try:
-	from xml.etree import cElementTree as etree
-except ImportError:
-	from xml.etree import ElementTree as etree
-
-from openvas_lib import *
-from openvas_lib.common import *
-
 
 __license__ = """
 OpenVAS connector for OMP protocol.
@@ -156,10 +145,11 @@ class OMPv4(OMP):
 
         :raises: ClientError, ServerError
         """
-		if isinstance(hosts, str):
-			m_targets = hosts
-		elif isinstance(hosts, Iterable):
-			m_targets = ",".join(hosts)
+        from collections import Iterable
+        if isinstance(hosts, str):
+            m_targets = hosts
+        elif isinstance(hosts, Iterable):
+            m_targets = ",".join(hosts)
 
 		request = """<create_target>
             <name>%s</name>
@@ -220,8 +210,52 @@ class OMPv4(OMP):
         """
 		m_return = {}
 
-		for x in self.get_configs().findall("config"):
-			m_return[x.find("name").text] = x.get("id")
+        for x in self.get_configs().findall("config"):
+            m_return[x.find("name").text] = x.get("id")
+
+        if name:
+            return {name: m_return[name]}
+        else:
+            return m_return
+
+    #----------------------------------------------------------------------
+    def get_targets(self, target_id=None):
+        """
+        Get information about the targets in the server.
+
+        If name param is provided, only get the target associated to this name.
+
+        :param target_id: target id to get
+        :type target_id: str
+
+        :return: `ElementTree` | None
+
+        :raises: ClientError, ServerError
+        """
+        # Recover all config from OpenVAS
+        if target_id:
+            return self._manager.make_xml_request('<get_targets id="%s"/>' % target_id,
+                xml_result=True).find('.//target[@id="%s"]' % target_id)
+        else:
+            return self._manager.make_xml_request("<get_targets />", xml_result=True)
+
+    def get_targets_ids(self, name=None):
+        """
+        Get IDs of targets of the server.
+
+        If name param is provided, only get the ID associated to this name.
+
+        :param name: target name to get
+        :type name: str
+
+        :return: a dict with the format: {target_name: target_ID}
+
+        :raises: ClientError, ServerError
+        """
+        m_return = {}
+
+        for x in self.get_targets().findall("target"):
+            m_return[x.find("name").text] = x.get("id")
 
 		if name:
 			return {name: m_return[name]}
@@ -474,6 +508,4 @@ class OMPv4(OMP):
 
 		m_query = '<start_task task_id="%s"/>' % task_id
 
-		self._manager.make_xml_request(m_query, xml_result=True)
-
-__all__ = ["OMPv4"]
+        self._manager.make_xml_request(m_query, xml_result=True)
