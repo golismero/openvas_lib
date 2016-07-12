@@ -1,3 +1,9 @@
+Version 0.1.2
+=============
+
+- Fix: mixed tabs and spaces
+- Fix: missing imports
+
 Version 0.1.1
 =============
 

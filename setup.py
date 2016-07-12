@@ -42,7 +42,7 @@ metadata = {
 
     # Metadata.
     'name': 'openvas_lib',
-    'version': '1.1',
+    'version': '1.1.2',
     'description': description,
     'long_description': long_description,
     'author': 'Daniel Garcia Garcia (cr0hn)',
