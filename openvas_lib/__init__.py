@@ -24,6 +24,7 @@ from openvas_lib.data import *
 from openvas_lib.utils import *
 from openvas_lib.common import *
 
+import re
 __license__ = """
 OpenVAS connector for OMP protocol.
 
