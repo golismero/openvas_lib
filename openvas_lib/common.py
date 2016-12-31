@@ -9,6 +9,7 @@ This file contains interfaces for OMP implementations
 
 import ssl
 import socket
+import logging
 
 from threading import RLock
 
@@ -145,6 +146,7 @@ class ConnectionManager(object):
 
 		# Get version
 		self.__version = self._get_protocol_version()
+		logging.basicConfig(level=logging.DEBUG)
 
 	# ----------------------------------------------------------------------
 	#
@@ -347,7 +349,9 @@ class ConnectionManager(object):
 		if not isinstance(xml_result, bool):
 			raise TypeError("Expected bool, got '%s' instead" % type(xml_result))
 
+        #logging.debug("XMLDATA: " + str(xmldata))
 		response = self._send(xmldata)
+        #logging.debug("RESPONSE: " + etree.tostring(response))
 
 		# Check the response
 		if response is None:
