@@ -757,6 +757,24 @@ class VulnscanManager(object):
 			self.__manager.stop_task(task_id)
 		except AuditNotRunningError as e:
 			raise VulnscanAuditNotFoundError(e)
+	# ----------------------------------------------------------------------
+	def get_scan_status(self, task_id):
+		"""
+        Gets the status of the specified scan ID in the OpenVAS server.
+
+        :param task_id: Scan ID.
+        :type task_id: str
+
+        :raises: VulnscanAuditNotFoundError
+        """
+		statusXML = None
+		try:
+			statusXML = self.__manager.get_task_status(task_id)
+		except ServerError as e:
+			raise e
+		if statusXML:
+			return statusXML
+		return None
 
 	# ----------------------------------------------------------------------
 	@property
