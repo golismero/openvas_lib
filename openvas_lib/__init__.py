@@ -697,6 +697,35 @@ class VulnscanManager(object):
 		return report_parser(m_response)
 
 	# ----------------------------------------------------------------------
+	def get_raw_xml(self, task_id):
+		"""
+        Get the results associated to the scan ID.
+
+        :param task_id: Scan ID.
+        :type task_id: str
+
+        :return: Scan results. in XML ElementTree form
+        :rtype: ElementTree Element
+
+        :raises: ServerError, TypeError
+        """
+
+		logging.debug("get_raw_xml: " + str(task_id))
+		if not isinstance(task_id, str):
+			raise TypeError("Expected string, got %r instead" % type(task_id))
+
+		if self.__manager.is_task_running(task_id):
+			raise VulnscanTaskNotFinishedError(
+				"Task is currently running. Until it not finished, you can't obtain the results.")
+
+		try:
+			m_response = self.__manager.get_results(task_id)
+		except ServerError as e:
+			raise VulnscanServerError("Can't get the results for the task %s. Error: %s" % (task_id, e.message))
+
+		return m_response
+
+	# ----------------------------------------------------------------------
 	def get_report_id(self, scan_id):
 
 		if not isinstance(scan_id, str):
