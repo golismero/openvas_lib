@@ -710,7 +710,6 @@ class VulnscanManager(object):
         :raises: ServerError, TypeError
         """
 
-		logging.debug("get_raw_xml: " + str(task_id))
 		if not isinstance(task_id, str):
 			raise TypeError("Expected string, got %r instead" % type(task_id))
 
