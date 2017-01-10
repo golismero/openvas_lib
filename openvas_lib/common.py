@@ -169,6 +169,14 @@ class ConnectionManager(object):
 		if self.__host == "dummy":
 			return
 
+		# TODO ANUALLY REVIEW SSL CONFIG TO ENSURE SANE & SECURE DEFAULTS
+		# https://hynek.me/articles/hardening-your-web-servers-ssl-ciphers/
+		sslcontext = ssl.SSLContext(ssl.PROTOCOL_SSLv23)
+		sslcontext.options |= ssl.OP_NO_SSLv2
+		sslcontext.options |= ssl.OP_NO_SSLv3
+		sslcipherlist = "ECDH+AESGCM:DH+AESGCM:ECDH+AES256:DH+AES256:ECDH+AES128:DH+AES:RSA+AESGCM:RSA+AES:!aNULL:!MD5:!DSS"
+		sslcontext.set_ciphers(sslcipherlist)
+
 		# Connect to the server
 		sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 		sock.settimeout(timeout)
@@ -177,7 +185,7 @@ class ConnectionManager(object):
 		except socket.error as e:
 			raise ServerError(str(e))
 		try:
-			self.socket = ssl.wrap_socket(sock, ssl_version=ssl.PROTOCOL_TLSv1)
+			self.socket = sslcontext.wrap_socket(sock)
 		except Exception as e:
 			raise ServerError(str(e))
 
@@ -349,9 +357,9 @@ class ConnectionManager(object):
 		if not isinstance(xml_result, bool):
 			raise TypeError("Expected bool, got '%s' instead" % type(xml_result))
 
-        #logging.debug("XMLDATA: " + str(xmldata))
+		#logging.debug("XMLDATA: " + str(xmldata))
 		response = self._send(xmldata)
-        #logging.debug("RESPONSE: " + etree.tostring(response))
+		#logging.debug("RESPONSE: " + etree.tostring(response))
 
 		# Check the response
 		if response is None:
