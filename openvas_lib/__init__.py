@@ -450,7 +450,7 @@ class VulnscanManager(object):
 	# Methods to manage OpenVAS
 	#
 	# ----------------------------------------------------------------------
-	def __init__(self, host, user, password, port=9390, timeout=None):
+	def __init__(self, host, user, password, port=9390, timeout=None, ssl_verify=False):
 		"""
         :param host: The host where the OpenVAS server is running.
         :type host: str
@@ -463,6 +463,9 @@ class VulnscanManager(object):
 
         :param port: Port number of the OpenVAS server.
         :type port: int
+
+        :param ssl_verify: Whether or not to verify SSL certificates from the server
+        :type ssl_verify: bool
 
         :raises: VulnscanServerError, VulnscanAuthFail, VulnscanVersionError
         """
@@ -491,7 +494,7 @@ class VulnscanManager(object):
 
 		# Create the manager
 		try:
-			self.__manager = get_connector(host, user, password, port, m_time_out)
+			self.__manager = get_connector(host, user, password, port, m_time_out, ssl_verify)
 		except ServerError as e:
 			raise VulnscanServerError("Error while connecting to the server: %s" % e.message)
 		except AuthFailedError:

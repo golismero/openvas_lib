@@ -42,7 +42,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 # OMP Methods and utils
 #
 # ------------------------------------------------------------------------------
-def get_connector(host, username, password, port=9390, timeout=None):
+def get_connector(host, username, password, port=9390, timeout=None, ssl_verify=False):
 	"""
 	Get concrete connector version for server.
 
@@ -61,13 +61,16 @@ def get_connector(host, username, password, port=9390, timeout=None):
 	:param timeout: timeout for connection, in seconds.
 	:type timeout: int
 
+	:param ssl_verify: Whether or not to verify SSL certificates from the server
+	:type ssl_verify: bool
+
 	:return: OMP subtype.
 	:rtype: OMP
 
 	:raises: RemoteVersionError, ServerError, AuthFailedError, TypeError
 	"""
 
-	manager = ConnectionManager(host, username, password, port, timeout)
+	manager = ConnectionManager(host, username, password, port, timeout, ssl_verify)
 
 	# Make concrete connector from version
 	if manager.protocol_version in ("4.0", "5.0", "6.0"):
@@ -90,7 +93,7 @@ class ConnectionManager(object):
 	TIMEOUT = 10.0
 
 	# ----------------------------------------------------------------------
-	def __init__(self, host, username, password, port=9390, timeout=None):
+	def __init__(self, host, username, password, port=9390, timeout=None, ssl_verify=False):
 		"""
 		Open a connection to the manager and authenticate the user.
 
@@ -130,6 +133,7 @@ class ConnectionManager(object):
 		self.__username = username
 		self.__password = password
 		self.__port = port
+		self.__ssl_verify = ssl_verify
 
 		# Controls for timeout
 		self.__timeout = ConnectionManager.TIMEOUT
@@ -176,6 +180,9 @@ class ConnectionManager(object):
 		sslcontext.options |= ssl.OP_NO_SSLv3
 		sslcipherlist = "ECDH+AESGCM:DH+AESGCM:ECDH+AES256:DH+AES256:ECDH+AES128:DH+AES:RSA+AESGCM:RSA+AES:!aNULL:!MD5:!DSS"
 		sslcontext.set_ciphers(sslcipherlist)
+		if self.__ssl_verify:
+			sslcontext.verify_mode = ssl.CERT_REQUIRED
+			sslcontext.load_default_certs()
 
 		# Connect to the server
 		sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
