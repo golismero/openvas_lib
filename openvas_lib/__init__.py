@@ -592,7 +592,7 @@ class VulnscanManager(object):
 		# Create the target
 		try:
 			m_target_id = self.__manager.create_target(m_target_name, target,
-			                                           "Temporal target from OpenVAS Lib")
+			                                           "Temporal target from OpenVAS Lib", "")
 		except ServerError as e:
 			raise VulnscanTargetError("The target already exits on the server. Error: %s" % e.message)
 
@@ -645,6 +645,28 @@ class VulnscanManager(object):
         :rtype: str
         """
 		return self.__target_id
+
+	# ----------------------------------------------------------------------
+	def create_target(self, name, hosts, comment="", port_list="Default"):
+		"""
+        Creates a target in OpenVAS.
+
+        :param name: name to the target
+        :type name: str
+
+        :param hosts: target list. Can be only one target or a list of targets
+        :type hosts: str | list(str)
+
+        :return: the ID of the created target.
+        :rtype: str
+
+        :raises: ClientError, ServerError TODO
+        """
+		try:
+			m_target_id = self.__manager.create_target(name, hosts, comment, port_list)
+		except ServerError as e:
+			raise VulnscanTargetError("Error while attempting to create target: %s" % e.message)
+		return m_target_id
 
 	# ----------------------------------------------------------------------
 	def delete_scan(self, task_id):

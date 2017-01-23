@@ -132,7 +132,7 @@ class OMPv4(OMP):
 		return self._manager.make_xml_request(request, xml_result=True).get("id")
 
 	# ----------------------------------------------------------------------
-	def create_target(self, name, hosts, comment=""):
+	def create_target(self, name, hosts, comment="", port_list="Default"):
 		"""
         Creates a target in OpenVAS.
 
@@ -145,6 +145,9 @@ class OMPv4(OMP):
         :param comment: comment to add to task
         :type comment: str
 
+        :param port_list: Port List ID in the server to use for the target
+        :type comment: str
+
         :return: the ID of the created target.
         :rtype: str
 
@@ -154,13 +157,14 @@ class OMPv4(OMP):
 		if isinstance(hosts, str):
 			m_targets = hosts
 		elif isinstance(hosts, Iterable):
-			m_targets = ",".join(hosts)
+			m_targets = str(",".join(hosts))
 
 		request = """<create_target>
 	            <name>%s</name>
 	            <hosts>%s</hosts>
+	            <port_list>%s</port_list>
 	            <comment>%s</comment>
-    </create_target>""" % (name, m_targets, comment)
+    </create_target>""" % (name, m_targets, port_list, comment)
 
 		return self._manager.make_xml_request(request, xml_result=True).get("id")
 
@@ -483,7 +487,7 @@ class OMPv4(OMP):
 				'<get_reports report_id="%s" format_id="6c248850-1f62-11e1-b082-406186ea4fc5"/>' % report_id,
 				xml_result=True)
 		except ServerError as e:
-			raise VulnscanServerError("Can't get the pdf for the report %s. Error: %s" % (report_id, e.message))
+			raise VulnscanServerError("Can't get the HTML for the report %s. Error: %s" % (report_id, e.message))
 		return m_response
 
 	# ----------------------------------------------------------------------
@@ -494,7 +498,7 @@ class OMPv4(OMP):
 		try:
 			m_response = self._manager.make_xml_request('<get_reports report_id="%s" />' % report_id, xml_result=True)
 		except ServerError as e:
-			raise VulnscanServerError("Can't get the xml for the report%s. Error: %s" % (report_id, e.message))
+			raise VulnscanServerError("Can't get the xml for the report %s. Error: %s" % (report_id, e.message))
 
 		return m_response
 
