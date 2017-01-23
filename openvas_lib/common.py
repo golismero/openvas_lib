@@ -550,6 +550,27 @@ class OMP(object):
 		raise NotImplementedError()
 
 	# ----------------------------------------------------------------------
+	def create_port_list(self, name, port_range, comment=""):
+		"""
+		Creates a port list in OpenVAS.
+
+		:param name: name to the port list
+		:type name: str
+
+		:param port_range: Port ranges. Should be a string of the form "T:22-80,U:53,88,1337"
+		:type hosts: str
+
+		:param comment: comment to add to port list
+		:type comment: str
+
+		:return: the ID of the created port list.
+		:rtype: str
+
+		:raises: ClientError, ServerError
+		"""
+		raise NotImplementedError()
+
+	# ----------------------------------------------------------------------
 	def create_target(self, name, hosts, comment="", port_list="Default"):
 		"""
 		Creates a target in OpenVAS.

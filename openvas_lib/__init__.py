@@ -647,6 +647,31 @@ class VulnscanManager(object):
 		return self.__target_id
 
 	# ----------------------------------------------------------------------
+	def create_port_list(self, name, port_range, comment=""):
+		"""
+        Creates a port list in OpenVAS.
+
+        :param name: name to the port list
+        :type name: str
+
+        :param port_range:Port ranges. Should be a string of the form "T:22-80,U:53,88,1337"
+        :type hosts: str
+
+        :param comment: comment to be attached to the port range
+        :type hosts: str
+
+        :return: the ID of the created port range.
+        :rtype: str
+
+        :raises: ClientError, ServerError TODO
+        """
+		try:
+			m_port_list_id = self.__manager.create_port_list(name, port_range, "")
+		except ServerError as e:
+			raise ServerError("Error while attempting to create port_list: %s" % e.message)
+		return m_port_list_id
+
+	# ----------------------------------------------------------------------
 	def create_target(self, name, hosts, comment="", port_list="Default"):
 		"""
         Creates a target in OpenVAS.
@@ -663,7 +688,7 @@ class VulnscanManager(object):
         :raises: ClientError, ServerError TODO
         """
 		try:
-			m_target_id = self.__manager.create_target(name, hosts, comment, port_list)
+			m_target_id = self.__manager.create_target(name, hosts, "", port_list)
 		except ServerError as e:
 			raise VulnscanTargetError("Error while attempting to create target: %s" % e.message)
 		return m_target_id

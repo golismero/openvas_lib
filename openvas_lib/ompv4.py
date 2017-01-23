@@ -132,6 +132,33 @@ class OMPv4(OMP):
 		return self._manager.make_xml_request(request, xml_result=True).get("id")
 
 	# ----------------------------------------------------------------------
+	def create_port_list(self, name, port_range, comment=""):
+		"""
+        Creates a port list in OpenVAS.
+
+        :param name: name to the port list
+        :type name: str
+
+        :param port_range: Port ranges. Should be a string of the form "T:22-80,U:53,88,1337"
+        :type port_range: str
+
+        :param comment: comment to add to the port list
+        :type comment: str
+
+        :return: the ID of the created target.
+        :rtype: str
+
+        :raises: ClientError, ServerError TODO
+        """
+		request = """<create_port_list>
+	            <name>%s</name>
+	            <port_range>%s</port_range>
+	            <comment>%s</comment>
+    </create_port_list>""" % (name, port_range, comment)
+
+		return self._manager.make_xml_request(request, xml_result=True).get("id")
+
+	# ----------------------------------------------------------------------
 	def create_target(self, name, hosts, comment="", port_list="Default"):
 		"""
         Creates a target in OpenVAS.
