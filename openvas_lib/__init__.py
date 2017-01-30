@@ -561,6 +561,9 @@ class VulnscanManager(object):
         :param target: Target to audit.
         :type target: str
 
+        :param schedule: Schedule ID to use for the scan. (create_schedule provides this)
+        :type schedule: str
+
         :param profile: Scan profile in the OpenVAS server.
         :type profile: str
 
@@ -578,6 +581,7 @@ class VulnscanManager(object):
         """
 
 		profile = kwargs.get("profile", "Full and fast")
+		schedule = kwargs.get("schedule",None)
 		call_back_end = kwargs.get("callback_end", None)
 		call_back_progress = kwargs.get("callback_progress", None)
 		if not (isinstance(target, str) or isinstance(target, Iterable)):
@@ -608,7 +612,7 @@ class VulnscanManager(object):
 		# Create task
 		try:
 			m_task_id = self.__manager.create_task(m_job_name, m_target_id, config=m_profile_id,
-			                                       comment="scan from OpenVAS lib")
+			                                       schedule=schedule, comment="scan from OpenVAS lib")
 		except ServerError as e:
 			raise VulnscanScanError("The target selected doesnn't exist in the server. Error: %s" % e.message)
 

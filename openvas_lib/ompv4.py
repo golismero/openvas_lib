@@ -97,7 +97,7 @@ class OMPv4(OMP):
 			raise AuditNotFoundError()
 
 	# ----------------------------------------------------------------------
-	def create_task(self, name, target, config=None, comment=""):
+	def create_task(self, name, target, config=None, schedule=None, comment=""):
 		"""
         Creates a task in OpenVAS.
 
@@ -109,6 +109,9 @@ class OMPv4(OMP):
 
         :param config: config (profile) name
         :type config: str
+
+        :param schedule: schedule ID to use.
+        :type schedule: str
 
         :param comment: comment to add to task
         :type comment: str
@@ -126,8 +129,10 @@ class OMPv4(OMP):
             <name>%s</name>
             <comment>%s</comment>
             <config id="%s"/>
-            <target id="%s"/>
-            </create_task>""" % (name, comment, config, target)
+            <target id="%s"/>""" % (name, comment, config, target)
+		if schedule:
+			request += """<schedule>%s</schedule>""" % (schedule)
+		request += """</create_task>"""
 
 		return self._manager.make_xml_request(request, xml_result=True).get("id")
 
