@@ -571,6 +571,42 @@ class OMP(object):
 		raise NotImplementedError()
 
 	# ----------------------------------------------------------------------
+	def create_schedule(self, name, hour, minute, month, day, year, period=None, duration=None, timezone="UTC"):
+		"""
+		Creates a schedule in the OpenVAS server.
+
+		:param name: name to the schedule
+		:type name: str
+
+		:param hour: hour at which to start the schedule, 0 to 23
+		:type hour: str
+
+		:param minute: minute at which to start the schedule, 0 to 59
+		:type minute: str
+
+		:param month: month at which to start the schedule, 1-12
+		:type month: str
+
+		:param year: year at which to start the schedule
+		:type year: str
+
+		:param timezone: The timezone the schedule will follow. The format of a timezone is the same as that of the TZ environment variable on GNU/Linux systems
+		:type timezone: str
+
+		:param period:How often the Manager will repeat the scheduled task. Assumed unit of days
+		:type period: str
+
+		:param duration: How long the Manager will run the scheduled task for. Assumed unit of hours
+		:type period: str
+
+		:return: the ID of the created schedule.
+		:rtype: str
+
+		:raises: ClientError, ServerError
+		"""
+		raise NotImplementedError()
+
+	# ----------------------------------------------------------------------
 	def create_target(self, name, hosts, comment="", port_list="Default"):
 		"""
 		Creates a target in OpenVAS.

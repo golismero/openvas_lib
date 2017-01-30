@@ -159,6 +159,67 @@ class OMPv4(OMP):
 		return self._manager.make_xml_request(request, xml_result=True).get("id")
 
 	# ----------------------------------------------------------------------
+	def create_schedule(self, name, hour, minute, month, day, year, period=None, duration=None,timezone="UTC"):
+		"""
+		Creates a schedule in the OpenVAS server.
+
+		:param name: name to the schedule
+		:type name: str
+
+		:param hour: hour at which to start the schedule, 0 to 23
+		:type hour: str
+
+		:param minute: minute at which to start the schedule, 0 to 59
+		:type minute: str
+
+		:param month: month at which to start the schedule, 1-12
+		:type month: str
+
+		:param year: year at which to start the schedule
+		:type year: str
+
+		:param timezone: The timezone the schedule will follow. The format of a timezone is the same as that of the TZ environment variable on GNU/Linux systems
+		:type timezone: str
+
+		:param period:How often the Manager will repeat the scheduled task. Assumed unit of days
+		:type period: str
+
+		:param duration: How long the Manager will run the scheduled task for. Assumed unit of hours
+		:type period: str
+
+		:return: the ID of the created schedule.
+		:rtype: str
+
+		:raises: ClientError, ServerError
+		"""
+		request = """<create_schedule>
+	            <name>%s</name>
+	            <first_time>
+	            <hour>%s</hour>
+	            <minute>%s</minute>
+	            <month>%s</month>
+	            <day_of_month>%s</day_of_month>
+	            <year>%s</year>
+	            </first_time>
+	            <timezone>%s</timezone>
+	            <comment>%s</comment>""" % (name, hour, minute, month, day, year, timezone, "")
+		if duration:
+			request += """<duration>%s<unit>hour</unit></duration>""" % (duration)
+		else:
+			request += """<duration>0<unit>hour</unit></duration>"""
+		if period:
+			request += """<period>
+	            %s
+	            <unit>day</unit>
+	            </period>""" % (period)
+		else:
+			request += """<period>0<unit>day</unit></period>"""
+		request += """
+    </create_schedule>"""
+
+		return self._manager.make_xml_request(request, xml_result=True).get("id")
+
+	# ----------------------------------------------------------------------
 	def create_target(self, name, hosts, comment="", port_list="Default"):
 		"""
         Creates a target in OpenVAS.
