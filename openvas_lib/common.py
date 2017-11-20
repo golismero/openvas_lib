@@ -73,7 +73,7 @@ def get_connector(host, username, password, port=9390, timeout=None, ssl_verify=
 	manager = ConnectionManager(host, username, password, port, timeout, ssl_verify)
 
 	# Make concrete connector from version
-	if manager.protocol_version in ("4.0", "5.0", "6.0"):
+	if manager.protocol_version in ("4.0", "5.0", "6.0", "7.0"):
 		from openvas_lib.ompv4 import OMPv4
 		return OMPv4(manager)
 	else:
