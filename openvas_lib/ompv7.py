@@ -337,7 +337,7 @@ class OMPv7(OMP):
 
 				m_return[x.find("name").text.lower()] = {'id' : x.get("id"), 'port_ranges': port_ranges}
 		else:
-			if not isinstance(user_id, str):
+			if not isinstance(port_list_id, str):
 				raise TypeError("Expected string, got %r instead" % type(port_list_id))
 
 			port_list = self._manager.make_xml_request("""<get_port_lists port_list_id='%s' details='1'/>""" % port_list_id, xml_result=True).find('.//port_list[@id="%s"]' % port_list_id)
