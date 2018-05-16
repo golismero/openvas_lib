@@ -562,6 +562,18 @@ class VulnscanManager(object):
 		:param target: Target to audit.
 		:type target: str
 
+		:param target_name: Name of the target.
+		:type target_name: str
+
+		:param scan_name: Name of the scan.
+		:type scan_name: str
+
+		:param max_hosts: Maximum concurrently scanned hosts.
+		:type max_hosts: int
+
+		:param max_checks: Maximum concurrently executed NVTs per host.
+		:type max_checks: int
+
 		:param schedule: Schedule ID to use for the scan. (create_schedule provides this)
 		:type schedule: str
 
@@ -581,18 +593,40 @@ class VulnscanManager(object):
 		:rtype: (str, str)
 		"""
 
-		profile = kwargs.get("profile", "Full and fast")
-		schedule = kwargs.get("schedule",None)
-		call_back_end = kwargs.get("callback_end", None)
-		call_back_progress = kwargs.get("callback_progress", None)
 		if not (isinstance(target, str) or isinstance(target, Iterable)):
 			raise TypeError("Expected str or iterable, got %r instead" % type(target))
+
+		profile = kwargs.get("profile", "Full and fast")
 		if not isinstance(profile, str):
 			raise TypeError("Expected string, got %r instead" % type(profile))
 
+		schedule = kwargs.get("schedule",None)
+
+		call_back_end = kwargs.get("callback_end", None)
+		call_back_progress = kwargs.get("callback_progress", None)
+
 		# Generate the random names used
-		m_target_name = "openvas_lib_target_%s_%s" % (target, generate_random_string(20))
-		m_job_name = "openvas_lib_scan_%s_%s" % (target, generate_random_string(20))
+		m_job_name_tmp = "openvas_lib_scan_%s_%s" % (target, generate_random_string(20))
+		m_job_name = str(kwargs.get("scan_name", m_job_name_tmp))
+
+		m_target_name_tmp = "openvas_lib_target_%s_%s" % (target, generate_random_string(20))
+		m_target_name = str(kwargs.get("target_name", m_target_name_tmp))
+
+		max_hosts = int(kwargs.get("max_hosts", 20))
+		if not isinstance(max_hosts, int):
+			raise TypeError("Expected int, got %r instead" % type(max_hosts))
+
+		max_checks = int(kwargs.get("max_checks", 8))
+		if not isinstance(max_checks, int):
+			raise TypeError("Expected int, got %r instead" % type(max_checks))
+
+		comment = str(kwargs.get("comment", 'New scan launched on target hosts: %s' % ",".join(target)))
+
+		port_list_name = kwargs.get("port_list", "openvas default")
+		if not isinstance(port_list_name, str):
+			raise TypeError("Expected string, got %r instead" % type(port_list_name))
+
+		port_list_id = self.get_port_lists().get(port_list_name).get('id')
 
 		# Create the target
 		try:
@@ -612,8 +646,13 @@ class VulnscanManager(object):
 
 		# Create task
 		try:
-			m_task_id = self.__manager.create_task(m_job_name, m_target_id, config=m_profile_id,
-												   schedule=schedule, comment="scan from OpenVAS lib")
+			m_task_id = self.__manager.create_task(name=m_job_name, 
+												   target=m_target_id, 
+												   max_hosts=max_hosts,
+												   max_checks=max_checks, 
+												   config=m_profile_id,
+												   schedule=schedule, 
+												   comment=comment)
 		except ServerError as e:
 			raise VulnscanScanError("The target selected doesnn't exist in the server. Error: %s" % e.message)
 
