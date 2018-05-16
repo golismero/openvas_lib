@@ -736,7 +736,7 @@ class VulnscanManager(object):
 		:raises: ClientError, ServerError TODO
 		"""
 		try:
-			m_port_list_id = self.__manager.create_port_list(name, port_range, "")
+			m_port_list_id = self.__manager.create_port_list(name, port_range, comment)
 		except ServerError as e:
 			raise ServerError("Error while attempting to create port_list: %s" % e.message)
 		return m_port_list_id
