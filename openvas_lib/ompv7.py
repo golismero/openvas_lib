@@ -914,28 +914,6 @@ class OMPv7(OMP):
 
 	# ----------------------------------------------------------------------
 
-	def is_task_running(self, task_id):
-		"""
-		Return true if task is running
-
-		:param task_id: ID of task to check.
-		:type task_id: str
-
-		:return: bool
-		:rtype: bool
-
-		:raises: ClientError, ServerError
-		"""
-		# Get status with xpath
-		status = self._get_tasks().find('.//task[@id="%s"]/status' % task_id)
-
-		if status is None:
-			raise ServerError("Task not found")
-
-		return status.text in ("Running", "Requested")
-
-	# ----------------------------------------------------------------------
-
 	def get_task_status(self, task_id):
 		"""
 		Get task status
@@ -957,6 +935,31 @@ class OMPv7(OMP):
 			raise ServerError("Task not found")
 
 		return status.text
+
+	# ----------------------------------------------------------------------
+
+	def is_task_running(self, task_id):
+		"""
+		Return true if task is running
+
+		:param task_id: ID of task to check.
+		:type task_id: str
+
+		:return: bool
+		:rtype: bool
+
+		:raises: ClientError, ServerError
+		"""
+
+		if not isinstance(task_id, str):
+			raise TypeError("Expected string, got %r instead" % type(task_id))
+
+		status = self.get_task_status(task_id)
+
+		if status is None:
+			raise ServerError("Task not found")
+
+		return status in ("Running", "Requested")
 
 	# ----------------------------------------------------------------------
 
