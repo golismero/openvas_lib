@@ -817,7 +817,32 @@ class VulnscanManager(object):
 		return m_target_id
 
 	# ----------------------------------------------------------------------
-	def delete_scan(self, task_id):
+	def get_port_lists(self, port_list_name=None):
+		"""
+		:return: All available port list.
+		:rtype: {port_list_name: ID}
+		"""
+		return self.__manager.get_port_lists()
+
+	# ----------------------------------------------------------------------
+	def delete_user(self, name):
+		"""
+		Delete a user in OpenVAS.
+
+		:param user_id: The ID of the user to be deleted. Overrides name.
+		:type user_id: str
+
+		:param name: The name of the user to be deleted.
+		:type name: str
+
+		"""
+		try:
+			self.__manager.delete_user(name=name)
+		except AuditNotRunningError as e:
+			raise VulnscanAuditNotFoundError(e)
+
+	# ----------------------------------------------------------------------
+	def delete_scan(self, task_id, ultimate=False):
 		"""
 		Delete specified scan ID in the OpenVAS server.
 
@@ -827,7 +852,22 @@ class VulnscanManager(object):
 		:raises: VulnscanAuditNotFoundError
 		"""
 		try:
-			self.__manager.delete_task(task_id)
+			self.__manager.delete_task(task_id, ultimate)
+		except AuditNotRunningError as e:
+			raise VulnscanAuditNotFoundError(e)
+
+	# ----------------------------------------------------------------------
+	def delete_schedule(self, schedule_id, ultimate=False):
+		"""
+		Delete specified schedule ID in the OpenVAS server.
+
+		:param schedule_id: Schedule ID.
+		:type schedule_id: str
+
+		:raises: VulnscanAuditNotFoundError
+		"""
+		try:
+			self.__manager.delete_schedule(schedule_id, ultimate)
 		except AuditNotRunningError as e:
 			raise VulnscanAuditNotFoundError(e)
 
@@ -840,6 +880,16 @@ class VulnscanManager(object):
 		:type target_id: str
 		"""
 		self.__manager.delete_target(target_id)
+
+	# ----------------------------------------------------------------------
+	def delete_report(self, report_id):
+		"""
+		Delete specified report ID in the OpenVAS server.
+
+		:param report_id: Report ID.
+		:type report_id: str
+		"""
+		self.__manager.delete_report(report_id)
 
 	# ----------------------------------------------------------------------
 	def get_results(self, task_id):
@@ -984,6 +1034,24 @@ class VulnscanManager(object):
 		if statusXML:
 			return statusXML
 		return None
+
+	# ----------------------------------------------------------------------
+	@property
+	def get_users(self):
+		"""
+		:return: All available users.
+		:rtype: {user_name: ID}
+		"""
+		return self.__manager.get_users()
+
+	# ----------------------------------------------------------------------
+	@property
+	def get_roles(self):
+		"""
+		:return: All available users.
+		:rtype: {user_name: ID}
+		"""
+		return self.__manager.get_roles()
 
 	# ----------------------------------------------------------------------
 	@property
