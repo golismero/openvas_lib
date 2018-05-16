@@ -653,7 +653,7 @@ class OMPv7(OMP):
 	#
 	# ----------------------------------------------------------------------
 
-	def create_task(self, name, target, config=None, schedule=None, comment=""):
+	def create_task(self, name, target, config=None, schedule=None, comment="", max_checks=None, max_hosts=None):
 		"""
 		Creates a task in OpenVAS.
 
@@ -672,6 +672,12 @@ class OMPv7(OMP):
 		:param comment: comment to add to task
 		:type comment: str
 
+		:param max_hosts: Maximum concurrently scanned hosts.
+		:type max_hosts: int
+
+		:param max_checks: Maximum concurrently executed NVTs per host.
+		:type max_checks: int
+
 		:return: the ID of the task created.
 		:rtype: str
 
@@ -688,6 +694,22 @@ class OMPv7(OMP):
 			<target id="%s"/>""" % (name, comment, config, target)
 		if schedule:
 			request += """<schedule>%s</schedule>""" % (schedule)
+
+
+		if max_checks or max_hosts:
+			if max_checks:
+				request += """<preference>
+								<scanner_name>max_checks</scanner_name>
+								<value>%s</value>
+							</preference>""" % max_checks
+			if max_hosts:
+				request += """<preference>
+								<scanner_name>max_hosts</scanner_name>
+								<value>%s</value>
+							</preference>""" % max_hosts
+
+			request += """</preferences>"""
+
 		request += """</create_task>"""
 
 		return self._manager.make_xml_request(request, xml_result=True).get("id")
