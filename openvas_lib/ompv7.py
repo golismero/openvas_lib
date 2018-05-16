@@ -768,10 +768,8 @@ class OMPv7(OMP):
 		"""
 
 		request = """<stop_task task_id="%s" />""" % task_id
-		try:
-			self._manager.make_xml_request(request, xml_result=True)
-		except ClientError:
-			raise AuditNotFoundError()
+
+		self._manager.make_xml_request(request, xml_result=True)
 
 	# ----------------------------------------------------------------------
 
