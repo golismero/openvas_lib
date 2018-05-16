@@ -736,16 +736,19 @@ class OMPv7(OMP):
 
 	# ----------------------------------------------------------------------
 
-	def delete_task(self, task_id):
+	def delete_task(self, task_id, ultimate=False):
 		"""
 		Delete a task in OpenVAS server.
 
 		:param task_id: task id
 		:type task_id: str
 
+		:param ultimate: remove or not from trashcan
+		:type ultimate: bool
+
 		:raises: AuditNotFoundError, ServerError
 		"""
-		request = """<delete_task task_id="%s" />""" % task_id
+		request = """<delete_task task_id="%s" ultimate="%s" />""" % (task_id, int(ultimate))
 
 		try:
 			self._manager.make_xml_request(request, xml_result=True)
