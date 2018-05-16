@@ -1091,6 +1091,24 @@ class OMPv7(OMP):
 		return m_response
 
 	# ----------------------------------------------------------------------
+
+	def delete_report(self, report_id):
+		"""
+		Delete a report in OpenVAS server.
+
+		:param report_id: report id
+		:type report_id: str
+
+		:raises: AuditNotFoundError, ServerError
+		"""
+		request = """<delete_report report_id="%s" />""" % report_id
+
+		try:
+			self._manager.make_xml_request(request, xml_result=True)
+		except ClientError:
+			raise AuditNotFoundError()
+
+	# ----------------------------------------------------------------------
 	#
 	# METHODS FOR SYNC
 	#
