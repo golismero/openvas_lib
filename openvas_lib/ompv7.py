@@ -1024,7 +1024,7 @@ class OMPv7(OMP):
 		:param task_id: ID of scan to get.
 		:type task_id: str
 
-		:return: ID of the report
+		:return: ID of the report or None if the report isn't found
 		:rtype: str
 
 		"""
@@ -1035,7 +1035,10 @@ class OMPv7(OMP):
 		if not report:
 			report = m_response.find('task').find("current_report")
 
-		return report[0].get("id")
+		if report:
+			return report[0].get("id")
+		else:
+			return
 
 	# ----------------------------------------------------------------------
 
