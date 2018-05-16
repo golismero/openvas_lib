@@ -782,6 +782,19 @@ class VulnscanManager(object):
 		return m_schedule_id
 
 	# ----------------------------------------------------------------------
+
+	def get_tasks_schedules(self, schedule_id=None):
+		"""
+		Get tasks that have schedule in the server.
+
+		:return: list of dicts [{'task_id':task_ID, 'schedule_id':schedule_ID}]
+
+		:raises: ClientError, ServerError
+		"""
+
+		return self.__manager.get_tasks_schedules(schedule_id)
+
+	# ----------------------------------------------------------------------
 	def create_target(self, name, hosts, comment="", port_list="Default"):
 		"""
 		Creates a target in OpenVAS.
