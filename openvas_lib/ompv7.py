@@ -419,6 +419,68 @@ class OMPv7(OMP):
 		return self._manager.make_xml_request(request, xml_result=True).get("id")
 
 	# ----------------------------------------------------------------------
+
+	def get_schedules(self, schedule_id=None, tasks="1"):
+		"""
+		Get schedules in the server.
+
+		If schedule_id is provided, only get the schedule associated to this id.
+
+		:param schedule_id: schedule id to get
+		:type schedule_id: str
+
+		:return: `ElementTree`
+
+		:raises: ClientError, ServerError
+		"""
+		if schedule_id:
+			return self._manager.make_xml_request('<get_schedules schedule_id="%s" tasks="%s"/>' % (schedule_id, tasks), xml_result=True)
+		else:
+			return self._manager.make_xml_request('<get_schedules tasks="%s"/>' % tasks, xml_result=True)
+
+	# ----------------------------------------------------------------------
+
+	def get_tasks_schedules(self, schedule_id):
+		"""
+		Get tasks that have schedule in the server.
+
+		:return: list of dicts [{'task_id':task_ID, 'schedule_id':schedule_ID}]
+
+		:raises: ClientError, ServerError
+		"""
+
+		results = []
+
+		schedules = self.get_schedules(schedule_id).findall('schedule')
+
+		for s in schedules:
+			schedule_id = s.get('id')
+			tasks = s.findall('tasks/task')
+			
+			for task in tasks:
+				results.append({'task_id':task.get('id'), 'schedule_id':schedule_id})
+
+		return results
+	# ----------------------------------------------------------------------
+
+	def delete_schedule(self, schedule_id, ultimate=False):
+		"""
+		Delete a schedule.
+
+		:param schedule_id: schedule_id
+		:type schedule_id: str
+
+		:param ultimate: remove or not from trashcan
+		:type ultimate: bool
+
+		:raises: AuditNotFoundError, ServerError
+		"""
+
+		request = """<delete_schedule schedule_id="%s" ultimate="%s" />""" % (schedule_id, int(ultimate))
+
+		self._manager.make_xml_request(request, xml_result=True)
+
+	# ----------------------------------------------------------------------
 	# ----------------------------------------------------------------------
 	#
 	# METHODS FOR CONFIG
