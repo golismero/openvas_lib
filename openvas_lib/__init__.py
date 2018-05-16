@@ -811,7 +811,7 @@ class VulnscanManager(object):
 		:raises: ClientError, ServerError TODO
 		"""
 		try:
-			m_target_id = self.__manager.create_target(name, hosts, "", port_list)
+			m_target_id = self.__manager.create_target(name, hosts, comment, port_list)
 		except ServerError as e:
 			raise VulnscanTargetError("Error while attempting to create target: %s" % e.message)
 		return m_target_id
