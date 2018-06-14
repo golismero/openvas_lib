@@ -501,6 +501,8 @@ class VulnscanManager(object):
 			raise VulnscanAuthFail("Error while trying to authenticate into the server.")
 		except RemoteVersionError:
 			raise VulnscanVersionError("Invalid OpenVAS version in remote server.")
+		except ValueError:
+			raise ValueError('Invalid Argument Call')
 
 		#
 		# Flow control
