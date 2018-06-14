@@ -16,7 +16,7 @@ Also, the official library has many unfixed bugs, and it's not capable to read a
 License
 =======
 
-This library is released under standard GPL 2 license.
+This library is released under BSD Clause 3 license
 
 Python versions
 ===============
