@@ -1,7 +1,7 @@
 What's this lib?
 ================
 
-This project is a Python library to connect and manage the OpenVAS servers using the OMP protocol. OpenVAS 6, 7 and 8 are supported (7 and 8 versions are still experimental)
+This project is a Python library to connect and manage the OpenVAS servers using the OMP protocol. OpenVAS 6, 7, 8 and 9 are supported (7 and 8 versions are still experimental)
 
 Also, you can parse and interpret OpenVas XML reports.
 
