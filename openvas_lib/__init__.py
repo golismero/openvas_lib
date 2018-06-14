@@ -564,6 +564,18 @@ class VulnscanManager(object):
 		:param target: Target to audit.
 		:type target: str
 
+		:param target_name: Name of the target.
+		:type target_name: str
+
+		:param scan_name: Name of the scan.
+		:type scan_name: str
+
+		:param max_hosts: Maximum concurrently scanned hosts.
+		:type max_hosts: int
+
+		:param max_checks: Maximum concurrently executed NVTs per host.
+		:type max_checks: int
+
 		:param schedule: Schedule ID to use for the scan. (create_schedule provides this)
 		:type schedule: str
 
@@ -583,18 +595,40 @@ class VulnscanManager(object):
 		:rtype: (str, str)
 		"""
 
-		profile = kwargs.get("profile", "Full and fast")
-		schedule = kwargs.get("schedule",None)
-		call_back_end = kwargs.get("callback_end", None)
-		call_back_progress = kwargs.get("callback_progress", None)
 		if not (isinstance(target, str) or isinstance(target, Iterable)):
 			raise TypeError("Expected str or iterable, got %r instead" % type(target))
+
+		profile = kwargs.get("profile", "Full and fast")
 		if not isinstance(profile, str):
 			raise TypeError("Expected string, got %r instead" % type(profile))
 
+		schedule = kwargs.get("schedule",None)
+
+		call_back_end = kwargs.get("callback_end", None)
+		call_back_progress = kwargs.get("callback_progress", None)
+
 		# Generate the random names used
-		m_target_name = "openvas_lib_target_%s_%s" % (target, generate_random_string(20))
-		m_job_name = "openvas_lib_scan_%s_%s" % (target, generate_random_string(20))
+		m_job_name_tmp = "openvas_lib_scan_%s_%s" % (target, generate_random_string(20))
+		m_job_name = str(kwargs.get("scan_name", m_job_name_tmp))
+
+		m_target_name_tmp = "openvas_lib_target_%s_%s" % (target, generate_random_string(20))
+		m_target_name = str(kwargs.get("target_name", m_target_name_tmp))
+
+		max_hosts = int(kwargs.get("max_hosts", 20))
+		if not isinstance(max_hosts, int):
+			raise TypeError("Expected int, got %r instead" % type(max_hosts))
+
+		max_checks = int(kwargs.get("max_checks", 8))
+		if not isinstance(max_checks, int):
+			raise TypeError("Expected int, got %r instead" % type(max_checks))
+
+		comment = str(kwargs.get("comment", 'New scan launched on target hosts: %s' % ",".join(target)))
+
+		port_list_name = kwargs.get("port_list", "openvas default")
+		if not isinstance(port_list_name, str):
+			raise TypeError("Expected string, got %r instead" % type(port_list_name))
+
+		port_list_id = self.get_port_lists().get(port_list_name).get('id')
 
 		# Create the target
 		try:
@@ -614,8 +648,13 @@ class VulnscanManager(object):
 
 		# Create task
 		try:
-			m_task_id = self.__manager.create_task(m_job_name, m_target_id, config=m_profile_id,
-												   schedule=schedule, comment="scan from OpenVAS lib")
+			m_task_id = self.__manager.create_task(name=m_job_name, 
+												   target=m_target_id, 
+												   max_hosts=max_hosts,
+												   max_checks=max_checks, 
+												   config=m_profile_id,
+												   schedule=schedule, 
+												   comment=comment)
 		except ServerError as e:
 			raise VulnscanScanError("The target selected doesnn't exist in the server. Error: %s" % e.message)
 
@@ -699,7 +738,7 @@ class VulnscanManager(object):
 		:raises: ClientError, ServerError TODO
 		"""
 		try:
-			m_port_list_id = self.__manager.create_port_list(name, port_range, "")
+			m_port_list_id = self.__manager.create_port_list(name, port_range, comment)
 		except ServerError as e:
 			raise ServerError("Error while attempting to create port_list: %s" % e.message)
 		return m_port_list_id
@@ -745,6 +784,19 @@ class VulnscanManager(object):
 		return m_schedule_id
 
 	# ----------------------------------------------------------------------
+
+	def get_tasks_schedules(self, schedule_id=None):
+		"""
+		Get tasks that have schedule in the server.
+
+		:return: list of dicts [{'task_id':task_ID, 'schedule_id':schedule_ID}]
+
+		:raises: ClientError, ServerError
+		"""
+
+		return self.__manager.get_tasks_schedules(schedule_id)
+
+	# ----------------------------------------------------------------------
 	def create_target(self, name, hosts, comment="", port_list="Default"):
 		"""
 		Creates a target in OpenVAS.
@@ -761,13 +813,38 @@ class VulnscanManager(object):
 		:raises: ClientError, ServerError TODO
 		"""
 		try:
-			m_target_id = self.__manager.create_target(name, hosts, "", port_list)
+			m_target_id = self.__manager.create_target(name, hosts, comment, port_list)
 		except ServerError as e:
 			raise VulnscanTargetError("Error while attempting to create target: %s" % e.message)
 		return m_target_id
 
 	# ----------------------------------------------------------------------
-	def delete_scan(self, task_id):
+	def get_port_lists(self, port_list_name=None):
+		"""
+		:return: All available port list.
+		:rtype: {port_list_name: ID}
+		"""
+		return self.__manager.get_port_lists()
+
+	# ----------------------------------------------------------------------
+	def delete_user(self, name):
+		"""
+		Delete a user in OpenVAS.
+
+		:param user_id: The ID of the user to be deleted. Overrides name.
+		:type user_id: str
+
+		:param name: The name of the user to be deleted.
+		:type name: str
+
+		"""
+		try:
+			self.__manager.delete_user(name=name)
+		except AuditNotRunningError as e:
+			raise VulnscanAuditNotFoundError(e)
+
+	# ----------------------------------------------------------------------
+	def delete_scan(self, task_id, ultimate=False):
 		"""
 		Delete specified scan ID in the OpenVAS server.
 
@@ -777,7 +854,22 @@ class VulnscanManager(object):
 		:raises: VulnscanAuditNotFoundError
 		"""
 		try:
-			self.__manager.delete_task(task_id)
+			self.__manager.delete_task(task_id, ultimate)
+		except AuditNotRunningError as e:
+			raise VulnscanAuditNotFoundError(e)
+
+	# ----------------------------------------------------------------------
+	def delete_schedule(self, schedule_id, ultimate=False):
+		"""
+		Delete specified schedule ID in the OpenVAS server.
+
+		:param schedule_id: Schedule ID.
+		:type schedule_id: str
+
+		:raises: VulnscanAuditNotFoundError
+		"""
+		try:
+			self.__manager.delete_schedule(schedule_id, ultimate)
 		except AuditNotRunningError as e:
 			raise VulnscanAuditNotFoundError(e)
 
@@ -790,6 +882,16 @@ class VulnscanManager(object):
 		:type target_id: str
 		"""
 		self.__manager.delete_target(target_id)
+
+	# ----------------------------------------------------------------------
+	def delete_report(self, report_id):
+		"""
+		Delete specified report ID in the OpenVAS server.
+
+		:param report_id: Report ID.
+		:type report_id: str
+		"""
+		self.__manager.delete_report(report_id)
 
 	# ----------------------------------------------------------------------
 	def get_results(self, task_id):
@@ -934,6 +1036,24 @@ class VulnscanManager(object):
 		if statusXML:
 			return statusXML
 		return None
+
+	# ----------------------------------------------------------------------
+	@property
+	def get_users(self):
+		"""
+		:return: All available users.
+		:rtype: {user_name: ID}
+		"""
+		return self.__manager.get_users()
+
+	# ----------------------------------------------------------------------
+	@property
+	def get_roles(self):
+		"""
+		:return: All available users.
+		:rtype: {user_name: ID}
+		"""
+		return self.__manager.get_roles()
 
 	# ----------------------------------------------------------------------
 	@property
