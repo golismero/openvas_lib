@@ -692,11 +692,14 @@ class OMPv7(OMP):
 			<comment>%s</comment>
 			<config id="%s"/>
 			<target id="%s"/>""" % (name, comment, config, target)
+			
 		if schedule:
 			request += """<schedule>%s</schedule>""" % (schedule)
 
 
 		if max_checks or max_hosts:
+			request += """<preferences>"""
+			
 			if max_checks:
 				request += """<preference>
 								<scanner_name>max_checks</scanner_name>
