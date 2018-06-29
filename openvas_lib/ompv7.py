@@ -697,6 +697,8 @@ class OMPv7(OMP):
 
 
 		if max_checks or max_hosts:
+			request += """<preferences>"""
+			
 			if max_checks:
 				request += """<preference>
 								<scanner_name>max_checks</scanner_name>

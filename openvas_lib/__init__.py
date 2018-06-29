@@ -614,12 +614,12 @@ class VulnscanManager(object):
 		m_target_name_tmp = "openvas_lib_target_%s_%s" % (target, generate_random_string(20))
 		m_target_name = str(kwargs.get("target_name", m_target_name_tmp))
 
-		max_hosts = int(kwargs.get("max_hosts", 20))
-		if not isinstance(max_hosts, int):
+		max_hosts = int(kwargs.get("max_hosts"))
+		if max_hosts and not isinstance(max_hosts, int):
 			raise TypeError("Expected int, got %r instead" % type(max_hosts))
 
-		max_checks = int(kwargs.get("max_checks", 8))
-		if not isinstance(max_checks, int):
+		max_checks = int(kwargs.get("max_checks"))
+		if max_checks and not isinstance(max_checks, int):
 			raise TypeError("Expected int, got %r instead" % type(max_checks))
 
 		comment = str(kwargs.get("comment", 'New scan launched on target hosts: %s' % ",".join(target)))
