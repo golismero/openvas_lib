@@ -619,16 +619,10 @@ class VulnscanManager(object):
 		except TypeError:
 			max_hosts = None
 			
-		if max_hosts and not isinstance(max_hosts, int):
-			raise TypeError("Expected int, got %r instead" % type(max_hosts))
-
 		try:
 			max_checks = int(kwargs.get("max_checks"))
 		except TypeError:
 			max_checks = None
-
-		if max_checks and not isinstance(max_checks, int):
-			raise TypeError("Expected int, got %r instead" % type(max_checks))
 
 		comment = str(kwargs.get("comment", 'New scan launched on target hosts: %s' % ",".join(target)))
 
@@ -636,12 +630,14 @@ class VulnscanManager(object):
 		if not isinstance(port_list_name, str):
 			raise TypeError("Expected string, got %r instead" % type(port_list_name))
 
-		port_list_id = self.get_port_lists().get(port_list_name).get('id')
-
+		try:
+			port_list_id = self.get_port_lists().get(port_list_name).get('id')
+		except:
+			port_list_id = None
 		# Create the target
 		try:
 			m_target_id = self.__manager.create_target(m_target_name, target,
-													   "Temporal target from OpenVAS Lib", "")
+													   "Temporal target from OpenVAS Lib", port_list_id)
 		except ServerError as e:
 			raise VulnscanTargetError("The target already exits on the server. Error: %s" % e.message)
 
