@@ -692,6 +692,7 @@ class OMPv7(OMP):
 			<comment>%s</comment>
 			<config id="%s"/>
 			<target id="%s"/>""" % (name, comment, config, target)
+			
 		if schedule:
 			request += """<schedule>%s</schedule>""" % (schedule)
 
