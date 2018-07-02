@@ -12,7 +12,6 @@ There is an [official python library](https://pypi.python.org/pypi/openvas.ompli
 
 Also, the official library has many unfixed bugs, and it's not capable to read and interpret the XML reports.
 
-
 License
 =======
 
