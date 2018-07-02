@@ -9,21 +9,33 @@ from openvas_lib import *
 from openvas_lib.common import *
 
 __license__ = """
-OpenVAS connector for OMP protocol.
+Copyright 2018 - Golismero project
 
-This program is free software; you can redistribute it and/or
-modify it under the terms of the GNU General Public License
-as published by the Free Software Foundation; either version 2
-of the License, or (at your option) any later version.
+Redistribution and use in source and binary forms, with or without modification
+, are permitted provided that the following conditions are met:
 
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
+1. Redistributions of source code must retain the above copyright notice, this
+list of conditions and the following disclaimer.
 
-You should have received a copy of the GNU General Public License
-along with this program; if not, write to the Free Software
-Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
+2. Redistributions in binary form must reproduce the above copyright notice,
+this list of conditions and the following disclaimer in the documentation
+and/or other materials provided with the distribution.
+
+3. Neither the name of the copyright holder nor the names of its contributors
+may be used to endorse or promote products derived from this software without
+specific prior written permission.
+
+THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE
+LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
+CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
+SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
+INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
+CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
+ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF
+THE POSSIBILITY OF SUCH DAMAGE.
 """
 
 __all__ = ["OMPv7"]
@@ -342,7 +354,7 @@ class OMPv7(OMP):
 
 			port_list = self._manager.make_xml_request("""<get_port_lists port_list_id='%s' details='1'/>""" % port_list_id, xml_result=True).find('.//port_list[@id="%s"]' % port_list_id)
 			port_ranges = []
-			for r in x.findall("port_ranges/port_range"):
+			for r in port_list.findall("port_ranges/port_range"):
 				type = r.find('type').text
 				start = r.find('start').text
 				end = r.find('end').text
@@ -456,7 +468,7 @@ class OMPv7(OMP):
 		for s in schedules:
 			schedule_id = s.get('id')
 			tasks = s.findall('tasks/task')
-			
+
 			for task in tasks:
 				results.append({'task_id':task.get('id'), 'schedule_id':schedule_id})
 
@@ -692,14 +704,14 @@ class OMPv7(OMP):
 			<comment>%s</comment>
 			<config id="%s"/>
 			<target id="%s"/>""" % (name, comment, config, target)
-			
+
 		if schedule:
 			request += """<schedule>%s</schedule>""" % (schedule)
 
 
 		if max_checks or max_hosts:
 			request += """<preferences>"""
-			
+
 			if max_checks:
 				request += """<preference>
 								<scanner_name>max_checks</scanner_name>

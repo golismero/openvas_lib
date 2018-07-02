@@ -5,52 +5,64 @@ import os
 
 from distutils.core import setup
 
-
 __license__ = """
-OpenVAS Manager OMPv4 and XML parser.
+Copyright 2018 - Golismero project
 
-This program is free software; you can redistribute it and/or
-modify it under the terms of the GNU General Public License
-as published by the Free Software Foundation; either version 2
-of the License, or (at your option) any later version.
+Redistribution and use in source and binary forms, with or without modification
+, are permitted provided that the following conditions are met:
 
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
+1. Redistributions of source code must retain the above copyright notice, this
+list of conditions and the following disclaimer.
 
-You should have received a copy of the GNU General Public License
-along with this program; if not, write to the Free Software
-Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
+2. Redistributions in binary form must reproduce the above copyright notice,
+this list of conditions and the following disclaimer in the documentation
+and/or other materials provided with the distribution.
+
+3. Neither the name of the copyright holder nor the names of its contributors
+may be used to endorse or promote products derived from this software without
+specific prior written permission.
+
+THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE
+LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
+CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
+SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
+INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
+CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
+ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF
+THE POSSIBILITY OF SUCH DAMAGE.
 """
 
+here = os.path.abspath(os.path.dirname(__file__))
 
-# Text describing the module.
-description = 'OpenVAS Manager for OpenVAS 6 to 8 and XML report parser'
-try:
-    readme = os.path.join(os.getcwd(), 'README.rst')
-    long_description = open(readme, 'rU').read()
-except IOError:
-    long_description = description
+with open(os.path.join(here, 'README.rst')) as f:
+    README = f.read()
+
+with open(os.path.join(os.path.abspath(os.path.dirname(__file__)),
+                       "VERSION_MAJOR"), "r") as v:
+    MAJOR = v.read().replace("\n", "")
+
+VERSION = "{}.{}".format(MAJOR, os.environ.get('CIRCLE_BUILD_NUM', 4))
 
 # Set the parameters for the setup script.
-metadata = {
-
+setup(
     # Setup instructions.
-    'provides': ['openvas_lib'],
-    'packages': ['openvas_lib'],
+    # 'provides'= ['openvas_lib'],
+    # 'packages'= ['openvas_lib'],
 
     # Metadata.
-    'name': 'openvas_lib',
-    'version': '1.1.3',
-    'description': description,
-    'long_description': long_description,
-    'author': 'Daniel Garcia Garcia (cr0hn)',
-    'author_email': 'cr0hn' + '@' + 'cr0hn.com',
-    'license': 'GPLv2',
-    'url': 'http://www.golismero.com/',
-    'download_url': 'https://github.com/golismero/openvas_lib/zipball/master',
-    'classifiers': [
+    name='openvas_lib',
+    version=VERSION,
+    description='OpenVAS Manager for OpenVAS 6 to 8 and XML report parser',
+    long_description=README,
+    author='Daniel Garcia Garcia (cr0hn)',
+    author_email='cr0hn' + '@' + 'cr0hn.com',
+    license='BSD3',
+    url='http://www.golismero.com/',
+    download_url='https://github.com/golismero/openvas_lib/zipball/master',
+    classifiers=[
         'Development Status :: 4 - Beta',
         'Intended Audience :: Developers',
         'Intended Audience :: Information Technology',
@@ -65,14 +77,5 @@ metadata = {
         'Programming Language :: Python :: 2.7',
         'Programming Language :: Python :: 3',
         'Topic :: Security',
-    ],
-}
-
-
-# Execute the setup script.
-def main():
-    setup(**metadata)
-
-
-if __name__ == '__main__':
-    main()
+    ]
+)
