@@ -3,7 +3,7 @@
 
 import os
 
-from distutils.core import setup
+from setuptools import find_packages, setup
 
 __license__ = """
 Copyright 2018 - Golismero project
@@ -48,12 +48,10 @@ VERSION = "{}.{}".format(MAJOR, os.environ.get('CIRCLE_BUILD_NUM', 4))
 
 # Set the parameters for the setup script.
 setup(
-    # Setup instructions.
-    # 'provides'= ['openvas_lib'],
-    # 'packages'= ['openvas_lib'],
 
     # Metadata.
     name='openvas_lib',
+    packages=find_packages(),
     version=VERSION,
     description='OpenVAS Manager for OpenVAS 6 to 8 and XML report parser',
     long_description=README,
