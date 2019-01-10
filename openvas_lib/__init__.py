@@ -83,13 +83,20 @@ def report_parser_from_text(text, ignore_log_info=True):
 	:return: list of OpenVASResult structures.
 	:rtype: list(OpenVASResult)
 	"""
+	if isinstance(text, bytes):
+		text = text.decode()
+
 	if not isinstance(text, str):
 		raise TypeError("Expected str, got '%s' instead" % type(text))
 
 	try:
 		import cStringIO as S
 	except ImportError:
-		import StringIO as S
+		try:
+			import StringIO as S
+		except ImportError:
+			import io as S
+
 
 	return report_parser(S.StringIO(text), ignore_log_info)
 
@@ -843,6 +850,16 @@ class VulnscanManager(object):
 		return self.__manager.get_port_lists()
 
 	# ----------------------------------------------------------------------
+	def delete_port_lists(self, port_list_id):
+		"""
+		Delete a port list in OpenVAS.
+
+		:param port_list_id: The ID of the port list to be deleted.
+		:type port_list_id: str
+		"""
+		return self.__manager.delete_port_list(port_list_id)
+
+	# ----------------------------------------------------------------------
 	def delete_user(self, name):
 		"""
 		Delete a user in OpenVAS.
@@ -933,6 +950,7 @@ class VulnscanManager(object):
 		try:
 			# This returns all results from all tasks. Task filter doesn't work.
 			#m_response = self.__manager.get_results(task_id)
+			self.__task_report_id = self.get_report_id(task_id)
 
 			m_response = self.__manager.get_report_xml(self.__task_report_id)
 		except ServerError as e:
