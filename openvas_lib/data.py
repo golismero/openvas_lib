@@ -994,6 +994,26 @@ class OpenVASResult(_Common):
 
 		self.__notes = val
 
+        # ----------------------------------------------------------------------
+        @property
+        def severity(self):
+                """
+        :return: the seveirty
+        :rtype: str
+        """
+                return self.__severity
+
+        # ----------------------------------------------------------------------
+        @severity.setter
+        def severity(self, val):
+                """
+        :type val: str
+        """
+                if not isinstance(val, str):
+                        raise TypeError("Expected string, got %r instead" % type(val))
+
+                self.__severity = val
+
 	# ----------------------------------------------------------------------
 	@property
 	def overrides(self):
