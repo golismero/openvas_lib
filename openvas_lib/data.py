@@ -737,6 +737,8 @@ class OpenVASResult(_Common):
 		self.__description = None
 		self.__notes = None
 		self.__overrides = None
+		self.__severity = None
+		self.__name = None
 
 		# auto generated
 		self.__impact = ""
@@ -994,25 +996,45 @@ class OpenVASResult(_Common):
 
 		self.__notes = val
 
-        # ----------------------------------------------------------------------
-        @property
-        def severity(self):
-                """
+	# ----------------------------------------------------------------------
+	@property
+	def severity(self):
+		"""
         :return: the seveirty
         :rtype: str
         """
-                return self.__severity
+		return self.__severity
 
-        # ----------------------------------------------------------------------
-        @severity.setter
-        def severity(self, val):
-                """
+	# ----------------------------------------------------------------------
+	@severity.setter
+	def severity(self, val):
+		"""
         :type val: str
         """
-                if not isinstance(val, str):
-                        raise TypeError("Expected string, got %r instead" % type(val))
+		if not isinstance(val, str):
+			raise TypeError("Expected string, got %r instead" % type(val))
 
-                self.__severity = val
+		self.__severity = val
+
+	# ----------------------------------------------------------------------
+	@property
+	def name(self):
+		"""
+        :return: the name
+        :rtype: str
+        """
+		return self.__name
+
+	# ----------------------------------------------------------------------
+	@name.setter
+	def name(self, val):
+		"""
+        :type val: str
+        """
+		if not isinstance(val, str):
+			raise TypeError("Expected string, got %r instead" % type(val))
+
+		self.__name = val
 
 	# ----------------------------------------------------------------------
 	@property

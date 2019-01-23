@@ -379,6 +379,19 @@ def report_parser(path_or_file, ignore_log_info=True):
                                 logging.debug(e)
                                 continue
 
+                        # --------------------------------------------------------------------------
+                        # Name
+                        # --------------------------------------------------------------------------
+                        elif l_tag == "name":
+                            try:
+                                l_name = l_val.text
+                                l_partial_result.name = l_name
+                            except TypeError as e:
+                                logging.warning("%s is not a valid vulnerability ID, skipping vulnerability..." % l_name)
+
+                                logging.debug(e)
+                                continue
+
 			# --------------------------------------------------------------------------
 			# Unknown tags
 			# --------------------------------------------------------------------------
