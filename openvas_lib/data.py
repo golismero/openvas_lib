@@ -61,15 +61,15 @@ class OpenVASPort(object):
 	# ----------------------------------------------------------------------
 	def __init__(self, port_name, number, proto):
 		"""
-        :param port_name: service name asociated (/etc/services). i.e: http
-        :type port_name: str
+		:param port_name: service name asociated (/etc/services). i.e: http
+		:type port_name: str
 
-        :param number: port number
-        :type number: int
+		:param number: port number
+		:type number: int
 
-        :param proto: network protocol: tcp, udp, icmp..
-        :type proto: str
-        """
+		:param proto: network protocol: tcp, udp, icmp..
+		:type proto: str
+		"""
 		if not isinstance(port_name, str):
 			raise TypeError("Expected string, got %r instead" % type(port_name))
 
@@ -994,41 +994,41 @@ class OpenVASResult(_Common):
 
 		self.__notes = val
 
-        # ----------------------------------------------------------------------
-        @property
-        def severity(self):
-                """
-        :return: the seveirty
-        :rtype: str
-        """
-                return self.__severity
+		# ----------------------------------------------------------------------
+	@property
+	def severity(self):
+		"""
+		:return: the seveirty
+		:rtype: str
+		"""
+		return self.__severity
 
-        # ----------------------------------------------------------------------
-        @severity.setter
-        def severity(self, val):
-                """
-        :type val: str
-        """
-                if not isinstance(val, str):
-                        raise TypeError("Expected string, got %r instead" % type(val))
+	# ----------------------------------------------------------------------
+	@severity.setter
+	def severity(self, val):
+		"""
+		:type val: str
+		"""
+		if not isinstance(val, str):
+			raise TypeError("Expected string, got %r instead" % type(val))
 
-                self.__severity = val
+		self.__severity = val
 
 	# ----------------------------------------------------------------------
 	@property
 	def overrides(self):
 		"""
-        :return:
-        :rtype:
-        """
+		:return:
+		:rtype:
+		"""
 		return self.__overrides
 
 	# ----------------------------------------------------------------------
 	@overrides.setter
 	def overrides(self, val):
 		"""
-        :type val: OpenVASOverride
-        """
+		:type val: OpenVASOverride
+		"""
 		if not isinstance(val, OpenVASOverride):
 			raise TypeError("Expected OpenVASOverride, got %r instead" % type(val))
 
