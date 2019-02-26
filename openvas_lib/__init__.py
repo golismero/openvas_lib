@@ -87,10 +87,10 @@ def report_parser_from_text(text, ignore_log_info=True):
 		raise TypeError("Expected str, got '%s' instead" % type(text))
 
 	try:
-		import cStringIO as S
-	except ImportError:
 		import StringIO as S
-
+	except ImportError:
+		import io as S
+	
 	return report_parser(S.StringIO(text), ignore_log_info)
 
 
@@ -367,17 +367,17 @@ def report_parser(path_or_file, ignore_log_info=True):
 					logging.debug(e)
 					continue
 
-                        # --------------------------------------------------------------------------
-                        # Severity
-                        # --------------------------------------------------------------------------
-                        elif l_tag == "severity":
-                            try:
-                                l_severity = l_val.text
-                                l_partial_result.severity = l_severity
-                            except TypeError as e:
-                                logging.warning("%s is not a valid severity, skipping vulnerability..." % l_severity)
-                                logging.debug(e)
-                                continue
+						# --------------------------------------------------------------------------
+						# Severity
+						# --------------------------------------------------------------------------
+			elif l_tag == "severity":
+				try:
+					l_severity = l_val.text
+					l_partial_result.severity = l_severity
+				except TypeError as e:
+					logging.warning("%s is not a valid severity, skipping vulnerability..." % l_severity)
+					logging.debug(e)
+					continue
 
 			# --------------------------------------------------------------------------
 			# Unknown tags
@@ -946,11 +946,15 @@ class VulnscanManager(object):
 			# This returns all results from all tasks. Task filter doesn't work.
 			#m_response = self.__manager.get_results(task_id)
 
-			m_response = self.__manager.get_report_xml(self.__task_report_id)
+			m_response = self.__manager.get_report_xml(self.get_report_id(task_id))
+			
 		except ServerError as e:
 			raise VulnscanServerError("Can't get the results for the task %s. Error: %s" % (task_id, e.message))
 
 		m_response = etree.tostring(m_response)
+
+		if type(m_response) != str:
+			m_response = m_response.decode('utf-8') # etree.tostring method return byte in python3.7
 
 		return report_parser_from_text(m_response)
 
