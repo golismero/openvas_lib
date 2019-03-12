@@ -367,17 +367,17 @@ def report_parser(path_or_file, ignore_log_info=True):
 					logging.debug(e)
 					continue
 
-                        # --------------------------------------------------------------------------
-                        # Severity
-                        # --------------------------------------------------------------------------
-                        elif l_tag == "severity":
-                            try:
-                                l_severity = l_val.text
-                                l_partial_result.severity = l_severity
-                            except TypeError as e:
-                                logging.warning("%s is not a valid severity, skipping vulnerability..." % l_severity)
-                                logging.debug(e)
-                                continue
+			# --------------------------------------------------------------------------
+			# Severity
+			# --------------------------------------------------------------------------
+			elif l_tag == "severity":
+				try:
+					l_severity = l_val.text
+					l_partial_result.severity = l_severity
+				except TypeError as e:
+					logging.warning("%s is not a valid severity, skipping vulnerability..." % l_severity)
+					logging.debug(e)
+					continue
 
 			# --------------------------------------------------------------------------
 			# Unknown tags
