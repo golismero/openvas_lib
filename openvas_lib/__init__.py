@@ -569,6 +569,7 @@ class VulnscanManager(object):
 					profile = "empty",
 					callback_end = partial(lambda x: x.release(), sem),
 					callback_progress = my_print_status
+					alive_test = "TCP-ACK Service Ping"
 				)
 
 				# Wait
@@ -615,6 +616,9 @@ class VulnscanManager(object):
 								  with the progress percentaje as a float.
 		:type callback_progress: function(float)
 
+		:param alive_test: Alive Test to check if a target is reachable
+		:type alive_test: str
+
 		:return: ID of the audit and ID of the target: (ID_scan, ID_target)
 		:rtype: (str, str)
 		"""
@@ -648,6 +652,11 @@ class VulnscanManager(object):
 		except TypeError:
 			max_checks = None
 
+		try:
+			alive_test = str(kwargs.get("alive_test", "Scan Config Default"))
+		except TypeError:
+			alive_test = None
+
 		comment = str(kwargs.get("comment", 'New scan launched on target hosts: %s' % ",".join(target)))
 
 		port_list_name = kwargs.get("port_list", "openvas default")
@@ -661,7 +670,7 @@ class VulnscanManager(object):
 		# Create the target
 		try:
 			m_target_id = self.__manager.create_target(m_target_name, target,
-													   "Temporal target from OpenVAS Lib", port_list_id)
+													   "Temporal target from OpenVAS Lib", port_list_id, alive_test)
 		except ServerError as e:
 			raise VulnscanTargetError("The target already exits on the server. Error: %s" % e.message)
 
