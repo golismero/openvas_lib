@@ -706,8 +706,7 @@ class OMPv7(OMP):
 			<target id="%s"/>""" % (name, comment, config, target)
 
 		if schedule:
-			request += """<schedule>%s</schedule>""" % (schedule)
-
+			request += """<schedule id= "%s"/>""" % (schedule)
 
 		if max_checks or max_hosts:
 			request += """<preferences>"""
