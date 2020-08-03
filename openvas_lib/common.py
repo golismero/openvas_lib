@@ -635,6 +635,9 @@ class OMP(object):
 		:param comment: comment to add to task
 		:type comment: str
 
+		:param alive_test: Alive Test to check if a target is reachable
+		:type alive_test: str
+
 		:return: the ID of the created target.
 		:rtype: str
 
