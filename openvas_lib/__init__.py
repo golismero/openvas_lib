@@ -106,7 +106,10 @@ def report_parser(path_or_file, ignore_log_info=True):
 	This functions transform XML OpenVas file report to OpenVASResult object structure.
 
 	To pass StringIO file as parameter, you must do that:
-	>>> import StringIO
+	>>> try:
+	>>>     import StringIO
+	>>> except ImportError:
+	>>>     from io import StringIO
 	>>> xml='<report extension="xml" type="scan" id="aaaa" content_type="text/xml" format_id="a994b278-1f62-11e1-96ac-406186ea4fc5"></report>'
 	>>> f=StringIO.StringIO(xml)
 	>>> report_parser(f)
