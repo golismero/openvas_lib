@@ -17,7 +17,7 @@ try:
 except ImportError:
 	from xml.etree import ElementTree as etree
 
-from collections import Iterable
+from collections.abc import Iterable
 
 from openvas_lib.data import *
 from openvas_lib.utils import *
